@@ -8,35 +8,32 @@ import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 export default function Header() {
   return (
-    <div className="header">
+    <Wrapper className="header">
       <div className="header__logo">E-Commerce</div>
-      <div className="header__search">
+      <SearchBar className="header__search">
         <input className="header__searchInput" type="text" />
         <SearchIcon className="header__searchIcon" />
-      </div>
-      <div className="header__nav">
-        <div className="header__option">
+      </SearchBar>
+      <NavigationWrapper className="header__nav">
+        <SignIn className="header__option">
           <span className="header__optionLineOne">Hello Guest</span>
           <span className="header__optionLineTwo">Sign In</span>
-        </div>
+        </SignIn>
         <div className="header__option">
           <span className="header__optionLineOne">Returns</span>
           <span className="header__optionLineTwo">& Orders</span>
         </div>
-        <div className="header__option">
-          <span className="header__optionLineOne">Your</span>
-          <span className="header__optionLineTwo">Prime</span>
-        </div>
-        <div className="header__optionBasket">
+        <Basket className="header__optionBasket">
           <ShoppingBasketIcon />
           <span className="header__optionLineTwo header__basketCount">0</span>
-        </div>
-      </div>
-    </div>
+        </Basket>
+      </NavigationWrapper>
+    </Wrapper>
   );
 }
 
 const Wrapper = styled.div``;
+const NavigationWrapper = styled.div``;
 const SearchBar = styled.div``;
 const SignIn = styled.div``;
 const Basket = styled.div``;
