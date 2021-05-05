@@ -8,7 +8,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 export default function Header() {
-  const { signInWithGoogle } = useContext(AppContext);
+  const { appUser, signInWithGoogle, handleSignOut } = useContext(AppContext);
 
   return (
     <Wrapper className="header">
@@ -20,13 +20,19 @@ export default function Header() {
       <NavigationWrapper className="header__nav">
         <SignIn className="header__option">
           <span className="header__optionLineOne">Hello Guest</span>
-          <span className="header__optionLineTwo">Sign In</span>
+          {/* <span className="header__optionLineTwo">Sign In</span> */}
 
-          {/* {appUser && appUser.email ? (
-            <button onClick={signInWithGoogle}>Sign In</button>
+          {appUser && appUser.email ? (
+            <div>
+              <img src={appUser.photoURL} />
+              <p>
+                {appUser.displayName} ({appUser.email})
+              </p>
+              <button onClick={handleSignOut}>Sign out</button>
+            </div>
           ) : (
             <button onClick={signInWithGoogle}>Sign In</button>
-          )} */}
+          )}
         </SignIn>
         <div className="header__option">
           <span className="header__optionLineOne">Returns</span>
