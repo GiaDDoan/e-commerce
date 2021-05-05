@@ -5,12 +5,12 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 var firebaseConfig = {
-  apiKey: 'AIzaSyD5hw-6i9VnRn6SUWPfI164y_tGvM5bVb8',
-  authDomain: 'e-commerce-97a43.firebaseapp.com',
-  projectId: 'e-commerce-97a43',
-  storageBucket: 'e-commerce-97a43.appspot.com',
-  messagingSenderId: '559718155772',
-  appId: '1:559718155772:web:51bdec10e547a299011e79',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: 'G-34R5MWKPTC',
 };
 
