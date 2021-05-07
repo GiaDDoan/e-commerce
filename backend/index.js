@@ -1,5 +1,5 @@
 'use strict';
-
+const 
 const admin = require('firebase-admin');
 
 require('dotenv').config();
@@ -19,6 +19,8 @@ admin.initializeApp({
   }),
   databaseURL: process.env.FB_DATABASE_URL,
 });
+
+const db = admin.database();
 
 const getUser = async (email) => {};
 
