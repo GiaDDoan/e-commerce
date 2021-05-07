@@ -1,29 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const { createUser } = require('./handlers');
-
+const app = express();
 require('dotenv').config();
-const PORT = process.env.PORT || 8000;
+const mongoose = require('mongoose');
+//Imported Routes
+const cartRoutes = require('./routes/cart-routes');
 
-express()
-  .use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-      'Access-Control-Allow-Methods',
-      'OPTIONS, HEAD, GET, PUT, POST, DELETE'
-    );
-    res.header(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    next();
-  })
-  .use(morgan('tiny'))
-  .use(express.static('./client/build'))
-  .use(bodyParser.json())
+mongoose.connect(process.env.MONGO_URI || '', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => console.log('db connected'));
+
+const PORT = 5000;
+
+app
+  // .use(cors())
   .use(express.urlencoded({ extended: false }))
+  .use(express.json())
 
-  .post('/users', createUser)
+  .use('/cart', cartRoutes)
 
-  .listen(PORT, () => console.log(`Listening on port ${PORT}`));
+  .listen(PORT, () => console.info(`Listening on port ${PORT}`));
