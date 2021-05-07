@@ -1,15 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import './Header.css';
-
-import { AppContext } from '../../AppContext';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 export default function Header() {
-  const { appUser, signInWithGoogle, handleSignOut } = useContext(AppContext);
-
   return (
     <Wrapper className="header">
       <div className="header__logo">E-Commerce</div>
@@ -20,19 +15,7 @@ export default function Header() {
       <NavigationWrapper className="header__nav">
         <SignIn className="header__option">
           <span className="header__optionLineOne">Hello Guest</span>
-          {/* <span className="header__optionLineTwo">Sign In</span> */}
-
-          {appUser && appUser.email ? (
-            <div>
-              <img src={appUser.photoURL} />
-              <p>
-                {appUser.displayName} ({appUser.email})
-              </p>
-              <button onClick={handleSignOut}>Sign out</button>
-            </div>
-          ) : (
-            <button onClick={signInWithGoogle}>Sign In</button>
-          )}
+          <span className="header__optionLineTwo">Sign In</span>
         </SignIn>
         <div className="header__option">
           <span className="header__optionLineOne">Returns</span>
