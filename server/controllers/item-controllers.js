@@ -5,12 +5,9 @@ const Item = require('../models/item');
 const get_sample = async (req, res) => {
   // /items/samples?size=8
   try {
-    // console.log('items per', req.query.itemsPerPage);
-    // console.log('page', req.query.page);
     const samples = await Item.aggregate([
       { $sample: { size: parseInt(req.query.size) } },
     ]);
-    console.log('sample', sample);
 
     res.status(200).json({
       status: 200,
