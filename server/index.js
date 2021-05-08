@@ -4,6 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 //Imported Routes
 const cartRoutes = require('./routes/cart-routes');
+const itemRoutes = require('./routes/item-routes');
 
 mongoose.connect(process.env.MONGO_URI || '', {
   useNewUrlParser: true,
@@ -23,5 +24,6 @@ app
   .use(express.json())
 
   .use('/cart', cartRoutes)
+  .use('/items', itemRoutes)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
