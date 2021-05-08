@@ -1,6 +1,7 @@
 require('dotenv').config();
-
 const Cart = require('../models/cart');
+const Item = require('../models/item');
+const Company = require('../models/company');
 
 const get_all = async (req, res) => {
   try {
@@ -16,6 +17,15 @@ const get_all = async (req, res) => {
   }
 };
 
+const add_item = async (req, res) => {
+  try {
+    res.status(201).json({ status: 201, title: 'added' });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 module.exports = {
   get_all,
+  add_item,
 };
