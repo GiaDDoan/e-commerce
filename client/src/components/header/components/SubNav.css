@@ -1,0 +1,22 @@
+.sub_nav {
+  border-top: 1px solid #a1a1a1;
+  border-bottom: 1px solid #a1a1a1;
+  background-color: #5a5a5a;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  list-style-type: none;
+}
+
+.category {
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  transition: 0.2s;
+  color: white;
+}
+
+.category:hover {
+  border: solid 1px white;
+  padding: 3px 8px;
+  cursor: pointer;
+}

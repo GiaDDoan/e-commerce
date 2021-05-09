@@ -6,3 +6,12 @@ export const fetchSamples = (size) => {
     },
   }).then((response) => response.json());
 };
+
+export const fetchAllCategories = () => {
+  return fetch('/items/categories', {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  }).then((response) => response.json());
+};
