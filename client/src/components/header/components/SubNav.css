@@ -8,14 +8,14 @@
   list-style-type: none;
 }
 
-.category {
+.category__link {
   padding: 3px 8px;
   border: 1px solid transparent;
   transition: 0.2s;
   color: white;
 }
 
-.category:hover {
+.category__link:hover {
   border: solid 1px white;
   padding: 3px 8px;
   cursor: pointer;

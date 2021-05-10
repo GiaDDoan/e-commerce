@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import './SubNav.css';
 
@@ -30,7 +31,11 @@ function SubNav() {
     return (
       <Wrapper className="sub_nav">
         {categories.map((category) => {
-          return <Category className="category">{category}</Category>;
+          return (
+            <Category to={`/category/${category}`} className="category__link">
+              {category}
+            </Category>
+          );
         })}
       </Wrapper>
     );
@@ -38,5 +43,5 @@ function SubNav() {
 }
 
 const Wrapper = styled.ul``;
-const Category = styled.li``;
+const Category = styled(Link)``;
 export default SubNav;
