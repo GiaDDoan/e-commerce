@@ -24,7 +24,6 @@ const get_categories = async (req, res) => {
     const items = await Item.find().exec();
     const uniqueSet = new Set(items.map((item) => item.category));
     const uniqueArr = [...uniqueSet];
-    console.log(uniqueArr);
 
     res.status(200).json({
       status: 200,
@@ -40,6 +39,17 @@ const get_categories = async (req, res) => {
   }
 };
 
+const get_items_by_category = async (req, res) => {
+  try {
+    const category_name = req.query.name;
+    const found = await Item.find({ category: category_name });
+
+    res.status(201).json({ status: 201, items: found });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 const add_item = async (req, res) => {
   try {
     res.status(201).json({ status: 201, title: 'added' });
@@ -51,5 +61,6 @@ const add_item = async (req, res) => {
 module.exports = {
   get_sample,
   get_categories,
+  get_items_by_category,
   add_item,
 };

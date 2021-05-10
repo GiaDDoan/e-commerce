@@ -28,8 +28,6 @@ function Home() {
     return <div>Loading</div>;
   }
   if (status === 'idle') {
-    console.log('samples', samples);
-
     return (
       <div className="home">
         <div className="home__container">

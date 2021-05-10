@@ -27,7 +27,6 @@ function SubNav() {
     return <div>Loading Categories</div>;
   }
   if (status === 'idle') {
-    console.log('cate', categories);
     return (
       <Wrapper className="sub_nav">
         {categories.map((category) => {
