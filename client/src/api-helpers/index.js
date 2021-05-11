@@ -16,11 +16,14 @@ export const fetchAllCategories = () => {
   }).then((response) => response.json());
 };
 
-export const fetchItemsByCategory = (categoryName) => {
-  return fetch(`/items/categories?name=${categoryName}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  }).then((res) => res.json());
+export const fetchItemsByCategory = (categoryName, pageNumber) => {
+  return fetch(
+    `/items/categories?category=${categoryName}&page=${pageNumber}&limit=10`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }
+  ).then((res) => res.json());
 };

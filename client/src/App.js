@@ -17,7 +17,7 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/category/:categoryName">
+            <Route path="/category/:categoryName/:page">
               <Category />
             </Route>
           </Switch>

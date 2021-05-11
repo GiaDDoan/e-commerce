@@ -31,7 +31,7 @@ function SubNav() {
       <Wrapper className="sub_nav">
         {categories.map((category) => {
           return (
-            <Category to={`/category/${category}`} className="category__link">
+            <Category to={`/category/${category}/1`} className="category__link">
               {category}
             </Category>
           );

@@ -66,9 +66,8 @@ const get_items_by_category = async (req, res) => {
     }
     results.totalPages = Math.ceil(foundArr.length / limit);
     results.results = foundArr.slice(startIndex, endIndex);
-    console.log(results);
 
-    res.status(201).json({ status: 201, items: foundArr });
+    res.status(201).json({ status: 201, items: results });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
