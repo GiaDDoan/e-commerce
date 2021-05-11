@@ -41,10 +41,34 @@ const get_categories = async (req, res) => {
 
 const get_items_by_category = async (req, res) => {
   try {
-    const category_name = req.query.name;
-    const found = await Item.find({ category: category_name });
+    const category_ = req.query.category;
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
 
-    res.status(201).json({ status: 201, items: found });
+    const results = {};
+
+    //Get all items from the same category
+    const foundArr = await Item.find({ category: category_ });
+    //Divide the array into smaller pieces for pagination
+    if (endIndex < foundArr.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+    results.totalPages = Math.ceil(foundArr.length / limit);
+    results.results = foundArr.slice(startIndex, endIndex);
+    console.log(results);
+
+    res.status(201).json({ status: 201, items: foundArr });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
