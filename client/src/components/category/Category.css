@@ -1,8 +1,22 @@
 .category {
-  /* height: 100vh;
-  border: solid 2px blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+  border: 1px solid blue;
 }
 
+.category__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .category__container {
-  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 20%;
+  border-top: solid 2px #bebebe;
+  border: 1px solid green;
+  margin: 10px 10px;
 }

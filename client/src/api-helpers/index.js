@@ -18,7 +18,7 @@ export const fetchAllCategories = () => {
 
 export const fetchItemsByCategory = (categoryName, pageNumber) => {
   return fetch(
-    `/items/categories?category=${categoryName}&page=${pageNumber}&limit=10`,
+    `/items/categories?category=${categoryName}&page=${pageNumber}&limit=12`,
     {
       headers: {
         'Content-Type': 'application/json',

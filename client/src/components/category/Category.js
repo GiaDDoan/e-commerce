@@ -29,26 +29,35 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (status === 'idle') {
-    console.log('items', items.results);
-    console.log(page);
+    console.log('items', items);
     return (
       <Wrapper className="category">
-        {items.results.map((item) => {
-          let rating = Math.random() * 1 + 4;
-
-          return (
-            <Product
-              id={item._id}
-              title={item.name}
-              price={item.price}
-              image={item.imageSrc}
-              rating={rating}
-            />
-          );
-        })}
+        <div className="category__wrapper">
+          {items.results.map((item) => {
+            let rating = Math.random() * 1 + 4;
+            return (
+              <ProductContainer className="category__container">
+                <Product
+                  name="category"
+                  id={item._id}
+                  title={item.name}
+                  price={item.price}
+                  image={item.imageSrc}
+                  rating={rating}
+                />
+              </ProductContainer>
+            );
+          })}
+        </div>
+        <Pagination>
+          <button>1</button>
+          <button>2</button>
+        </Pagination>
       </Wrapper>
     );
   }
 }
 
 const Wrapper = styled.div``;
+const ProductContainer = styled.div``;
+const Pagination = styled.div``;

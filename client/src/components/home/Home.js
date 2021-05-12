@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     setStatus('loading');
     const fetchingSample = async () => {
-      const sampleRes = await fetchSamples(9);
+      const sampleRes = await fetchSamples(6);
       if (sampleRes.status === 200) {
         setSamples(sampleRes.samples);
         setStatus('idle');
@@ -39,6 +39,7 @@ function Home() {
 
               return (
                 <Product
+                  name="home"
                   id={sample._id}
                   title={sample.name}
                   price={sample.price}
