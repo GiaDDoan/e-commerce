@@ -41,13 +41,18 @@ const get_categories = async (req, res) => {
 
 const get_items_by_category = async (req, res) => {
   try {
-    const category_ = req.query.category;
+    let category_ = req.query.category.includes('_')
+      ? req.query.category.split('_').join(' ')
+      : req.query.category;
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-
     const results = {};
+
+    // if (category_.includes('_')) {
+    //   category_ = category_.split('_').join(' ');
+    // }
 
     //Get all items from the same category
     const foundArr = await Item.find({ category: category_ });

@@ -30,10 +30,21 @@ function SubNav() {
     return (
       <Wrapper className="sub_nav">
         {categories.map((category) => {
+          let category__ = category;
+          if (category.includes(' ')) {
+            console.log('contains space');
+            category__ = category.split(' ').join('_');
+          }
+
           return (
-            <Category to={`/category/${category}/1`} className="category__link">
-              {category}
-            </Category>
+            <li key={`${category__}`}>
+              <Category
+                to={`/category/${category__}/1`}
+                className="category__link"
+              >
+                {category}
+              </Category>
+            </li>
           );
         })}
       </Wrapper>

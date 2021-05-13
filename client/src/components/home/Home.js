@@ -34,12 +34,13 @@ function Home() {
           <img className="home__image" src={HomepageBanner} alt="" />
 
           <div className="home__row">
-            {samples.map((sample) => {
+            {samples.map((sample, i) => {
               let rating = Math.random() * 1 + 4;
 
               return (
                 <Product
                   name="home"
+                  key={i}
                   id={sample._id}
                   title={sample.name}
                   price={sample.price}

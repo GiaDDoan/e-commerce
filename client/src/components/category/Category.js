@@ -59,15 +59,15 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (status === 'idle') {
-    console.log('state ', itemsState);
+    // console.log('state ', itemsState);
 
     return (
       <Wrapper className="category">
         <div className="category__wrapper">
-          {items.results.map((item) => {
+          {items.results.map((item, i) => {
             let rating = Math.random() * 1 + 4;
             return (
-              <ProductContainer className="category__container">
+              <ProductContainer key={i} className="category__container">
                 <Product
                   name="category"
                   id={item._id}
@@ -75,6 +75,7 @@ export default function Category() {
                   price={item.price}
                   image={item.imageSrc}
                   rating={rating}
+                  key={i}
                 />
               </ProductContainer>
             );
