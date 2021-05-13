@@ -7,6 +7,12 @@ import { useHistory } from 'react-router-dom';
 import Product from '../product/Product';
 import { fetchItemsByCategory } from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  requestItems,
+  receiveItems,
+  sendError,
+} from '../../store/reducers/items/actions';
 // import item from '../../../../server/models/item';
 
 export default function Category() {
@@ -14,16 +20,22 @@ export default function Category() {
   const [items, setItems] = useState([]);
   const { categoryName, page } = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const itemsState = useSelector((state) => state.items);
 
   useEffect(() => {
     setStatus('loading');
+    dispatch(requestItems());
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
         setItems(res.items);
+        dispatch(receiveItems(categoryName + page, res.items));
+
         setStatus('idle');
       } else {
         setStatus('error');
+        dispatch(sendError());
       }
     };
     fetchingItems();
@@ -47,7 +59,8 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (status === 'idle') {
-    console.log('items', items);
+    console.log('state ', itemsState);
+
     return (
       <Wrapper className="category">
         <div className="category__wrapper">
