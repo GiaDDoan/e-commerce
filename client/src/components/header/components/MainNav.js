@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import './MainNav.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
@@ -7,7 +8,9 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 function MainNav() {
   return (
     <Wrapper className="header__main">
-      <div className="header__logo">E-Commerce</div>
+      <Logo to="/" className="header__logo">
+        E-Commerce
+      </Logo>
       <SearchBar className="header__search">
         <input className="header__searchInput" type="text" />
         <SearchIcon className="header__searchIcon" />
@@ -31,6 +34,7 @@ function MainNav() {
 }
 const Wrapper = styled.div``;
 const NavigationWrapper = styled.div``;
+const Logo = styled(Link)``;
 const SearchBar = styled.div``;
 const SignIn = styled.div``;
 const Basket = styled.div``;
