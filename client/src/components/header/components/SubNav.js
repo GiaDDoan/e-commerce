@@ -32,7 +32,6 @@ function SubNav() {
         {categories.map((category) => {
           let category__ = category;
           if (category.includes(' ')) {
-            console.log('contains space');
             category__ = category.split(' ').join('_');
           }
 
