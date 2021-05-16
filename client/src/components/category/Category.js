@@ -4,6 +4,7 @@ import './Category.css';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
+import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
 import { fetchItemsByCategory } from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
@@ -61,65 +62,34 @@ export default function Category() {
 
     return (
       <Wrapper className="category">
-        <div className="category__wrapper">
+        <FilterBox />
+        <div className="category__and__pagination">
+          <div className="category__wrapper">
+            {items[categoryName + page] ? (
+              items[categoryName + page].results.map((item, i) => {
+                let rating = Math.random() * 1 + 4;
+                return (
+                  <ProductContainer key={i} className="category__container">
+                    <Product
+                      name="category"
+                      id={item._id}
+                      title={item.name}
+                      price={item.price}
+                      image={item.imageSrc}
+                      rating={rating}
+                      key={i}
+                    />
+                  </ProductContainer>
+                );
+              })
+            ) : (
+              <div>Load</div>
+            )}
+          </div>
+          {/* PAGINATION TO CHANGE */}
           {items[categoryName + page] ? (
-            items[categoryName + page].results.map((item, i) => {
-              let rating = Math.random() * 1 + 4;
-              return (
-                <ProductContainer key={i} className="category__container">
-                  <Product
-                    name="category"
-                    id={item._id}
-                    title={item.name}
-                    price={item.price}
-                    image={item.imageSrc}
-                    rating={rating}
-                    key={i}
-                  />
-                </ProductContainer>
-              );
-            })
-          ) : (
-            <div>Load</div>
-          )}
-        </div>
-        {/* PAGINATION TO CHANGE */}
-        {items[categoryName + page] ? (
-          <Pagination>
-            {items[categoryName + page].previous ? (
-              <button
-                onClick={() =>
-                  SendToPage(
-                    categoryName,
-                    items[categoryName + page].previous.page,
-                    history
-                  )
-                }
-              >
-                Prev
-              </button>
-            ) : null}
-            {/* Tenary for pages */}
-            {items[categoryName + page].next &&
-            items[categoryName + page].next.page === 2 ? (
-              <>
-                <button>1</button>
-                <button
-                  onClick={() =>
-                    SendToPage(
-                      categoryName,
-                      items[categoryName + page].next.page,
-                      history
-                    )
-                  }
-                >
-                  {items[categoryName + page].next.page}
-                </button>
-              </>
-            ) : null}
-            {items[categoryName + page].next &&
-            items[categoryName + page].previous ? (
-              <>
+            <Pagination>
+              {items[categoryName + page].previous ? (
                 <button
                   onClick={() =>
                     SendToPage(
@@ -129,11 +99,60 @@ export default function Category() {
                     )
                   }
                 >
-                  {items[categoryName + page].previous.page}
+                  Prev
                 </button>
-                <button onClick={() => SendToPage(categoryName, page, history)}>
-                  {page}
-                </button>
+              ) : null}
+              {/* Tenary for pages */}
+              {items[categoryName + page].next &&
+              items[categoryName + page].next.page === 2 ? (
+                <>
+                  <button>1</button>
+                  <button
+                    onClick={() =>
+                      SendToPage(
+                        categoryName,
+                        items[categoryName + page].next.page,
+                        history
+                      )
+                    }
+                  >
+                    {items[categoryName + page].next.page}
+                  </button>
+                </>
+              ) : null}
+              {items[categoryName + page].next &&
+              items[categoryName + page].previous ? (
+                <>
+                  <button
+                    onClick={() =>
+                      SendToPage(
+                        categoryName,
+                        items[categoryName + page].previous.page,
+                        history
+                      )
+                    }
+                  >
+                    {items[categoryName + page].previous.page}
+                  </button>
+                  <button
+                    onClick={() => SendToPage(categoryName, page, history)}
+                  >
+                    {page}
+                  </button>
+                  <button
+                    onClick={() =>
+                      SendToPage(
+                        categoryName,
+                        items[categoryName + page].next.page,
+                        history
+                      )
+                    }
+                  >
+                    {items[categoryName + page].next.page}
+                  </button>
+                </>
+              ) : null}
+              {items[categoryName + page].next ? (
                 <button
                   onClick={() =>
                     SendToPage(
@@ -143,25 +162,12 @@ export default function Category() {
                     )
                   }
                 >
-                  {items[categoryName + page].next.page}
+                  Next
                 </button>
-              </>
-            ) : null}
-            {items[categoryName + page].next ? (
-              <button
-                onClick={() =>
-                  SendToPage(
-                    categoryName,
-                    items[categoryName + page].next.page,
-                    history
-                  )
-                }
-              >
-                Next
-              </button>
-            ) : null}
-          </Pagination>
-        ) : null}
+              ) : null}
+            </Pagination>
+          ) : null}
+        </div>
       </Wrapper>
     );
   }

@@ -3,13 +3,18 @@
   flex-direction: column;
   justify-content: center;
   padding-top: 10px;
-  border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
 }
 
 .category__wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.category__and__pagination {
+  display: flex;
+  flex-direction: column;
 }
 .category__container {
   display: flex;
