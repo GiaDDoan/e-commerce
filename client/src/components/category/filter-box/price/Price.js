@@ -1,12 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+const initialCheckboxes = [
+  {
+    price: 'under $25',
+    checked: false,
+  },
+  {
+    price: '$25 to $50',
+    checked: false,
+  },
+  {
+    price: '$50 & Above',
+    checked: false,
+  },
+];
+
 function Price() {
+  const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
+
+  const onChecked = (e, changedIndex) => {
+    let updatedCheckboxes = [...checkboxes];
+    if (updatedCheckboxes[changedIndex].checked === false) {
+      for (let i = 0; i < updatedCheckboxes.length; i++) {
+        console.log('in for loop');
+        if (updatedCheckboxes[i].checked === true)
+          updatedCheckboxes[i].checked = false;
+      }
+    }
+
+    updatedCheckboxes[changedIndex].checked = updatedCheckboxes[changedIndex]
+      .checked
+      ? false
+      : true;
+
+    setCheckboxes(updatedCheckboxes);
+  };
+
   return (
     <Wrapper className="price">
       <h3>Price</h3>
       <div className="price__container">
-        <label>
+        {checkboxes.map((checkbox, i) => {
+          return (
+            <label>
+              <input
+                key={i}
+                type="checkbox"
+                checked={checkbox.checked}
+                onChange={(e) => onChecked(e, i)}
+              />
+              {checkbox.price}
+            </label>
+          );
+        })}
+        {/* <label>
           <input type="checkbox" />
           under $25
         </label>
@@ -17,7 +65,7 @@ function Price() {
         <label>
           <input type="checkbox" />
           {`$50 & Above`}
-        </label>
+        </label> */}
         <select>
           <option>Sort by: Featured</option>
           <option>Price: Low to High</option>

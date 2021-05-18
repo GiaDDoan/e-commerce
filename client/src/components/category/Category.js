@@ -62,7 +62,9 @@ export default function Category() {
 
     return (
       <Wrapper className="category">
-        <FilterBox />
+        <div className="category__filter">
+          <FilterBox />
+        </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
             {items[categoryName + page] ? (
@@ -175,4 +177,6 @@ export default function Category() {
 
 const Wrapper = styled.div``;
 const ProductContainer = styled.div``;
-const Pagination = styled.div``;
+const Pagination = styled.div`
+  background-color: #eeeeee;
+`;

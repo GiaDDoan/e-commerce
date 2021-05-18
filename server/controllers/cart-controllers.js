@@ -3,6 +3,7 @@ const Cart = require('../models/cart');
 const Item = require('../models/item');
 const Company = require('../models/company');
 const items = require('../data/items.json');
+const companies = require('../data/companies.json');
 
 const get_all = async (req, res) => {
   try {
@@ -51,6 +52,19 @@ const add_item = async (req, res) => {
   //     addedItem.save();
   //   }
   // });
+
+  //ADD Companies
+
+  companies.map(async (company) => {
+    const newCompany = await new Company({
+      name: company.name,
+      url: company.url,
+      country: company.country,
+      companyId: company._id,
+    });
+
+    newCompany.save();
+  });
 
   try {
     res.status(201).json({ status: 201, title: 'added' });
