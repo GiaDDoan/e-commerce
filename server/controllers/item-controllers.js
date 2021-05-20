@@ -90,7 +90,11 @@ const get_items_by_price = async (req, res) => {
     const results = {};
     console.log(category_, min, max);
 
-    const filteredArray = await Item.find({ price: { $lt: 25.0, $gt: 23.0 } });
+    const filteredArray = await Item.find({
+      category: category_,
+      price: { $lt: 25.0, $gt: 23.0 },
+    });
+    console.log(filteredArray.length);
 
     const foundArr = await Item.find({ category: category_ });
     if (endIndex < foundArr.length) {

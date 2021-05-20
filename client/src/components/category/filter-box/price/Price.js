@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const initialCheckboxes = [
   {
@@ -22,12 +23,13 @@ function Price() {
   const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
   const items = useSelector((state) => state.items);
   const { categoryName, page } = useParams();
+  const history = useHistory();
 
   const onChecked = (e, changedIndex) => {
     let updatedCheckboxes = [...checkboxes];
     if (updatedCheckboxes[changedIndex].checked === false) {
       for (let i = 0; i < updatedCheckboxes.length; i++) {
-        console.log('in for loop');
+        // console.log('in for loop');
         if (updatedCheckboxes[i].checked === true)
           updatedCheckboxes[i].checked = false;
       }
@@ -39,6 +41,12 @@ function Price() {
       : true;
 
     setCheckboxes(updatedCheckboxes);
+    if (updatedCheckboxes[changedIndex].checked === true) {
+      history.push(`/category/${categoryName}/filtered`);
+    }
+    if (updatedCheckboxes[changedIndex].checked === false) {
+      history.push(`/category/${categoryName}/1`);
+    }
   };
 
   if (items.status === 'loading') {

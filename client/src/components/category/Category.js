@@ -25,6 +25,7 @@ export default function Category() {
   const items = useSelector((state) => state.items);
 
   useEffect(() => {
+    console.log('categoryName changed');
     if (items[categoryName + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
@@ -40,6 +41,7 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
+    if (!parseInt(page)) return;
     if (items[categoryName + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
