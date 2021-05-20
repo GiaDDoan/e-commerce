@@ -20,6 +20,7 @@ const get_sample = async (req, res) => {
 };
 
 const get_categories = async (req, res) => {
+  //URL EX: http://localhost:5000/items/categories?category=Pet_and_Animals&page=1&limit=3
   try {
     const items = await Item.find().exec();
     const uniqueSet = new Set(items.map((item) => item.category));
@@ -50,10 +51,6 @@ const get_items_by_category = async (req, res) => {
     const endIndex = page * limit;
     const results = {};
 
-    // if (category_.includes('_')) {
-    //   category_ = category_.split('_').join(' ');
-    // }
-
     //Get all items from the same category
     const foundArr = await Item.find({ category: category_ });
     //Divide the array into smaller pieces for pagination
@@ -78,6 +75,46 @@ const get_items_by_category = async (req, res) => {
   }
 };
 
+const get_items_by_price = async (req, res) => {
+  //URL EX: http://localhost:5000/items/filters/price?category=Fitness&min=0&max=25
+  try {
+    let category_ = req.query.category.includes('_')
+      ? req.query.category.split('_').join(' ')
+      : req.query.category;
+    const min = parseInt(req.query.min);
+    const max = parseInt(req.query.max);
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const results = {};
+    console.log(category_, min, max);
+
+    const filteredArray = await Item.find({ price: { $lt: 25.0, $gt: 23.0 } });
+
+    const foundArr = await Item.find({ category: category_ });
+    if (endIndex < foundArr.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+
+    results.totalPages = Math.ceil(foundArr.length / limit);
+    results.results = foundArr.slice(startIndex, endIndex);
+
+    res.status(201).json({ status: 201, items: filteredArray });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 const add_item = async (req, res) => {
   try {
     res.status(201).json({ status: 201, title: 'added' });
@@ -90,5 +127,6 @@ module.exports = {
   get_sample,
   get_categories,
   get_items_by_category,
+  get_items_by_price,
   add_item,
 };

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const itemSchema = new Schema(
   {
     name: String,
-    price: String,
+    price: Number,
     bodyLocation: String,
     category: String,
     imageSrc: String,

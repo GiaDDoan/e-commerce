@@ -58,7 +58,7 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    console.log('state ', items);
+    // console.log('state ', items);
 
     return (
       <Wrapper className="category">
