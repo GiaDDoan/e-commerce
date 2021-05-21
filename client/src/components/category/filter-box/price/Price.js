@@ -39,10 +39,14 @@ function Price() {
       .checked
       ? false
       : true;
-
     setCheckboxes(updatedCheckboxes);
     if (updatedCheckboxes[changedIndex].checked === true) {
-      history.push(`/category/${categoryName}/filtered`);
+      history.push(
+        `/category/${categoryName}/${updatedCheckboxes[changedIndex].price
+          .replaceAll('$', '')
+          .split(' ')
+          .join('')}?page=1`
+      );
     }
     if (updatedCheckboxes[changedIndex].checked === false) {
       history.push(`/category/${categoryName}/1`);

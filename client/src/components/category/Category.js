@@ -32,7 +32,7 @@ export default function Category() {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
         // setItems(res.items);
-        dispatch(receiveItems(categoryName + page, res.items));
+        dispatch(receiveItems(categoryName + '_' + page, res.items));
       } else {
         dispatch(sendError(res.message));
       }
@@ -41,14 +41,14 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
+    if (items[categoryName + '_' + page]) return;
     if (!parseInt(page)) return;
-    if (items[categoryName + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
         // setItems(res.items);
-        dispatch(receiveItems(categoryName + page, res.items));
+        dispatch(receiveItems(categoryName + '_' + page, res.items));
       } else {
         dispatch(sendError(res.message));
       }
@@ -60,7 +60,7 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    // console.log('state ', items);
+    console.log('state ', items);
 
     return (
       <Wrapper className="category">
@@ -69,8 +69,8 @@ export default function Category() {
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
-            {items[categoryName + page] ? (
-              items[categoryName + page].results.map((item, i) => {
+            {items[categoryName + '_' + page] ? (
+              items[categoryName + '_' + page].results.map((item, i) => {
                 let rating = Math.random() * 1 + 4;
                 return (
                   <ProductContainer key={i} className="category__container">
