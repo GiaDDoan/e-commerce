@@ -20,6 +20,9 @@ function App() {
             <Route path="/category/:categoryName/:page">
               <Category />
             </Route>
+            <Route path="/filter/:categoryName/:filterName/:min/:max/:page">
+              <Category />
+            </Route>
           </Switch>
         </Body>
       </Router>

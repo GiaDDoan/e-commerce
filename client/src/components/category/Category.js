@@ -25,8 +25,7 @@ export default function Category() {
   const items = useSelector((state) => state.items);
 
   useEffect(() => {
-    console.log('categoryName changed');
-    if (items[categoryName + page]) return;
+    if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
@@ -41,26 +40,36 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
+    console.log('page changed');
+    if (!parseInt(page)) {
+      console.log('inside true');
+      return;
+    }
     if (items[categoryName + '_' + page]) return;
-    if (!parseInt(page)) return;
     dispatch(requestItems());
-    const fetchingItems = async () => {
-      const res = await fetchItemsByCategory(categoryName, page);
-      if (res.status === 201) {
-        // setItems(res.items);
-        dispatch(receiveItems(categoryName + '_' + page, res.items));
-      } else {
-        dispatch(sendError(res.message));
-      }
-    };
-    fetchingItems();
+
+    /////Fetch items by Category Only
+    if (parseInt(page)) {
+      const fetchingItems = async () => {
+        const res = await fetchItemsByCategory(categoryName, page);
+        if (res.status === 201) {
+          // setItems(res.items);
+          dispatch(receiveItems(categoryName + '_' + page, res.items));
+        } else {
+          dispatch(sendError(res.message));
+        }
+      };
+      fetchingItems();
+    }
   }, [page]);
 
   if (items.status === 'loading') {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    console.log('state ', items);
+    // console.log('state ', items);
+    // console.log(categoryName, page);
+    console.log('test', categoryName, page);
 
     return (
       <Wrapper className="category">
@@ -91,14 +100,14 @@ export default function Category() {
             )}
           </div>
           {/* PAGINATION TO CHANGE */}
-          {items[categoryName + page] ? (
+          {items[categoryName + '_' + page] ? (
             <Pagination>
-              {items[categoryName + page].previous ? (
+              {items[categoryName + '_' + page].previous ? (
                 <button
                   onClick={() =>
                     SendToPage(
                       categoryName,
-                      items[categoryName + page].previous.page,
+                      items[categoryName + '_' + page].previous.page,
                       history
                     )
                   }
@@ -107,36 +116,36 @@ export default function Category() {
                 </button>
               ) : null}
               {/* Tenary for pages */}
-              {items[categoryName + page].next &&
-              items[categoryName + page].next.page === 2 ? (
+              {items[categoryName + '_' + page].next &&
+              items[categoryName + '_' + page].next.page === 2 ? (
                 <>
                   <button>1</button>
                   <button
                     onClick={() =>
                       SendToPage(
                         categoryName,
-                        items[categoryName + page].next.page,
+                        items[categoryName + '_' + page].next.page,
                         history
                       )
                     }
                   >
-                    {items[categoryName + page].next.page}
+                    {items[categoryName + '_' + page].next.page}
                   </button>
                 </>
               ) : null}
-              {items[categoryName + page].next &&
-              items[categoryName + page].previous ? (
+              {items[categoryName + '_' + page].next &&
+              items[categoryName + '_' + page].previous ? (
                 <>
                   <button
                     onClick={() =>
                       SendToPage(
                         categoryName,
-                        items[categoryName + page].previous.page,
+                        items[categoryName + '_' + page].previous.page,
                         history
                       )
                     }
                   >
-                    {items[categoryName + page].previous.page}
+                    {items[categoryName + '_' + page].previous.page}
                   </button>
                   <button
                     onClick={() => SendToPage(categoryName, page, history)}
@@ -147,21 +156,21 @@ export default function Category() {
                     onClick={() =>
                       SendToPage(
                         categoryName,
-                        items[categoryName + page].next.page,
+                        items[categoryName + '_' + page].next.page,
                         history
                       )
                     }
                   >
-                    {items[categoryName + page].next.page}
+                    {items[categoryName + '_' + page].next.page}
                   </button>
                 </>
               ) : null}
-              {items[categoryName + page].next ? (
+              {items[categoryName + '_' + page].next ? (
                 <button
                   onClick={() =>
                     SendToPage(
                       categoryName,
-                      items[categoryName + page].next.page,
+                      items[categoryName + '_' + page].next.page,
                       history
                     )
                   }

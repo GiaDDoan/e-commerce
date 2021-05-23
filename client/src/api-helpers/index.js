@@ -27,3 +27,15 @@ export const fetchItemsByCategory = (categoryName, pageNumber) => {
     }
   ).then((res) => res.json());
 };
+
+export const fetchItemsByPrice = (categoryName, pageNumber, min, max) => {
+  return fetch(
+    `/items/filters/price?category=${categoryName}&min=${min}&max=${max}&page=${pageNumber}&limit=12`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }
+  ).then((res) => res.json());
+};

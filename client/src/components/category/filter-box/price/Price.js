@@ -7,14 +7,20 @@ import { useHistory } from 'react-router-dom';
 const initialCheckboxes = [
   {
     price: 'under $25',
+    min: 0,
+    max: 25,
     checked: false,
   },
   {
     price: '$25 to $50',
+    min: 25,
+    max: 50,
     checked: false,
   },
   {
     price: '$50 & Above',
+    min: 50,
+    max: 200,
     checked: false,
   },
 ];
@@ -41,11 +47,22 @@ function Price() {
       : true;
     setCheckboxes(updatedCheckboxes);
     if (updatedCheckboxes[changedIndex].checked === true) {
+      console.log('CHECK', updatedCheckboxes[changedIndex]);
+      // history.push(
+      //   `/category/${categoryName}/${updatedCheckboxes[changedIndex].price
+      //     .replaceAll('$', '')
+      //     .split(' ')
+      //     .join('')}?min=${updatedCheckboxes[changedIndex].min}&max=${
+      //     updatedCheckboxes[changedIndex].max
+      //   }&page=1`
+      // );
       history.push(
-        `/category/${categoryName}/${updatedCheckboxes[changedIndex].price
+        `/filter/${categoryName}/${updatedCheckboxes[changedIndex].price
           .replaceAll('$', '')
           .split(' ')
-          .join('')}?page=1`
+          .join('')}/${updatedCheckboxes[changedIndex].min}/${
+          updatedCheckboxes[changedIndex].max
+        }/1`
       );
     }
     if (updatedCheckboxes[changedIndex].checked === false) {
