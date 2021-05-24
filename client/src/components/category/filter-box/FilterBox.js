@@ -8,10 +8,12 @@ function FilterBox() {
   return (
     <Wrapper className="filter__box">
       <Price />
+      <Submit>Submit</Submit>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.form``;
+const Submit = styled.button``;
 
 export default FilterBox;

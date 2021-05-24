@@ -1,9 +1,10 @@
 .filter__box {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   max-width: 700px;
   width: 700px;
   border-right: 2px solid #bebebe;
   background-color: #eeeeee;
-  /* border: solid 2px green; */
+  border: solid 2px green;
 }

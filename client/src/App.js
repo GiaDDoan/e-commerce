@@ -17,10 +17,10 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/category/:categoryName/:page">
+            <Route path="/:action/:categoryName/:page">
               <Category />
             </Route>
-            <Route path="/filter/:categoryName/:filterName/:min/:max/:page">
+            <Route path="/:action/:categoryName/:filterName/:min/:max/:page">
               <Category />
             </Route>
           </Switch>

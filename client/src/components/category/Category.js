@@ -19,10 +19,16 @@ import {
 export default function Category() {
   const [status, setStatus] = useState('loading');
   // const [items, setItems] = useState([]);
-  const { categoryName, page } = useParams();
+  const { action, categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
+
+  // useEffect(() => {
+  //   dispatch(requestItems());
+  //   const fetchingFilteredItems = async () => {};
+  //   fetchingFilteredItems();
+  // }, [action]);
 
   useEffect(() => {
     if (items[categoryName + '_' + page]) return;
@@ -68,8 +74,8 @@ export default function Category() {
   }
   if (items.status === 'idle') {
     // console.log('state ', items);
-    // console.log(categoryName, page);
-    console.log('test', categoryName, page);
+    console.log('TST', action, categoryName, page);
+    // console.log('test', categoryName, page);
 
     return (
       <Wrapper className="category">
@@ -78,7 +84,7 @@ export default function Category() {
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
-            {items[categoryName + '_' + page] ? (
+            {action === 'category' && items[categoryName + '_' + page] ? (
               items[categoryName + '_' + page].results.map((item, i) => {
                 let rating = Math.random() * 1 + 4;
                 return (

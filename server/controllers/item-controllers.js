@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cart = require('../models/cart');
 const Item = require('../models/item');
+const Company = require('../models/company');
 
 const get_sample = async (req, res) => {
   // /items/samples?size=8
@@ -49,10 +50,17 @@ const get_items_by_category = async (req, res) => {
     const limit = parseInt(req.query.limit);
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const results = {};
+    let results = {};
+    let newArray = [];
 
     //Get all items from the same category
     const foundArr = await Item.find({ category: category_ });
+    ////Get all unique companies
+    const uniqueCompanyId = await new Set(
+      foundArr.map((item) => item.companyId)
+    );
+    const uniqueCompanyIdArray = [...uniqueCompanyId];
+
     //Divide the array into smaller pieces for pagination
     if (endIndex < foundArr.length) {
       results.next = {
@@ -69,7 +77,26 @@ const get_items_by_category = async (req, res) => {
     results.totalPages = Math.ceil(foundArr.length / limit);
     results.results = foundArr.slice(startIndex, endIndex);
 
-    res.status(201).json({ status: 201, items: results });
+    res.status(201).json({
+      status: 201,
+      uniqueCompanyIds: uniqueCompanyIdArray,
+      items: results,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
+const get_company_by_id = async (req, res) => {
+  try {
+    const company_id = req.params.companyId;
+    console.log('ID', company_id);
+    const company__ = await Company.find({ companyId: company_id });
+
+    res.status(201).json({
+      status: 201,
+      company: company__,
+    });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
@@ -113,7 +140,10 @@ const get_items_by_price = async (req, res) => {
     results.totalPages = Math.ceil(foundArr.length / limit);
     results.results = foundArr.slice(startIndex, endIndex);
 
-    res.status(201).json({ status: 201, items: filteredArray });
+    res.status(201).json({
+      status: 201,
+      items: filteredArray,
+    });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
@@ -131,6 +161,7 @@ module.exports = {
   get_sample,
   get_categories,
   get_items_by_category,
+  get_company_by_id,
   get_items_by_price,
   add_item,
 };
