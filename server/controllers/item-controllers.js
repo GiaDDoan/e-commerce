@@ -77,9 +77,17 @@ const get_items_by_category = async (req, res) => {
     results.totalPages = Math.ceil(foundArr.length / limit);
     results.results = foundArr.slice(startIndex, endIndex);
 
+    ///////////////////
+    for (let i = 0; i < uniqueCompanyIdArray.length; i++) {
+      const companyFound = await Company.find({
+        companyId: uniqueCompanyIdArray[i],
+      });
+      newArray.push(companyFound[0]);
+    }
+
     res.status(201).json({
       status: 201,
-      uniqueCompanyIds: uniqueCompanyIdArray,
+      uniqueCompanies: newArray,
       items: results,
     });
   } catch (error) {
@@ -90,7 +98,6 @@ const get_items_by_category = async (req, res) => {
 const get_company_by_id = async (req, res) => {
   try {
     const company_id = req.params.companyId;
-    console.log('ID', company_id);
     const company__ = await Company.find({ companyId: company_id });
 
     res.status(201).json({

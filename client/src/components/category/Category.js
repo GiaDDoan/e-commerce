@@ -6,7 +6,10 @@ import { useHistory } from 'react-router-dom';
 
 import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
-import { fetchItemsByCategory } from '../../api-helpers/index';
+import {
+  fetchItemsByCategory,
+  fetchCompanyById,
+} from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -17,7 +20,8 @@ import {
 // import item from '../../../../server/models/item';
 
 export default function Category() {
-  const [status, setStatus] = useState('loading');
+  const [companies, setCompanies] = useState([]);
+  const [companyStatus, setCompanyStatus] = useState('loading');
   // const [items, setItems] = useState([]);
   const { action, categoryName, page } = useParams();
   const history = useHistory();
@@ -33,10 +37,25 @@ export default function Category() {
   useEffect(() => {
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
+    setCompanyStatus('loading');
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
-        // setItems(res.items);
+        // await res.uniqueCompanyIds.map(async (id) => {
+        //   const companyRes = await fetchCompanyById(id);
+        //   setCompanies([...companies, companyRes.company[0]]);
+        // });
+        // console.log(res.uniqueCompanyIds.length);
+        let companyArray = [];
+        for (let i = 0; i < res.uniqueCompanyIds.length; i++) {
+          const companyRes = await fetchCompanyById(res.uniqueCompanyIds[i]);
+          // console.log('res', companyRes);
+          companyArray.push(companyRes.company[0]);
+          if (i === res.uniqueCompanyIds.length - 1) {
+            console.log('ARRAY', companyArray);
+          }
+        }
+
         dispatch(receiveItems(categoryName + '_' + page, res.items));
       } else {
         dispatch(sendError(res.message));
@@ -46,9 +65,9 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
-    console.log('page changed');
+    // console.log('page changed');
     if (!parseInt(page)) {
-      console.log('inside true');
+      // console.log('inside true');
       return;
     }
     if (items[categoryName + '_' + page]) return;
@@ -74,8 +93,10 @@ export default function Category() {
   }
   if (items.status === 'idle') {
     // console.log('state ', items);
-    console.log('TST', action, categoryName, page);
+    // console.log('TST', action, categoryName, page);
     // console.log('test', categoryName, page);
+    // console.log('state', companies);
+    console.log('map', companies);
 
     return (
       <Wrapper className="category">
@@ -190,6 +211,7 @@ export default function Category() {
       </Wrapper>
     );
   }
+  return <div>Load</div>;
 }
 
 const Wrapper = styled.div``;

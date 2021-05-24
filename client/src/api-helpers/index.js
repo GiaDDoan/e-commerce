@@ -39,3 +39,12 @@ export const fetchItemsByPrice = (categoryName, pageNumber, min, max) => {
     }
   ).then((res) => res.json());
 };
+
+export const fetchCompanyById = (companyId) => {
+  return fetch(`/items/company/${companyId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  }).then((res) => res.json());
+};
