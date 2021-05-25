@@ -2,10 +2,12 @@ export const requestItems = () => ({
   type: 'REQUEST_ITEMS',
 });
 
-export const receiveItems = (categoryPage, items) => ({
+export const receiveItems = (category, page, items, uniqueCompanies) => ({
   type: 'RECEIVE_ITEMS',
-  categoryPage,
+  category,
+  page,
   items,
+  uniqueCompanies,
 });
 
 export const sendError = (error) => ({

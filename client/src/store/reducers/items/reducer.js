@@ -11,12 +11,14 @@ export default function titlesReducer(state = initialState, action) {
       };
     }
     case 'RECEIVE_ITEMS': {
-      const { categoryPage, items } = action;
+      const { category, page, items, uniqueCompanies } = action;
+      console.log('HOII', category, page);
 
       return {
         ...state,
         status: 'idle',
-        [categoryPage]: items,
+        [category]: uniqueCompanies,
+        [`${category}_${page}`]: items,
       };
     }
 

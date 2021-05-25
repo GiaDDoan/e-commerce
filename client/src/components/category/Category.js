@@ -6,10 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
-import {
-  fetchItemsByCategory,
-  fetchCompanyById,
-} from '../../api-helpers/index';
+import { fetchItemsByCategory } from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -17,12 +14,8 @@ import {
   receiveItems,
   sendError,
 } from '../../store/reducers/items/actions';
-// import item from '../../../../server/models/item';
 
 export default function Category() {
-  const [companies, setCompanies] = useState([]);
-  const [companyStatus, setCompanyStatus] = useState('loading');
-  // const [items, setItems] = useState([]);
   const { action, categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,26 +30,12 @@ export default function Category() {
   useEffect(() => {
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
-    setCompanyStatus('loading');
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
-        // await res.uniqueCompanyIds.map(async (id) => {
-        //   const companyRes = await fetchCompanyById(id);
-        //   setCompanies([...companies, companyRes.company[0]]);
-        // });
-        // console.log(res.uniqueCompanyIds.length);
-        let companyArray = [];
-        for (let i = 0; i < res.uniqueCompanyIds.length; i++) {
-          const companyRes = await fetchCompanyById(res.uniqueCompanyIds[i]);
-          // console.log('res', companyRes);
-          companyArray.push(companyRes.company[0]);
-          if (i === res.uniqueCompanyIds.length - 1) {
-            console.log('ARRAY', companyArray);
-          }
-        }
-
-        dispatch(receiveItems(categoryName + '_' + page, res.items));
+        dispatch(
+          receiveItems(categoryName, page, res.items, res.uniqueCompanies)
+        ); //(category, categoryPage, items, uniqueCompanies)
       } else {
         dispatch(sendError(res.message));
       }
@@ -65,7 +44,7 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
-    // console.log('page changed');
+    console.log('page changed');
     if (!parseInt(page)) {
       // console.log('inside true');
       return;
@@ -79,7 +58,9 @@ export default function Category() {
         const res = await fetchItemsByCategory(categoryName, page);
         if (res.status === 201) {
           // setItems(res.items);
-          dispatch(receiveItems(categoryName + '_' + page, res.items));
+          dispatch(
+            receiveItems(categoryName, page, res.items, res.uniqueCompanies)
+          );
         } else {
           dispatch(sendError(res.message));
         }
@@ -92,11 +73,7 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    // console.log('state ', items);
-    // console.log('TST', action, categoryName, page);
-    // console.log('test', categoryName, page);
-    // console.log('state', companies);
-    console.log('map', companies);
+    console.log('state ', items);
 
     return (
       <Wrapper className="category">
