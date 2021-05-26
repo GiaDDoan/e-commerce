@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -25,14 +25,20 @@ const initialCheckboxes = [
   },
 ];
 
-function Price() {
+function Price({ prices }) {
   const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
   const items = useSelector((state) => state.items);
   const { categoryName, page } = useParams();
   const history = useHistory();
 
+  useEffect(() => {
+    console.log('effect activated');
+    setCheckboxes(initialCheckboxes);
+  }, [categoryName]);
+
   const onChecked = (e, changedIndex) => {
-    let updatedCheckboxes = [...checkboxes];
+    const updatedCheckboxes = [...checkboxes];
+    console.log('updatedCheckboxes', updatedCheckboxes);
     if (updatedCheckboxes[changedIndex].checked === false) {
       for (let i = 0; i < updatedCheckboxes.length; i++) {
         // console.log('in for loop');
@@ -47,7 +53,7 @@ function Price() {
       : true;
     setCheckboxes(updatedCheckboxes);
     if (updatedCheckboxes[changedIndex].checked === true) {
-      console.log('CHECK', updatedCheckboxes[changedIndex]);
+      // console.log('CHECK', updatedCheckboxes[changedIndex]);
       // history.push(
       //   `/category/${categoryName}/${updatedCheckboxes[changedIndex].price
       //     .replaceAll('$', '')
@@ -75,6 +81,7 @@ function Price() {
   }
   if (items.status === 'idle') {
     // console.log('items', items);
+    console.log('initialCheckboxes', initialCheckboxes);
 
     return (
       <Wrapper className="price">

@@ -44,9 +44,7 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
-    console.log('page changed');
     if (!parseInt(page)) {
-      // console.log('inside true');
       return;
     }
     if (items[categoryName + '_' + page]) return;
@@ -73,8 +71,6 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    console.log('state ', items);
-
     return (
       <Wrapper className="category">
         <div className="category__filter">

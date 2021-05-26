@@ -9,14 +9,13 @@ function Companies() {
   const items = useSelector((state) => state.items);
 
   if (items[categoryName]) {
-    console.log('items', items[categoryName]);
-
     return (
       <Wrapper>
+        <h3>Companies</h3>
         {items[categoryName].map((company, i) => {
           return (
             <Company>
-              <labe>
+              <label>
                 <input
                   key={i}
                   type="checkbox"
@@ -24,7 +23,7 @@ function Companies() {
                   onChange={(e) => console.log('checked', i, e)}
                 />
                 {company.name}
-              </labe>
+              </label>
             </Company>
           );
         })}

@@ -20,7 +20,6 @@ const initialState = {
 export default function titlesReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_ITEMS': {
-      console.log('REQUESTING');
       return {
         ...state,
         status: 'loading',

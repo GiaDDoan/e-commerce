@@ -4,7 +4,6 @@ const initialState = { status: 'loading' };
 export default function titlesReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_ITEMS': {
-      console.log('REQUESTING');
       return {
         ...state,
         status: 'loading',
@@ -12,7 +11,6 @@ export default function titlesReducer(state = initialState, action) {
     }
     case 'RECEIVE_ITEMS': {
       const { category, page, items, uniqueCompanies } = action;
-      console.log('HOII', category, page);
 
       return {
         ...state,
