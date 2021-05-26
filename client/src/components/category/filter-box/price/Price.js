@@ -4,29 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
-const initialCheckboxes = [
-  {
-    price: 'under $25',
-    min: 0,
-    max: 25,
-    checked: false,
-  },
-  {
-    price: '$25 to $50',
-    min: 25,
-    max: 50,
-    checked: false,
-  },
-  {
-    price: '$50 & Above',
-    min: 50,
-    max: 200,
-    checked: false,
-  },
-];
-
 function Price({ prices }) {
-  const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
   const items = useSelector((state) => state.items);
   const { categoryName, page } = useParams();
   const history = useHistory();
