@@ -78,7 +78,7 @@ export default function Category() {
     return (
       <Wrapper className="category">
         <div className="category__filter">
-          <FilterBox />
+          <FilterBox companies={items.categoryName} />
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
