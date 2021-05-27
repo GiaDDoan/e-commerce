@@ -25,11 +25,17 @@ const initialState = {
 export default function titlesReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_INITIAL_PRICES': {
-      const copyState = { ...state };
+      // const copyState = { ...state };
 
-      copyState.prices.map((price) => {
+      state.prices.map((price) => {
         if (price.checked) price.checked = false;
       });
+      return {
+        ...state,
+        status: 'idle',
+      };
+    }
+    case 'RECEIVE_PRICES': {
       return {
         ...initialState,
         status: 'idle',
@@ -38,6 +44,14 @@ export default function titlesReducer(state = initialState, action) {
     case 'TOGGLE_CHECKBOX': {
       const { index } = action;
       const copyState = { ...state };
+
+      if (copyState.prices[index].checked === false) {
+        for (let i = 0; i < copyState.prices.length; i++) {
+          if (copyState.prices[i].checked === true) {
+            copyState.prices[i].checked = false;
+          }
+        }
+      }
 
       copyState.prices[index].checked = copyState.prices[index].checked
         ? false

@@ -15,7 +15,16 @@ import {
   sendError,
 } from '../../store/reducers/items/actions';
 
+const initialFilter = {
+  price: {
+    min: null,
+    max: null,
+  },
+  companies: [],
+};
+
 export default function Category() {
+  const [filter, setFilter] = useState(initialFilter);
   const { action, categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,6 +40,7 @@ export default function Category() {
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
+      console.log('in FETCH');
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
         dispatch(
@@ -71,10 +81,11 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
+    console.log('IDLE');
     return (
       <Wrapper className="category">
         <div className="category__filter">
-          <FilterBox companies={items.categoryName} />
+          <FilterBox filter={filter} setFilter={setFilter} />
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">

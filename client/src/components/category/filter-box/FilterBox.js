@@ -4,18 +4,18 @@ import './FilterBox.css';
 
 import Price from './price/Price';
 import Companies from './companies/Companies';
+import Submit from './submit/Submit';
 
-function FilterBox() {
+function FilterBox({ filter, setFilter }) {
   return (
     <Wrapper className="filter__box">
       <Price />
       <Companies />
-      <Submit>Submit</Submit>
+      <Submit filter={filter} setFilter={setFilter} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.form``;
-const Submit = styled.button``;
 
 export default FilterBox;
