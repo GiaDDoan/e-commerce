@@ -9,7 +9,7 @@ import Submit from './submit/Submit';
 function FilterBox({ filter, setFilter }) {
   return (
     <Wrapper className="filter__box">
-      <Price />
+      <Price filter={filter} setFilter={setFilter} />
       <Companies />
       <Submit filter={filter} setFilter={setFilter} />
     </Wrapper>

@@ -9,7 +9,7 @@ import {
   toggleCheckbox,
 } from '../../../../store/reducers/filters/actions';
 
-function Price({}) {
+function Price({ filter, setFilter }) {
   // const TEST = [...initialCheckboxes];
   // const [checkboxes, setCheckboxes] = useState(TEST);
   const items = useSelector((state) => state.items);
@@ -39,6 +39,12 @@ function Price({}) {
                   // onChange={(e) => onChecked(e, i)}
                   onChange={(e) => {
                     dispatch(toggleCheckbox(i));
+                    console.log('STATE', pricesState.prices[i]);
+                    setFilter({
+                      ...filter,
+                      min: pricesState.prices[i].min,
+                      max: pricesState.prices[i].max,
+                    });
                   }}
                 />
                 {checkbox.price}

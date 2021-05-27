@@ -16,10 +16,8 @@ import {
 } from '../../store/reducers/items/actions';
 
 const initialFilter = {
-  price: {
-    min: null,
-    max: null,
-  },
+  min: null,
+  max: null,
   companies: [],
 };
 
@@ -37,6 +35,7 @@ export default function Category() {
   // }, [action]);
 
   useEffect(() => {
+    setFilter(initialFilter);
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {

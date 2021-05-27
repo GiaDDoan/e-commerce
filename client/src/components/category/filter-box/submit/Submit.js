@@ -10,11 +10,17 @@ import {
 function Submit({ filter, setFilter }) {
   const prices = useSelector((state) => state.prices);
   //Go in Redux store to get submit data
-  console.log('filter', prices);
 
   return (
     <Wrapper>
-      <button>Submit</button>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          console.log('FILTER', filter);
+        }}
+      >
+        Submit
+      </button>
     </Wrapper>
   );
 }
