@@ -1,7 +1,13 @@
 import React from 'react';
 import './Product.css';
+import { useHistory } from 'react-router-dom';
 
-function Product({ name, title, image, price, rating }) {
+function Product({ id, name, title, image, price, rating }) {
+  const history = useHistory();
+
+  const handleProduct = (productId) => {
+    history.push(`/product/${productId}`);
+  };
   return (
     <div className={`${name}_product`}>
       <div className="product__info">
@@ -16,7 +22,7 @@ function Product({ name, title, image, price, rating }) {
 
       <img src={image} alt="" />
 
-      <button>Add to Basket</button>
+      <button onClick={() => handleProduct(id)}>Add to Basket</button>
     </div>
   );
 }

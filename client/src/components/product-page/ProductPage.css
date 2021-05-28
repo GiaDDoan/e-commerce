@@ -1,0 +1,21 @@
+.navigation {
+  display: flex;
+  padding-left: 40px;
+}
+
+.item {
+  border: solid 2px green;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.item > img {
+  border: solid 2px red;
+  width: 400px;
+}
+
+.item__info {
+  padding-left: 50px;
+}

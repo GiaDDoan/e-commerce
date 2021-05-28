@@ -31,9 +31,8 @@ function Price({ filter, setFilter }) {
         <div className="price__container">
           {pricesState.prices.map((checkbox, i) => {
             return (
-              <label>
+              <label key={`${checkbox.price}`}>
                 <input
-                  key={i}
                   type="checkbox"
                   checked={checkbox.checked}
                   // onChange={(e) => onChecked(e, i)}

@@ -28,18 +28,11 @@ export default function Category() {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
 
-  // useEffect(() => {
-  //   dispatch(requestItems());
-  //   const fetchingFilteredItems = async () => {};
-  //   fetchingFilteredItems();
-  // }, [action]);
-
   useEffect(() => {
     setFilter(initialFilter);
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
-      console.log('in FETCH');
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
         dispatch(
@@ -80,7 +73,6 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
-    console.log('IDLE');
     return (
       <Wrapper className="category">
         <div className="category__filter">
@@ -91,8 +83,12 @@ export default function Category() {
             {action === 'category' && items[categoryName + '_' + page] ? (
               items[categoryName + '_' + page].results.map((item, i) => {
                 let rating = Math.random() * 1 + 4;
+
                 return (
-                  <ProductContainer key={i} className="category__container">
+                  <ProductContainer
+                    key={item._id}
+                    className="category__container"
+                  >
                     <Product
                       name="category"
                       id={item._id}

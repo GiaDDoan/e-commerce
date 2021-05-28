@@ -156,6 +156,21 @@ const get_items_by_price = async (req, res) => {
   }
 };
 
+const get_item_by_id = async (req, res) => {
+  try {
+    const product_id = req.params.productId;
+
+    const product = await Item.find({ _id: product_id });
+
+    res.status(200).json({
+      status: 200,
+      product: product,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 const add_item = async (req, res) => {
   try {
     res.status(201).json({ status: 201, title: 'added' });
@@ -171,4 +186,5 @@ module.exports = {
   get_company_by_id,
   get_items_by_price,
   add_item,
+  get_item_by_id,
 };

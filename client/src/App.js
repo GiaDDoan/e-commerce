@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Category from './components/category/Category';
+import ProductPage from './components/product-page/ProductPage';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
             </Route>
             <Route path="/:action/:categoryName/:filterName/:min/:max/:page">
               <Category />
+            </Route>
+            <Route path="/product/:productId">
+              <ProductPage />
             </Route>
           </Switch>
         </Body>

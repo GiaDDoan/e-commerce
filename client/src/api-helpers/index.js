@@ -48,3 +48,12 @@ export const fetchCompanyById = (companyId) => {
     },
   }).then((res) => res.json());
 };
+
+export const fetchProductById = (productId) => {
+  return fetch(`/items/product/${productId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  }).then((res) => res.json());
+};

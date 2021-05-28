@@ -14,10 +14,9 @@ function Companies() {
         <h3>Companies</h3>
         {items[categoryName].map((company, i) => {
           return (
-            <Company>
+            <Company key={company._id}>
               <label>
                 <input
-                  key={i}
                   type="checkbox"
                   // checked={checkbox.checked}
                   onChange={(e) => console.log('checked', i, e)}
