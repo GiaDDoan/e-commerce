@@ -4,7 +4,7 @@ import './Companies.css';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Companies() {
+function Companies({ filter, setFilter }) {
   const { action, categoryName, page } = useParams();
   const items = useSelector((state) => state.items);
 
@@ -18,8 +18,31 @@ function Companies() {
               <label>
                 <input
                   type="checkbox"
-                  // checked={checkbox.checked}
-                  onChange={(e) => console.log('checked', i, e)}
+                  onChange={(e) => {
+                    //////If checkbox is checked, check if the companyId already exist or not before sending it to the filter state
+                    if (
+                      e.target.checked &&
+                      !filter.companyIds.includes(company.companyId)
+                    ) {
+                      console.log('checked');
+                      setFilter({
+                        ...filter,
+                        companyIds: [...filter.companyIds, company.companyId],
+                      });
+                    } else {
+                      ////If we uncheck, we remove the companyId from the filter
+                      console.log('unchecked');
+                      const index = filter.companyIds.indexOf(
+                        company.companyId
+                      );
+                      const copiedCompanyIds = [...filter.companyIds];
+                      copiedCompanyIds.splice(index, 1);
+                      setFilter({
+                        ...filter,
+                        companyIds: copiedCompanyIds,
+                      });
+                    }
+                  }}
                 />
                 {company.name}
               </label>

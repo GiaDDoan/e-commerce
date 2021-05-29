@@ -10,7 +10,7 @@ function FilterBox({ filter, setFilter }) {
   return (
     <Wrapper className="filter__box">
       <Price filter={filter} setFilter={setFilter} />
-      <Companies />
+      <Companies filter={filter} setFilter={setFilter} />
       <Submit filter={filter} setFilter={setFilter} />
     </Wrapper>
   );

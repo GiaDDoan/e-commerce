@@ -38,7 +38,6 @@ function Price({ filter, setFilter }) {
                   // onChange={(e) => onChecked(e, i)}
                   onChange={(e) => {
                     dispatch(toggleCheckbox(i));
-                    console.log('STATE', pricesState.prices[i]);
                     setFilter({
                       ...filter,
                       min: pricesState.prices[i].min,

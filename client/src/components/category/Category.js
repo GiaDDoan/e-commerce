@@ -18,7 +18,7 @@ import {
 const initialFilter = {
   min: null,
   max: null,
-  companies: [],
+  companyIds: [],
 };
 
 export default function Category() {
