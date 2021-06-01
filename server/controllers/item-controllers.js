@@ -95,6 +95,28 @@ const get_items_by_category = async (req, res) => {
   }
 };
 
+const get_items_by_filter = async (req, res) => {
+  try {
+    let filteredArray = [];
+
+    await Promise.all(
+      req.body.companyIds.map(async (id) => {
+        const itemsFound = await Item.find({ companyId: id });
+        //itemsFound = [{...}, {...}]
+        filteredArray = await filteredArray.concat(itemsFound);
+        return itemsFound; //MAYBE REMOVE
+      })
+    );
+
+    res.status(200).json({
+      status: 200,
+      items: filteredArray,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 const get_company_by_id = async (req, res) => {
   try {
     const company_id = req.params.companyId;
@@ -187,4 +209,5 @@ module.exports = {
   get_items_by_price,
   add_item,
   get_item_by_id,
+  get_items_by_filter,
 };
