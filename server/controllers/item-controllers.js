@@ -95,13 +95,21 @@ const get_items_by_category = async (req, res) => {
   }
 };
 
-const get_items_by_filter = async (req, res) => {
+const post_items_by_filter = async (req, res) => {
   try {
     let filteredArray = [];
+    const maxPrice = req.body.max === null ? 300 : req.body.max;
+    const minPrice = req.body.min === null ? 0 : req.body.min;
 
     await Promise.all(
       req.body.companyIds.map(async (id) => {
-        const itemsFound = await Item.find({ companyId: id });
+        const itemsFound = await Item.find({
+          companyId: id,
+          price: {
+            $lt: maxPrice,
+            $gt: minPrice,
+          },
+        });
         //itemsFound = [{...}, {...}]
         filteredArray = await filteredArray.concat(itemsFound);
         return itemsFound; //MAYBE REMOVE
@@ -209,5 +217,5 @@ module.exports = {
   get_items_by_price,
   add_item,
   get_item_by_id,
-  get_items_by_filter,
+  post_items_by_filter,
 };
