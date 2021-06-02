@@ -23,10 +23,11 @@ const initialFilter = {
 
 export default function Category() {
   const [filter, setFilter] = useState(initialFilter);
-  const { action, categoryName, page } = useParams();
+  const { action, categoryName, page, filterId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
+  const filteredItems = useSelector((state) => state.filteredItems);
 
   useEffect(() => {
     setFilter(initialFilter);
@@ -73,6 +74,7 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle') {
+    console.log('FILL', filteredItems[categoryName]);
     return (
       <Wrapper className="category">
         <div className="category__filter">
@@ -80,30 +82,28 @@ export default function Category() {
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
-            {action === 'category' && items[categoryName + '_' + page] ? (
-              items[categoryName + '_' + page].results.map((item, i) => {
-                let rating = Math.random() * 1 + 4;
+            {action === 'category' && items[categoryName + '_' + page]
+              ? items[categoryName + '_' + page].results.map((item, i) => {
+                  let rating = Math.random() * 1 + 4;
 
-                return (
-                  <ProductContainer
-                    key={item._id}
-                    className="category__container"
-                  >
-                    <Product
-                      name="category"
-                      id={item._id}
-                      title={item.name}
-                      price={item.price}
-                      image={item.imageSrc}
-                      rating={rating}
-                      key={i}
-                    />
-                  </ProductContainer>
-                );
-              })
-            ) : (
-              <div>Load</div>
-            )}
+                  return (
+                    <ProductContainer
+                      key={item._id}
+                      className="category__container"
+                    >
+                      <Product
+                        name="category"
+                        id={item._id}
+                        title={item.name}
+                        price={item.price}
+                        image={item.imageSrc}
+                        rating={rating}
+                        key={i}
+                      />
+                    </ProductContainer>
+                  );
+                })
+              : null}
           </div>
           {/* PAGINATION TO CHANGE */}
           {items[categoryName + '_' + page] ? (
@@ -186,6 +186,29 @@ export default function Category() {
               ) : null}
             </Pagination>
           ) : null}
+          {/*FILTERED ITEMS*/}
+          {action === 'filter' && filteredItems
+            ? filteredItems[categoryName].map((item, i) => {
+                let rating = Math.random() * 1 + 4;
+                console.log('item', item);
+                return (
+                  <ProductContainer
+                    key={item._id}
+                    className="category__container"
+                  >
+                    <Product
+                      name="category"
+                      id={item._id}
+                      title={item.name}
+                      price={item.price}
+                      image={item.imageSrc}
+                      rating={rating}
+                      key={i}
+                    />
+                  </ProductContainer>
+                );
+              })
+            : null}
         </div>
       </Wrapper>
     );

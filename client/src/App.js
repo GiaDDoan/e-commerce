@@ -21,7 +21,7 @@ function App() {
             <Route path="/:action/:categoryName/:page">
               <Category />
             </Route>
-            <Route path="/:action/:categoryName/:filterName/:min/:max/:page">
+            <Route path="/:action/:categoryName">
               <Category />
             </Route>
             <Route path="/product/:productId">

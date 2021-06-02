@@ -21,7 +21,7 @@ function Submit({ filter, setFilter }) {
   const dispatch = useDispatch();
   //Go in Redux store to get submit data
   const submitFilter = (filterId) => {
-    // history.push(`/filter/${filterId}/1`);
+    history.push(`/filter/${filterId}/1`);
     fetch(`/items/filter/${filterId}`, {
       method: 'POST',
       body: JSON.stringify({ ...filter }),
