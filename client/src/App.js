@@ -7,6 +7,7 @@ import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Category from './components/category/Category';
 import ProductPage from './components/product-page/ProductPage';
+import FilteredCategory from './components/filtered-category/FilteredCategory';
 
 function App() {
   return (
@@ -18,11 +19,11 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/:action/:categoryName/:page">
+            <Route path="/category/:categoryName/:page">
               <Category />
             </Route>
-            <Route path="/:action/:categoryName">
-              <Category />
+            <Route path="/filter/:filterId/:page">
+              <FilteredCategory />
             </Route>
             <Route path="/product/:productId">
               <ProductPage />
