@@ -21,8 +21,9 @@ function Submit({ filter, setFilter }) {
   const dispatch = useDispatch();
   //Go in Redux store to get submit data
   const submitFilter = (filterId) => {
+    console.log('FILTER', filter);
     history.push(`/filter/${filterId}/1`);
-    fetch(`/items/filter/${filterId}`, {
+    fetch(`/items/filter?min=${filter.min}&max=${filter.max}&page=1&limit=12`, {
       method: 'POST',
       body: JSON.stringify({ ...filter }),
       headers: {
@@ -34,8 +35,8 @@ function Submit({ filter, setFilter }) {
       .then((json) => {
         dispatch(requestFilteredItems());
         if (json.status === 200) {
-          console.log('in IF', json.items);
-          dispatch(receiveFilteredItems(filterId, json.items));
+          console.log('in IF', json.results.results);
+          dispatch(receiveFilteredItems(filterId, json.results.results));
         } else {
           dispatch(sendError());
         }

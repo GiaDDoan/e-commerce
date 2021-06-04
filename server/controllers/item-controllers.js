@@ -100,6 +100,11 @@ const post_items_by_filter = async (req, res) => {
     let filteredArray = [];
     const maxPrice = req.body.max === null ? 300 : req.body.max;
     const minPrice = req.body.min === null ? 0 : req.body.min;
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    let results = {};
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
 
     await Promise.all(
       req.body.companyIds.map(async (id) => {
@@ -116,9 +121,24 @@ const post_items_by_filter = async (req, res) => {
       })
     );
 
+    if (endIndex < filteredArray.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+    results.totalPages = Math.ceil(filteredArray.length / limit);
+    results.results = filteredArray.slice(startIndex, endIndex);
+
     res.status(200).json({
       status: 200,
-      items: filteredArray,
+      results,
     });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });

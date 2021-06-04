@@ -13,11 +13,11 @@ function FilteredCategory() {
     return <div>Filtering items</div>;
   }
   if (filteredItems.status === 'idle') {
-    console.log('filtered', filteredItems);
+    console.log('filtereeeeeeeeeedd', filteredItems);
     console.log('id', filterId);
 
     return (
-      <Wrapper className="category">
+      <Wrapper className="category__filtered">
         {filteredItems[filterId] ? (
           filteredItems[filterId].map((item, i) => {
             let rating = Math.random() * 1 + 4;
