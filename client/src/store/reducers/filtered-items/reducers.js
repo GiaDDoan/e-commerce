@@ -12,7 +12,6 @@ export default function titlesReducer(state = initialState, action) {
     }
     case 'RECEIVE_FILTERED_ITEMS': {
       const { filterId, items } = action;
-      console.log('FILL', filterId, items);
 
       return {
         ...state,
