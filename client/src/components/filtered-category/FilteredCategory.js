@@ -6,20 +6,20 @@ import { useParams } from 'react-router-dom';
 import Product from '../product/Product';
 
 function FilteredCategory() {
-  const { filterId } = useParams();
+  const { filterId, page } = useParams();
   const filteredItems = useSelector((state) => state.filteredItems);
 
   if (filteredItems.status === 'loading') {
     return <div>Filtering items</div>;
   }
-  if (filteredItems.status === 'idle') {
+  if (filteredItems.status === 'idle' && filteredItems[filterId + '_' + page]) {
     console.log('filtereeeeeeeeeedd', filteredItems);
-    console.log('id', filterId);
+    console.log(filteredItems[filterId + '_' + page]);
 
     return (
       <Wrapper className="category__filtered">
-        {filteredItems[filterId] ? (
-          filteredItems[filterId].map((item, i) => {
+        <div className="category__filtered__items">
+          {filteredItems[filterId + '_' + page].results.map((item, i) => {
             let rating = Math.random() * 1 + 4;
 
             return (
@@ -35,10 +35,9 @@ function FilteredCategory() {
                 />
               </ProductContainer>
             );
-          })
-        ) : (
-          <div>No items found</div>
-        )}
+          })}
+        </div>
+        <div>page</div>
       </Wrapper>
     );
   }
