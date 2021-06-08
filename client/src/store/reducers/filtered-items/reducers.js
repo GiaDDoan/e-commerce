@@ -11,12 +11,15 @@ export default function titlesReducer(state = initialState, action) {
       };
     }
     case 'RECEIVE_FILTERED_ITEMS': {
-      const { filterId, items, page } = action;
+      const { filterId, items, page, filter } = action;
 
       return {
         ...state,
         status: 'idle',
-        [`${filterId}_${page}`]: items,
+        [`${filterId}_${page}`]: {
+          items: items,
+          filter: filter,
+        },
       };
     }
 

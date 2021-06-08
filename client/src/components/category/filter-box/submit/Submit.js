@@ -11,6 +11,7 @@ import {
   receiveFilteredItems,
   sendError,
 } from '../../../../store/reducers/filtered-items/actions';
+import { fetchProductsByFilter } from '../../../../api-helpers/index';
 import { v4 as uuid_v4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 
@@ -20,25 +21,33 @@ function Submit({ filter, setFilter }) {
   const history = useHistory();
   const dispatch = useDispatch();
   //Go in Redux store to get submit data
-  const submitFilter = (filterId) => {
+  const submitFilter = async (filterId) => {
     history.push(`/filter/${filterId}/1`);
-    fetch(`/items/filter?min=${filter.min}&max=${filter.max}&page=1&limit=12`, {
-      method: 'POST',
-      body: JSON.stringify({ ...filter }),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch(requestFilteredItems());
-        if (json.status === 200) {
-          dispatch(receiveFilteredItems(filterId, json.results, '1'));
-        } else {
-          dispatch(sendError());
-        }
-      });
+    dispatch(requestFilteredItems());
+    const result = await fetchProductsByFilter(filter);
+    if (result.status === 200) {
+      dispatch(receiveFilteredItems(filterId, result.results, '1', filter));
+    } else {
+      dispatch(sendError());
+    }
+
+    // fetch(`/items/filter?min=${filter.min}&max=${filter.max}&page=1&limit=12`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ ...filter }),
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //   .then((res) => res.json())
+    // .then((json) => {
+    //   dispatch(requestFilteredItems());
+    //   if (json.status === 200) {
+    //     dispatch(receiveFilteredItems(filterId, json.results, '1'));
+    //   } else {
+    //     dispatch(sendError());
+    //   }
+    // });
   };
 
   return (
