@@ -21,15 +21,13 @@ function FilteredCategory() {
 
   useEffect(() => {
     if (page === '1') return;
-    console.log('category page changed');
+    if (filteredItems[filterId + '_' + page]) return;
     dispatch(requestFilteredItems());
-    console.log('TEST', filteredItems);
     const filteringItems = async () => {
       const result = await fetchProductsByFilter(
         filteredItems[filterId + '_' + '1'].filter,
         page
       );
-      console.log('result', result);
       if (result.status === 200) {
         dispatch(
           receiveFilteredItems(
@@ -50,10 +48,6 @@ function FilteredCategory() {
     return <div>Filtering items</div>;
   }
   if (filteredItems.status === 'idle' && filteredItems[filterId + '_' + page]) {
-    console.log('filtereeeeeeeeeedd', filteredItems);
-    console.log('FILTER', filteredItems[filterId + '_' + page].filter);
-    // console.log('FILTER', filteredItems[filterId + '_' + page]);
-
     return (
       <Wrapper className="category__filtered">
         <div className="category__filtered__items">
@@ -75,20 +69,35 @@ function FilteredCategory() {
             );
           })}
         </div>
-        <div>{page}</div>
-        {filteredItems[filterId + '_' + page].items.next ? (
-          <button
-            onClick={() =>
-              FilterSendToNewPage(
-                history,
-                filterId,
-                filteredItems[filterId + '_' + page].items.next.page
-              )
-            }
-          >
-            next
-          </button>
-        ) : null}
+        <Pagination>
+          {filteredItems[filterId + '_' + page].items.previous ? (
+            <button
+              onClick={() =>
+                FilterSendToNewPage(
+                  history,
+                  filterId,
+                  filteredItems[filterId + '_' + page].items.previous.page
+                )
+              }
+            >
+              Prev
+            </button>
+          ) : null}
+          <div>{page}</div>
+          {filteredItems[filterId + '_' + page].items.next ? (
+            <button
+              onClick={() =>
+                FilterSendToNewPage(
+                  history,
+                  filterId,
+                  filteredItems[filterId + '_' + page].items.next.page
+                )
+              }
+            >
+              Next
+            </button>
+          ) : null}
+        </Pagination>
       </Wrapper>
     );
   } else {
@@ -98,5 +107,6 @@ function FilteredCategory() {
 
 const Wrapper = styled.div``;
 const ProductContainer = styled.div``;
+const Pagination = styled.div``;
 
 export default FilteredCategory;

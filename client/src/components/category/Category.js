@@ -27,7 +27,6 @@ export default function Category() {
   const history = useHistory();
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
-  const filteredItems = useSelector((state) => state.filteredItems);
 
   useEffect(() => {
     setFilter(initialFilter);
@@ -47,33 +46,37 @@ export default function Category() {
   }, [categoryName]);
 
   useEffect(() => {
-    if (!parseInt(page)) {
-      return;
-    }
+    // if (!parseInt(page)) {
+    //   return;
+    // }
+    if (page === '1') return;
     if (items[categoryName + '_' + page]) return;
+    console.log('category page changed');
     dispatch(requestItems());
 
     /////Fetch items by Category Only
-    if (parseInt(page)) {
-      const fetchingItems = async () => {
-        const res = await fetchItemsByCategory(categoryName, page);
-        if (res.status === 201) {
-          // setItems(res.items);
-          dispatch(
-            receiveItems(categoryName, page, res.items, res.uniqueCompanies)
-          );
-        } else {
-          dispatch(sendError(res.message));
-        }
-      };
-      fetchingItems();
-    }
+    // if (parseInt(page)) {
+    const fetchingItems = async () => {
+      const res = await fetchItemsByCategory(categoryName, page);
+      if (res.status === 201) {
+        // setItems(res.items);
+        dispatch(
+          receiveItems(categoryName, page, res.items, res.uniqueCompanies)
+        );
+      } else {
+        dispatch(sendError(res.message));
+      }
+    };
+    fetchingItems();
+    // }
   }, [page]);
 
   if (items.status === 'loading') {
     return <div>Loading Items in Category</div>;
   }
-  if (items.status === 'idle') {
+  if (items.status === 'idle' && items[categoryName + '_' + page]) {
+    console.log('item', items);
+
     return (
       <Wrapper className="category">
         <div className="category__filter">
@@ -105,86 +108,36 @@ export default function Category() {
               : null}
           </div>
           {/* PAGINATION TO CHANGE */}
-          {items[categoryName + '_' + page] ? (
-            <Pagination>
-              {items[categoryName + '_' + page].previous ? (
-                <button
-                  onClick={() =>
-                    SendToPage(
-                      categoryName,
-                      items[categoryName + '_' + page].previous.page,
-                      history
-                    )
-                  }
-                >
-                  Prev
-                </button>
-              ) : null}
-              {/* Tenary for pages */}
-              {items[categoryName + '_' + page].next &&
-              items[categoryName + '_' + page].next.page === 2 ? (
-                <>
-                  <button>1</button>
-                  <button
-                    onClick={() =>
-                      SendToPage(
-                        categoryName,
-                        items[categoryName + '_' + page].next.page,
-                        history
-                      )
-                    }
-                  >
-                    {items[categoryName + '_' + page].next.page}
-                  </button>
-                </>
-              ) : null}
-              {items[categoryName + '_' + page].next &&
-              items[categoryName + '_' + page].previous ? (
-                <>
-                  <button
-                    onClick={() =>
-                      SendToPage(
-                        categoryName,
-                        items[categoryName + '_' + page].previous.page,
-                        history
-                      )
-                    }
-                  >
-                    {items[categoryName + '_' + page].previous.page}
-                  </button>
-                  <button
-                    onClick={() => SendToPage(categoryName, page, history)}
-                  >
-                    {page}
-                  </button>
-                  <button
-                    onClick={() =>
-                      SendToPage(
-                        categoryName,
-                        items[categoryName + '_' + page].next.page,
-                        history
-                      )
-                    }
-                  >
-                    {items[categoryName + '_' + page].next.page}
-                  </button>
-                </>
-              ) : null}
-              {items[categoryName + '_' + page].next ? (
-                <button
-                  onClick={() =>
-                    SendToPage(
-                      categoryName,
-                      items[categoryName + '_' + page].next.page,
-                      history
-                    )
-                  }
-                >
-                  Next
-                </button>
-              ) : null}
-            </Pagination>
-          ) : null}
+
+          <Pagination>
+            {items[categoryName + '_' + page].previous ? (
+              <button
+                onClick={() =>
+                  SendToPage(
+                    history,
+                    categoryName,
+                    items[categoryName + '_' + page].previous.page
+                  )
+                }
+              >
+                Prev
+              </button>
+            ) : null}
+            <div>{page}</div>
+            {items[categoryName + '_' + page].next ? (
+              <button
+                onClick={() =>
+                  SendToPage(
+                    history,
+                    categoryName,
+                    items[categoryName + '_' + page].next.page
+                  )
+                }
+              >
+                Next
+              </button>
+            ) : null}
+          </Pagination>
         </div>
       </Wrapper>
     );

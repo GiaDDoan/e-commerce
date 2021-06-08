@@ -1,4 +1,4 @@
-const SendToPage = (inCategory, page, history) => {
+const SendToPage = (history, inCategory, page) => {
   history.push(`/category/${inCategory}/${page}`);
 };
 
