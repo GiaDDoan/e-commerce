@@ -6,16 +6,44 @@ import { useParams } from 'react-router-dom';
 import Product from '../product/Product';
 import FilterSendToNewPage from '../../function-helpers/FilterSendToNewPage';
 import { useHistory } from 'react-router-dom';
+import { fetchProductsByFilter } from '../../api-helpers/index';
+import {
+  requestFilteredItems,
+  receiveFilteredItems,
+  sendError,
+} from '../../store/reducers/filtered-items/actions';
 
 function FilteredCategory() {
   const { filterId, page } = useParams();
   const filteredItems = useSelector((state) => state.filteredItems);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (page === 1) return;
+    if (page === '1') return;
     console.log('category page changed');
-    //Fetch data with filter in result STATE
+    dispatch(requestFilteredItems());
+    console.log('TEST', filteredItems);
+    const filteringItems = async () => {
+      const result = await fetchProductsByFilter(
+        filteredItems[filterId + '_' + '1'].filter,
+        page
+      );
+      console.log('result', result);
+      if (result.status === 200) {
+        dispatch(
+          receiveFilteredItems(
+            filterId,
+            result.results,
+            page,
+            filteredItems[filterId + '_' + '1'].filter
+          )
+        );
+      } else {
+        dispatch(sendError());
+      }
+    };
+    filteringItems();
   }, [page]);
 
   if (filteredItems.status === 'loading') {
@@ -23,6 +51,7 @@ function FilteredCategory() {
   }
   if (filteredItems.status === 'idle' && filteredItems[filterId + '_' + page]) {
     console.log('filtereeeeeeeeeedd', filteredItems);
+    console.log('FILTER', filteredItems[filterId + '_' + page].filter);
     // console.log('FILTER', filteredItems[filterId + '_' + page]);
 
     return (
@@ -53,7 +82,7 @@ function FilteredCategory() {
               FilterSendToNewPage(
                 history,
                 filterId,
-                filteredItems[filterId + '_' + page].next.page
+                filteredItems[filterId + '_' + page].items.next.page
               )
             }
           >
@@ -62,8 +91,9 @@ function FilteredCategory() {
         ) : null}
       </Wrapper>
     );
+  } else {
+    return <div>test</div>;
   }
-  return <div>test</div>;
 }
 
 const Wrapper = styled.div``;

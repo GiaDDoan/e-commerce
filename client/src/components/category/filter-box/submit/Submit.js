@@ -24,7 +24,7 @@ function Submit({ filter, setFilter }) {
   const submitFilter = async (filterId) => {
     history.push(`/filter/${filterId}/1`);
     dispatch(requestFilteredItems());
-    const result = await fetchProductsByFilter(filter);
+    const result = await fetchProductsByFilter(filter, '1');
     if (result.status === 200) {
       dispatch(receiveFilteredItems(filterId, result.results, '1', filter));
     } else {

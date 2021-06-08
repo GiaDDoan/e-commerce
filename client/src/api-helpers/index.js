@@ -58,9 +58,9 @@ export const fetchProductById = (productId) => {
   }).then((res) => res.json());
 };
 
-export const fetchProductsByFilter = (filter) => {
+export const fetchProductsByFilter = (filter, page) => {
   return fetch(
-    `/items/filter?min=${filter.min}&max=${filter.max}&page=1&limit=12`,
+    `/items/filter?min=${filter.min}&max=${filter.max}&page=${page}&limit=12`,
     {
       method: 'POST',
       body: JSON.stringify({ ...filter }),
