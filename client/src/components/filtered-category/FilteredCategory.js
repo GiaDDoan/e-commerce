@@ -69,7 +69,7 @@ function FilteredCategory() {
             );
           })}
         </div>
-        <Pagination>
+        <Pagination className="pagination">
           {filteredItems[filterId + '_' + page].items.previous ? (
             <button
               onClick={() =>
@@ -83,7 +83,7 @@ function FilteredCategory() {
               Prev
             </button>
           ) : null}
-          <div>{page}</div>
+          <div className="pagination__initial">{page}</div>
           {filteredItems[filterId + '_' + page].items.next ? (
             <button
               onClick={() =>

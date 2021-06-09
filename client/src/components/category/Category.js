@@ -109,7 +109,7 @@ export default function Category() {
           </div>
           {/* PAGINATION TO CHANGE */}
 
-          <Pagination>
+          <Pagination className="pagination">
             {items[categoryName + '_' + page].previous ? (
               <button
                 onClick={() =>
@@ -123,7 +123,7 @@ export default function Category() {
                 Prev
               </button>
             ) : null}
-            <div>{page}</div>
+            <div className="pagination__initial">{page}</div>
             {items[categoryName + '_' + page].next ? (
               <button
                 onClick={() =>
