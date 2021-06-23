@@ -9,7 +9,6 @@ import axios from 'axios';
 
 function MainNav() {
   const responseSuccessGoogle = (response) => {
-    console.log(response);
     axios({
       method: 'POST',
       url: '/api/google-login',
