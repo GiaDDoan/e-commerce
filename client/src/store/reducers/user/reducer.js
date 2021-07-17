@@ -1,16 +1,21 @@
 const initialState = { status: 'loading' };
 
-export default function titlesReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case 'REQUEST_USERS': {
+    case 'REQUEST_USER': {
       return {
         ...state,
         status: 'loading',
       };
     }
-    case 'RECEIVE_USERS': {
+    case 'RECEIVE_USER': {
+      console.log('REDUCER USER', action);
+      const { user } = action;
+
       return {
         ...state,
+        status: 'idle',
+        data: user,
       };
     }
 
