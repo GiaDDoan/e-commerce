@@ -46,6 +46,7 @@ function Home() {
                   price={sample.price}
                   image={sample.imageSrc}
                   rating={rating}
+                  stock={sample.numInStock}
                 />
               );
             })}

@@ -99,7 +99,9 @@ export default function Category() {
                         title={item.name}
                         price={item.price}
                         image={item.imageSrc}
+                        stock={item.numInStock}
                         rating={rating}
+                        item={item}
                         key={i}
                       />
                     </ProductContainer>
@@ -147,6 +149,4 @@ export default function Category() {
 
 const Wrapper = styled.div``;
 const ProductContainer = styled.div``;
-const Pagination = styled.div`
-  background-color: #eeeeee;
-`;
+const Pagination = styled.div``;
