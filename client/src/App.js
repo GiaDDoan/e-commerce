@@ -8,27 +8,31 @@ import Home from './components/home/Home';
 import Category from './components/category/Category';
 import ProductPage from './components/product-page/ProductPage';
 import FilteredCategory from './components/filtered-category/FilteredCategory';
+import Cart from './components/cart/Cart';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
-        <Body>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/category/:categoryName/:page">
-              <Category />
-            </Route>
-            <Route path="/filter/:filterId/:page">
-              <FilteredCategory />
-            </Route>
-            <Route path="/product/:productId">
-              <ProductPage />
-            </Route>
-          </Switch>
+        <Body className="body">
+          <Main className="main">
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/category/:categoryName/:page">
+                <Category />
+              </Route>
+              <Route path="/filter/:filterId/:page">
+                <FilteredCategory />
+              </Route>
+              <Route path="/product/:productId">
+                <ProductPage />
+              </Route>
+            </Switch>
+          </Main>
+          <Cart className="cart" />
         </Body>
       </Router>
     </div>
@@ -36,4 +40,5 @@ function App() {
 }
 
 const Body = styled.div``;
+const Main = styled.div``;
 export default App;

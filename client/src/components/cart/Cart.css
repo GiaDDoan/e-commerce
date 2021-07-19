@@ -1,0 +1,8 @@
+.wrapper {
+  width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  border-left: 2px solid #bebebe;
+  /* display: none; */
+}

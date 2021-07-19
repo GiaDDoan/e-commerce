@@ -3,12 +3,23 @@ import './ProductPage.css';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../../api-helpers/index';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {
+  requestCart,
+  receiveCart,
+  addItem,
+} from '../../store/reducers/cart/actions';
 
 function ProductPage() {
   const { productId } = useParams();
   const [status, setStatus] = useState('loading');
   const [product, setProduct] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     setStatus('loading');
@@ -16,7 +27,6 @@ function ProductPage() {
     const fetchingProduct = async () => {
       const productRes = await fetchProductById(productId);
       if (productRes.status === 200) {
-        console.log('RES', productRes);
         setProduct(productRes.product);
         setStatus('idle');
       } else {
@@ -27,12 +37,24 @@ function ProductPage() {
     fetchingProduct();
   }, [productId]);
 
+  const addItemToCart = (item) => {
+    console.log('qty', quantity);
+    const action = addItem({ ...item, qty: quantity });
+    dispatch(action);
+  };
+  const addQuantity = (stock) => {
+    if (stock > quantity) setQuantity(quantity + 1);
+  };
+  const removeQuantity = () => {
+    if (quantity > 0) setQuantity(quantity - 1);
+  };
+
   if (status === 'loading') {
     return <div>loading product</div>;
   }
   if (status === 'idle' && product[0]) {
     const item = product[0];
-    console.log('item', item);
+    // console.log('cart', cart);
 
     return (
       <Wrapper>
@@ -42,11 +64,16 @@ function ProductPage() {
         <div className="item">
           <img src={item.imageSrc} />
           <div className="item__info">
-            <div>{item.name}</div>
+            <div className="item__name">{item.name}</div>
             <div>Make a tag: {item.bodyLocation}</div>
             <div>Price: {item.price}</div>
             <div>Stock: {item.numInStock}</div>
-            <button>Add to cart</button>
+            <Quantity className="quantity-wrapper">
+              <button onClick={() => removeQuantity()}>-</button>
+              <div>{quantity}</div>
+              <button onClick={() => addQuantity(item.numInStock)}>+</button>
+            </Quantity>
+            <button onClick={() => addItemToCart(item)}>Add to cart</button>
           </div>
         </div>
       </Wrapper>
@@ -57,7 +84,6 @@ function ProductPage() {
   }
 }
 
-const Wrapper = styled.div`
-  border: solid 2px blue;
-`;
+const Wrapper = styled.div``;
+const Quantity = styled.div``;
 export default ProductPage;

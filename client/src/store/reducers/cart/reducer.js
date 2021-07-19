@@ -5,30 +5,38 @@ export default function cartReducer(state = initialState, action) {
     case 'REQUEST_CART': {
       return {
         ...state,
+        items: [],
         status: 'loading',
       };
     }
     case 'RECEIVE_CART': {
       console.log('REDUCER USER', action);
-      const { user } = action;
+      // const { user } = action;
 
       return {
         ...state,
         status: 'idle',
-        data: user,
+        // data: user,
       };
     }
 
-    case 'ADD_ITEM':
+    case 'ADD_ITEM': {
+      const { item } = action;
+
       return {
         ...state,
-        // [action.item._id]: {
-        //   ...action.item,
-        //   quantity: state[action.item._id]
-        //     ? state[action.item._id].quantity + action.item.quantity
-        //     : action.item.quantity,
-        // },
+        status: 'idle',
+        items: {
+          ...state.items,
+          [item._id]: {
+            ...item,
+            qty: state.items[item._id]
+              ? state.items[item._id].qty + item.qty
+              : item.qty,
+          },
+        },
       };
+    }
 
     case 'REMOVE_ITEM': {
       const stateCopy = { ...state };
