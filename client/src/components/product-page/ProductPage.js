@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProductPage.css';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+
 import { fetchProductById } from '../../api-helpers/index';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -38,7 +39,7 @@ function ProductPage() {
   }, [productId]);
 
   const addItemToCart = (item) => {
-    console.log('qty', quantity);
+    // console.log('qty', quantity);
     const action = addItem({ ...item, qty: quantity });
     dispatch(action);
   };
@@ -55,6 +56,7 @@ function ProductPage() {
   if (status === 'idle' && product[0]) {
     const item = product[0];
     // console.log('cart', cart);
+    console.log('user', user);
 
     return (
       <Wrapper>

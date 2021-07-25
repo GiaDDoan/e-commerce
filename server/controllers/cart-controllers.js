@@ -5,14 +5,18 @@ const Company = require('../models/company');
 const items = require('../data/items.json');
 const companies = require('../data/companies.json');
 
-const get_all = async (req, res) => {
+const get_cart = async (req, res) => {
   try {
-    const cart__ = await Cart.find({}).sort({ rank: 1 }).exec();
+    // const cart__ = await Cart.find({}).sort({ rank: 1 }).exec();
+    //Make a function to only give back the data with the same googleId
+    const id = req.query.userId;
+    const cartData = await Cart.find({ userId: id }).exec();
+    console.log('data', cartData);
 
     res.status(200).json({
       status: 200,
-      message: 'Received all titles',
-      cartItems: cart__,
+      message: 'Received cart items',
+      data: cartData,
     });
   } catch (err) {
     res.status(404).json({ status: 404, message: err.message });
@@ -20,58 +24,85 @@ const get_all = async (req, res) => {
 };
 
 const add_item = async (req, res) => {
+  //URL: ../cart/items?userId=2&itemId=10&qty=17&stock=10
+  try {
+    const userQuery = req.query.userId;
+    const existingId = await Cart.findOne({ userId: req.query.userId }).exec();
+
+    //Check if the item is already in the user's cart, TRUE = update, FALSE = add
+    if (existingId) {
+      Cart.findOneAndUpdate(userQuery, {
+        $set: { quantity: existingId.quantity + parseInt(req.query.qty) },
+      }).exec();
+    } else {
+      const addItemToCart = await new Cart({
+        userId: req.query.userId,
+        itemIds: req.query.itemId,
+        quantity: parseInt(req.query.qty),
+      });
+      addItemToCart.save();
+      console.log('new item added');
+    }
+
+    res.status(201).json({ status: 201, cart: 'changed' });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
+const add_companies = async (req, res) => {
   ////////ADD Companies
 
-  // companies.map(async (company) => {
-  //   const newCompany = await new Company({
-  //     name: company.name,
-  //     url: company.url,
-  //     country: company.country,
-  //     companyId: company._id,
-  //   });
+  companies.map(async (company) => {
+    const newCompany = await new Company({
+      name: company.name,
+      url: company.url,
+      country: company.country,
+      companyId: company._id,
+    });
 
-  //   newCompany.save();
-  // });
+    newCompany.save();
+  });
 
   try {
     /////To reset database
-    // items.map(async (item) => {
-    //   if (!item.price.includes('.')) {
-    //     let newPrice = await `${item.price.substring(1)}.99`;
+    items.map(async (item) => {
+      if (!item.price.includes('.')) {
+        let newPrice = await `${item.price.substring(1)}.99`;
 
-    //     let numberPrice = await parseFloat(newPrice);
-    //     console.log(numberPrice);
+        let numberPrice = await parseFloat(newPrice);
+        console.log(numberPrice);
 
-    //     const addedItem = await new Item({
-    //       name: item.name,
-    //       price: numberPrice,
-    //       bodyLocation: item.body_location,
-    //       category: item.category,
-    //       imageSrc: item.imageSrc,
-    //       numInStock: item.numInStock,
-    //       companyId: item.companyId,
-    //     });
+        const addedItem = await new Item({
+          name: item.name,
+          price: numberPrice,
+          bodyLocation: item.body_location,
+          category: item.category,
+          imageSrc: item.imageSrc,
+          numInStock: item.numInStock,
+          companyId: item.companyId,
+        });
 
-    //     addedItem.save();
-    //   }
+        addedItem.save();
+      }
 
-    //   if (item.price.includes('.')) {
-    //     let newNumber = parseFloat(item.price.substring(1));
-    //     console.log(newNumber);
+      if (item.price.includes('.')) {
+        let newNumber = parseFloat(item.price.substring(1));
+        console.log(newNumber);
 
-    //     const addedItem = await new Item({
-    //       name: item.name,
-    //       price: newNumber,
-    //       bodyLocation: item.body_location,
-    //       category: item.category,
-    //       imageSrc: item.imageSrc,
-    //       numInStock: item.numInStock,
-    //       companyId: item.companyId,
-    //     });
+        const addedItem = await new Item({
+          name: item.name,
+          price: newNumber,
+          bodyLocation: item.body_location,
+          category: item.category,
+          imageSrc: item.imageSrc,
+          numInStock: item.numInStock,
+          companyId: item.companyId,
+        });
 
-    //     addedItem.save();
-    //   }
-    // });
+        addedItem.save();
+      }
+    });
 
     res.status(201).json({ status: 201, title: 'added' });
   } catch (error) {
@@ -80,6 +111,7 @@ const add_item = async (req, res) => {
 };
 
 module.exports = {
-  get_all,
+  get_cart,
   add_item,
+  add_companies,
 };

@@ -1,4 +1,4 @@
-const initialState = { status: 'loading' };
+const initialState = { status: 'idle' };
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {

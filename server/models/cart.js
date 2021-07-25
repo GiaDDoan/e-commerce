@@ -3,13 +3,9 @@ const { Schema } = mongoose;
 
 const cartSchema = new Schema(
   {
-    name: String,
-    price: String,
-    bodyLocation: String,
-    category: String,
-    imageSrc: String,
-    numInStock: Number,
-    companyId: String,
+    userId: String,
+    itemId: String,
+    quantity: Number,
   },
   { collection: 'cart' }
 );
