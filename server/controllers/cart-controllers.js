@@ -11,7 +11,7 @@ const get_cart = async (req, res) => {
     //Make a function to only give back the data with the same googleId
     const id = req.query.userId;
     const cartData = await Cart.find({ userId: id }).exec();
-    console.log('data', cartData);
+    // console.log('data', cartData);
 
     res.status(200).json({
       status: 200,
@@ -26,19 +26,30 @@ const get_cart = async (req, res) => {
 const add_item = async (req, res) => {
   //URL: ../cart/items?userId=2&itemId=10&qty=17&stock=10
   try {
-    const userQuery = req.query.userId;
-    const existingId = await Cart.findOne({ userId: req.query.userId }).exec();
+    const { userId, itemId, qty, stock } = req.query;
+    const existingId = await Cart.findOne({
+      userId: userId,
+      itemId: itemId,
+    }).exec();
+    //Query for updating if the item exist in the DB
+    const query = {
+      userId: userId,
+      itemId: itemId,
+    };
+    console.log('itemId', itemId);
 
     //Check if the item is already in the user's cart, TRUE = update, FALSE = add
     if (existingId) {
-      Cart.findOneAndUpdate(userQuery, {
-        $set: { quantity: existingId.quantity + parseInt(req.query.qty) },
+      console.log('item exist');
+      Cart.findOneAndUpdate(query, {
+        $set: { quantity: existingId.quantity + parseInt(qty) },
       }).exec();
     } else {
+      console.log('doesnt exist, adding');
       const addItemToCart = await new Cart({
-        userId: req.query.userId,
-        itemIds: req.query.itemId,
-        quantity: parseInt(req.query.qty),
+        userId: userId,
+        itemId: itemId,
+        quantity: parseInt(qty),
       });
       addItemToCart.save();
       console.log('new item added');
@@ -71,7 +82,7 @@ const add_companies = async (req, res) => {
         let newPrice = await `${item.price.substring(1)}.99`;
 
         let numberPrice = await parseFloat(newPrice);
-        console.log(numberPrice);
+        // console.log(numberPrice);
 
         const addedItem = await new Item({
           name: item.name,
@@ -88,7 +99,7 @@ const add_companies = async (req, res) => {
 
       if (item.price.includes('.')) {
         let newNumber = parseFloat(item.price.substring(1));
-        console.log(newNumber);
+        // console.log(newNumber);
 
         const addedItem = await new Item({
           name: item.name,

@@ -48,11 +48,15 @@ function Cart() {
     fetchCart();
   }, []);
 
+  if (user.status === 'loading') {
+    return null;
+  }
   if (cart.status === 'loading') {
     return <div>Loading cart</div>;
   }
-  if (cart.status === 'idle') {
+  if (cart.status === 'idle' && user.status === 'idle') {
     // console.log('cart', cart.items);
+    console.log('user', user);
     return (
       <Wrapper className="wrapper">
         <div className="title">My Cart</div>

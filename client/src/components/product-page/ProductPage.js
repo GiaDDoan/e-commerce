@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 
 import { fetchProductById } from '../../api-helpers/index';
 import { useSelector, useDispatch } from 'react-redux';
-
 import {
   requestCart,
   receiveCart,
   addItem,
 } from '../../store/reducers/cart/actions';
+import { addItemToDB } from '../../api-helpers/cart-helper';
 
 function ProductPage() {
   const { productId } = useParams();
@@ -38,10 +38,16 @@ function ProductPage() {
     fetchingProduct();
   }, [productId]);
 
-  const addItemToCart = (item) => {
+  const addItemToCart = async (item, userId, itemId, qty, stock) => {
     // console.log('qty', quantity);
-    const action = addItem({ ...item, qty: quantity });
-    dispatch(action);
+
+    const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
+    if (sendItemToDB.status == 201) {
+      const action = addItem({ ...item, qty: quantity });
+      dispatch(action);
+    } else if (sendItemToDB.status == 404) {
+      console.log(sendItemToDB.message);
+    }
   };
   const addQuantity = (stock) => {
     if (stock > quantity) setQuantity(quantity + 1);
@@ -55,8 +61,16 @@ function ProductPage() {
   }
   if (status === 'idle' && product[0]) {
     const item = product[0];
-    // console.log('cart', cart);
-    console.log('user', user);
+    const {
+      _id,
+      bodyLocation,
+      category,
+      companyId,
+      imageSrc,
+      name,
+      numInStock,
+      price,
+    } = item;
 
     return (
       <Wrapper>
@@ -64,18 +78,24 @@ function ProductPage() {
           <div>{`Home > Category`}</div>
         </div>
         <div className="item">
-          <img src={item.imageSrc} />
+          <img src={imageSrc} />
           <div className="item__info">
-            <div className="item__name">{item.name}</div>
-            <div>Make a tag: {item.bodyLocation}</div>
-            <div>Price: {item.price}</div>
-            <div>Stock: {item.numInStock}</div>
+            <div className="item__name">{name}</div>
+            <div>Make a tag: {bodyLocation}</div>
+            <div>Price: {price}</div>
+            <div>Stock: {numInStock}</div>
             <Quantity className="quantity-wrapper">
               <button onClick={() => removeQuantity()}>-</button>
               <div>{quantity}</div>
-              <button onClick={() => addQuantity(item.numInStock)}>+</button>
+              <button onClick={() => addQuantity(numInStock)}>+</button>
             </Quantity>
-            <button onClick={() => addItemToCart(item)}>Add to cart</button>
+            <button
+              onClick={() =>
+                addItemToCart(item, user.data._id, _id, quantity, numInStock)
+              }
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </Wrapper>
