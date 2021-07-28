@@ -1,4 +1,4 @@
-const initialState = { status: 'idle' };
+const initialState = { status: 'idle', total: 0 };
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
@@ -10,7 +10,7 @@ export default function cartReducer(state = initialState, action) {
       };
     }
     case 'RECEIVE_CART': {
-      console.log('REDUCER USER', action);
+      // console.log('REDUCER USER', action);
       // const { user } = action;
 
       return {
@@ -22,10 +22,13 @@ export default function cartReducer(state = initialState, action) {
 
     case 'ADD_ITEM': {
       const { item } = action;
+      console.log('item', item);
+      let newTotal = state.total + item.price;
 
       return {
         ...state,
         status: 'idle',
+        total: newTotal,
         items: {
           ...state.items,
           [item._id]: {

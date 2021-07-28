@@ -1,5 +1,4 @@
 export const fetchCartItems = (userId) => {
-  console.log(userId, 'ID');
   return fetch(`/cart/items?userId=${userId}`, {
     method: 'GET',
     headers: {
@@ -10,8 +9,6 @@ export const fetchCartItems = (userId) => {
 };
 
 export const addItemToDB = (userId, itemId, qty, stock) => {
-  console.log('qty', qty);
-
   return fetch(
     `/cart/items?userId=${userId}&itemId=${itemId}&qty=${qty}&stock=${stock}`,
     {

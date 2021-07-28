@@ -35,7 +35,7 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 20%;
-  border-top: solid 2px #bebebe;
+  border-bottom: solid 2px #bebebe;
   margin: 10px 10px;
 }
 .pagination {
