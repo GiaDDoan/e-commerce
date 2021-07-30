@@ -1,8 +1,9 @@
-const initialState = { status: 'idle', total: 0 };
+const initialState = { status: 'idle', total: 0, items: [] };
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_CART': {
+      console.log('request');
       return {
         ...state,
         items: [],
@@ -22,7 +23,7 @@ export default function cartReducer(state = initialState, action) {
 
     case 'ADD_ITEM': {
       const { item } = action;
-      console.log('item', item);
+      // console.log('item', item);
       let newTotal = state.total + item.price;
 
       return {
@@ -42,8 +43,9 @@ export default function cartReducer(state = initialState, action) {
     }
 
     case 'REMOVE_ITEM': {
+      const { itemId } = action;
       const stateCopy = { ...state };
-      delete stateCopy[action.item._id];
+      delete stateCopy.items[itemId];
       return stateCopy;
     }
 
@@ -56,8 +58,12 @@ export default function cartReducer(state = initialState, action) {
         },
       };
 
-    case 'CLEAR_CART':
-      return { ...initialState };
+    case 'CLEAR_CART': {
+      console.log('CLEAR');
+      return {
+        ...initialState,
+      };
+    }
 
     case 'SEND_ERROR': {
       return {
@@ -71,13 +77,3 @@ export default function cartReducer(state = initialState, action) {
     }
   }
 }
-
-export const receiveCart = (user) => ({
-  type: 'RECEIVE_CART',
-  user,
-});
-
-export const sendError = (error) => ({
-  type: 'SEND_ERROR',
-  error,
-});

@@ -17,18 +17,17 @@ export const addItem = (item) => ({
   item,
 });
 
-// export const removeItem = (_id, item) => ({
-//   type: 'REMOVE_ITEM',
-//   item,
-//   _id,
-// });
+export const removeItem = (itemId, item) => ({
+  type: 'REMOVE_ITEM',
+  item,
+  itemId,
+});
 
+export const clearCart = () => ({
+  type: 'CLEAR_CART',
+});
 // export const updateQuantity = (_id, quantity) => ({
 //   type: 'UPDATE_QUANTITY',
 //   _id,
 //   quantity,
-// });
-
-// export const clearCart = () => ({
-//   type: 'CLEAR_CART',
 // });

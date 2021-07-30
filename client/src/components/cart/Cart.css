@@ -16,15 +16,37 @@
 .item-wrapper {
   display: flex;
   align-items: center;
+  border-bottom: solid 1px #bebebe;
+  margin: 0px 8px;
+}
+.item-info {
+  display: flex;
   cursor: pointer;
   padding: 18px 0px;
-  margin: 0 10px;
-  border-bottom: solid 1px #bebebe;
+  align-items: center;
+  width: 100%;
 }
-.item-wrapper > img {
+.item-info > img {
   width: 80px;
   padding: 0 10px;
 }
+
 .item-price {
   font-size: 0.9rem;
+}
+.item-price:hover {
+  border-bottom: 1px solid black;
+}
+.delete-item {
+  margin: 0 13px;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bolder;
+}
+.delete-item:hover {
+  color: red;
+  transition: 300ms;
 }
