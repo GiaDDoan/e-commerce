@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { userContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import './MainNav.css';
@@ -13,10 +13,12 @@ import {
   receiveUser,
   sendError,
 } from '../../../store/reducers/user/actions';
+// import { AppContext } from '../../../../AppContext.js';
 
 function MainNav() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  // const { cartToggle, setCartTottle } = useContext(AppContext);
 
   const responseSuccessGoogle = (response) => {
     dispatch(requestUser());

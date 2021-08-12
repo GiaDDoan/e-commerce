@@ -41,12 +41,17 @@ function ProductPage() {
   const addItemToCart = async (item, userId, itemId, qty, stock) => {
     // console.log('qty', quantity);
 
-    const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
-    if (sendItemToDB.status == 201) {
+    if (user.status === 'idle') {
+      const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
+      if (sendItemToDB.status == 201) {
+        const action = addItem({ ...item, qty: quantity });
+        dispatch(action);
+      } else if (sendItemToDB.status == 404) {
+        console.log(sendItemToDB.message);
+      }
+    } else {
       const action = addItem({ ...item, qty: quantity });
       dispatch(action);
-    } else if (sendItemToDB.status == 404) {
-      console.log(sendItemToDB.message);
     }
   };
   const addQuantity = (stock) => {
@@ -90,9 +95,17 @@ function ProductPage() {
               <button onClick={() => addQuantity(numInStock)}>+</button>
             </Quantity>
             <button
-              onClick={() =>
-                addItemToCart(item, user.data._id, _id, quantity, numInStock)
-              }
+              onClick={() => {
+                user.status == 'idle'
+                  ? addItemToCart(
+                      item,
+                      user.data._id,
+                      _id,
+                      quantity,
+                      numInStock
+                    )
+                  : addItemToCart(item, _id, quantity, numInStock);
+              }}
             >
               Add to cart
             </button>

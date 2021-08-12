@@ -52,13 +52,10 @@ function Cart() {
     dispatch(clearCart());
   };
 
-  if (user.status === 'loading') {
-    return null;
-  }
   if (cart.status === 'loading') {
     return <div>Loading cart</div>;
   }
-  if (cart.status === 'idle' && user.status === 'idle') {
+  if (cart.status === 'idle') {
     // console.log('total', total);
     console.log('cart', cart);
     return (
