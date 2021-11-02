@@ -14,7 +14,7 @@ import {
 } from '../../store/reducers/cart/actions';
 import { fetchProductById } from '../../api-helpers/index';
 
-function Cart() {
+function Cart({ cartToggle, toggleCart }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
@@ -56,54 +56,59 @@ function Cart() {
     return <div>Loading cart</div>;
   }
   if (cart.status === 'idle') {
-    // console.log('total', total);
-    console.log('cart', cart);
     return (
-      <Wrapper className="wrapper">
-        <div className="title">Total: {cart.total}</div>
-        {cart.items
-          ? Object.values(cart.items).map((item, i) => {
-              const {
-                _id,
-                bodyLocation,
-                category,
-                companyId,
-                imageSrc,
-                name,
-                numInStock,
-                price,
-                qty,
-              } = item;
+      <>
+        {cartToggle === true ? (
+          <Wrapper className="wrapper">
+            <div className="title">Total: {cart.total}</div>
+            {cart.items
+              ? Object.values(cart.items).map((item, i) => {
+                  const {
+                    _id,
+                    bodyLocation,
+                    category,
+                    companyId,
+                    imageSrc,
+                    name,
+                    numInStock,
+                    price,
+                    qty,
+                  } = item;
 
-              return (
-                <div className="item-wrapper" key={i}>
-                  <div className="item-info" onClick={() => handleProduct(_id)}>
-                    <img src={imageSrc} />
-                    <div className="item-price">
-                      ${price} <span>x{qty}</span>
+                  return (
+                    <div className="item-wrapper" key={i}>
+                      <div
+                        className="item-info"
+                        onClick={() => handleProduct(_id)}
+                      >
+                        <img src={imageSrc} />
+                        <div className="item-price">
+                          ${price} <span>x{qty}</span>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="delete-item"
+                        onClick={() => deleteProduct(_id)}
+                      >
+                        X
+                      </button>
                     </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="delete-item"
-                    onClick={() => deleteProduct(_id)}
-                  >
-                    X
-                  </button>
-                </div>
-              );
-            })
-          : null}
-        {Object.values(cart.items).length > 0 && (
-          <button
-            type="button"
-            className="clear-cart"
-            onClick={() => emptyClear()}
-          >
-            Clear Cart
-          </button>
-        )}
-      </Wrapper>
+                  );
+                })
+              : null}
+            {Object.values(cart.items).length > 0 && (
+              <button
+                type="button"
+                className="clear-cart"
+                onClick={() => emptyClear()}
+              >
+                Clear Cart
+              </button>
+            )}
+          </Wrapper>
+        ) : null}
+      </>
     );
   }
 }

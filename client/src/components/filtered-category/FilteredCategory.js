@@ -20,6 +20,7 @@ function FilteredCategory() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('fil', page);
     if (page === '1') return;
     if (filteredItems[filterId + '_' + page]) return;
     dispatch(requestFilteredItems());
@@ -28,6 +29,7 @@ function FilteredCategory() {
         filteredItems[filterId + '_' + '1'].filter,
         page
       );
+      console.log('res', result);
       if (result.status === 200) {
         dispatch(
           receiveFilteredItems(

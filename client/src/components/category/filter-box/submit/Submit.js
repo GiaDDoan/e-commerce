@@ -22,6 +22,7 @@ function Submit({ filter, setFilter }) {
   const dispatch = useDispatch();
   //Go in Redux store to get submit data
   const submitFilter = async (filterId) => {
+    console.log('IN FIL', filter);
     history.push(`/filter/${filterId}/1`);
     dispatch(requestFilteredItems());
     const result = await fetchProductsByFilter(filter, '1');

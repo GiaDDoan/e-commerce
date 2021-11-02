@@ -96,9 +96,12 @@ const get_items_by_category = async (req, res) => {
 };
 
 const post_items_by_filter = async (req, res) => {
+  console.log('filter', req.body);
   try {
     let filteredArray = [];
-    const maxPrice = req.body.max === null ? 300 : req.body.max;
+    const filteredCategory = req.body.category;
+    const companyIds = req.body.companyIds;
+    const maxPrice = req.body.max === null ? 3000 : req.body.max;
     const minPrice = req.body.min === null ? 0 : req.body.min;
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
@@ -106,20 +109,24 @@ const post_items_by_filter = async (req, res) => {
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 
-    await Promise.all(
-      req.body.companyIds.map(async (id) => {
-        const itemsFound = await Item.find({
-          companyId: id,
-          price: {
-            $lt: maxPrice,
-            $gt: minPrice,
-          },
-        });
-        //itemsFound = [{...}, {...}]
-        filteredArray = await filteredArray.concat(itemsFound);
-        return itemsFound; //MAYBE REMOVE
-      })
-    );
+    if (companyIds.length > 0) {
+      await Promise.all(
+        companyIds.map(async (id) => {
+          const itemsFound = await Item.find({
+            companyId: id,
+            price: {
+              $lt: maxPrice,
+              $gt: minPrice,
+            },
+          });
+          //itemsFound = [{...}, {...}]
+          filteredArray = await filteredArray.concat(itemsFound);
+          return itemsFound; //MAYBE REMOVE
+        })
+      );
+    }
+    //MAKE ANOTHER IF STATEMENT FOR CATEGORY IF THERE'S NO COMPANY IDS
+    //ADD FILTER FOR H to L or L to H
 
     if (endIndex < filteredArray.length) {
       results.next = {

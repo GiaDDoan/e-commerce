@@ -39,8 +39,6 @@ function ProductPage() {
   }, [productId]);
 
   const addItemToCart = async (item, userId, itemId, qty, stock) => {
-    // console.log('qty', quantity);
-
     if (user.status === 'idle') {
       const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
       if (sendItemToDB.status == 201) {

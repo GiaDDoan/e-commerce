@@ -7,13 +7,17 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import MainNav from './components/MainNav';
 import SubNav from './components/SubNav';
 
-export default function Header() {
+export default function Header({ toggleCart }) {
   return (
     <Wrapper>
-      <MainNav />
+      <MainNav toggleCart={toggleCart} />
       <SubNav />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+`;

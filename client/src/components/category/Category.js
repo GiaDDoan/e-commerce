@@ -19,6 +19,7 @@ const initialFilter = {
   min: null,
   max: null,
   companyIds: [],
+  category: '',
 };
 
 export default function Category() {
@@ -29,7 +30,8 @@ export default function Category() {
   const items = useSelector((state) => state.items);
 
   useEffect(() => {
-    setFilter(initialFilter);
+    console.log('page load');
+    setFilter({ ...initialFilter, category: categoryName });
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());
     const fetchingItems = async () => {
@@ -51,7 +53,6 @@ export default function Category() {
     // }
     if (page === '1') return;
     if (items[categoryName + '_' + page]) return;
-    console.log('category page changed');
     dispatch(requestItems());
 
     /////Fetch items by Category Only
@@ -75,8 +76,6 @@ export default function Category() {
     return <div>Loading Items in Category</div>;
   }
   if (items.status === 'idle' && items[categoryName + '_' + page]) {
-    console.log('item', items);
-
     return (
       <Wrapper className="category">
         <div className="category__filter">

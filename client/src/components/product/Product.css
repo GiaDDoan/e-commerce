@@ -2,12 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  margin: 10px;
-  padding: 20px;
+  justify-content: center;
+  /* margin: 10px;
+  padding: 20px; */
+  padding: 1rem 2rem;
   width: 25%;
-  max-height: 400px;
-  min-width: 100px;
+  height: 350px;
+  width: 320px;
   background-color: white;
   z-index: 1;
   border-radius: 15px;
@@ -19,17 +20,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  margin: 20px 10px;
-  padding: 20px;
-  width: 350px;
-  max-height: 400px;
-  min-width: 100px;
+  justify-content: center;
+  padding: 10px 20px;
+  width: 100%;
+  height: 360px;
+  /* max-height: 400px;
+  min-width: 100px; */
   background-color: white;
   z-index: 1;
   border-radius: 15px;
   border: 1px solid #bebebe;
   cursor: pointer;
+}
+
+.product-name {
+  text-align: start;
 }
 
 .product__rating {

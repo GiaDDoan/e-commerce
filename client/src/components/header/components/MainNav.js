@@ -1,4 +1,4 @@
-import React, { userContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import './MainNav.css';
@@ -13,12 +13,12 @@ import {
   receiveUser,
   sendError,
 } from '../../../store/reducers/user/actions';
-// import { AppContext } from '../../../../AppContext.js';
+import { AppContext } from '../../../AppContext';
 
-function MainNav() {
+function MainNav({ toggleCart }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  // const { cartToggle, setCartTottle } = useContext(AppContext);
+  const { cartToggle, setCartTottle } = useContext(AppContext);
 
   const responseSuccessGoogle = (response) => {
     dispatch(requestUser());
@@ -34,7 +34,6 @@ function MainNav() {
   };
   const responseErrorGoogle = () => {};
 
-  console.log('user', user);
   return (
     <Wrapper className="header__main">
       <Logo to="/" className="header__logo">
@@ -66,7 +65,7 @@ function MainNav() {
           <span className="header__optionLineOne">Returns</span>
           <span className="header__optionLineTwo">& Orders</span>
         </div>
-        <Basket className="header__optionBasket">
+        <Basket className="header__optionBasket" onClick={toggleCart}>
           <ShoppingBasketIcon />
           <span className="header__optionLineTwo header__basketCount">0</span>
         </Basket>

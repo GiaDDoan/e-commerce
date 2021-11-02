@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -11,12 +11,18 @@ import FilteredCategory from './components/filtered-category/FilteredCategory';
 import Cart from './components/cart/Cart';
 
 function App() {
+  const [cartToggle, setCartToggle] = useState(false);
+
+  const toggleCart = () => {
+    setCartToggle(!cartToggle);
+  };
+
   return (
     <div className="App">
       <Router>
         <Body className="body">
           <Main className="main">
-            <Header />
+            <Header toggleCart={toggleCart} />
             <Switch>
               <Route exact path="/">
                 <Home />
@@ -32,7 +38,11 @@ function App() {
               </Route>
             </Switch>
           </Main>
-          <Cart className="cart" />
+          <Cart
+            className="cart"
+            toggleCart={toggleCart}
+            cartToggle={cartToggle}
+          />
         </Body>
       </Router>
     </div>
