@@ -96,13 +96,12 @@ const get_items_by_category = async (req, res) => {
 };
 
 const post_items_by_filter = async (req, res) => {
-  console.log('filter', req.body);
+  const { min, max, companyIds, category } = req.body;
+  console.log('filter', category);
   try {
     let filteredArray = [];
-    const filteredCategory = req.body.category;
-    const companyIds = req.body.companyIds;
-    const maxPrice = req.body.max === null ? 3000 : req.body.max;
-    const minPrice = req.body.min === null ? 0 : req.body.min;
+    const maxPrice = max === null ? 3000 : max;
+    const minPrice = min === null ? 0 : min;
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     let results = {};
@@ -127,6 +126,12 @@ const post_items_by_filter = async (req, res) => {
     }
     //MAKE ANOTHER IF STATEMENT FOR CATEGORY IF THERE'S NO COMPANY IDS
     //ADD FILTER FOR H to L or L to H
+
+    // const test = await Item.find({
+    //   category: category,
+    //   price: { $gt: undefined },
+    // });
+    // console.log('WAITING', min, max, test);
 
     if (endIndex < filteredArray.length) {
       results.next = {
@@ -236,6 +241,73 @@ const add_item = async (req, res) => {
   }
 };
 
+const items_by_filter = async (req, res) => {
+  const { min, max, companyIds, category } = req.body;
+
+  try {
+    const itemsInCategory = await Item.find({
+      category: category.includes('_')
+        ? category.split('_').join(' ')
+        : category,
+    });
+
+    let filteredArray = [];
+    let results = {};
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    let MIN = min;
+    let MAX = max;
+    const highestPrice = Math.max(...itemsInCategory.map((item) => item.price));
+
+    if (companyIds.length > 0) {
+      itemsInCategory.map((item) => {
+        if (companyIds.includes(parseInt(item.companyId))) {
+          // console.log('ITEM', item);
+          filteredArray.push(item);
+        }
+      });
+    } else {
+      filteredArray = [...itemsInCategory];
+    }
+    if (min != null || max != null) {
+      if (max == null) {
+        MAX = highestPrice;
+      }
+      filteredArray = filteredArray.filter((item) => {
+        return item.price > MIN && item.price <= MAX;
+      });
+    }
+
+    //ADD LOWER TO HIGH, VICE-VERSA
+
+    if (endIndex < filteredArray.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+    results.totalPages = Math.ceil(filteredArray.length / limit);
+    results.results = filteredArray.slice(startIndex, endIndex);
+
+    console.log('RESULT ARRAY', filteredArray.length);
+
+    res.status(200).json({
+      status: 200,
+      results,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 module.exports = {
   get_sample,
   get_categories,
@@ -245,4 +317,5 @@ module.exports = {
   add_item,
   get_item_by_id,
   post_items_by_filter,
+  items_by_filter,
 };

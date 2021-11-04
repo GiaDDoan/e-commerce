@@ -30,7 +30,6 @@ export default function Category() {
   const items = useSelector((state) => state.items);
 
   useEffect(() => {
-    console.log('page load');
     setFilter({ ...initialFilter, category: categoryName });
     if (items[categoryName + '_' + page]) return;
     dispatch(requestItems());

@@ -4,7 +4,7 @@ const initialState = { status: 'loading' };
 export default function titlesReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_FILTERED_ITEMS': {
-      console.log('REQUEST');
+      // console.log('REQUEST');
       return {
         ...state,
         status: 'loading',
