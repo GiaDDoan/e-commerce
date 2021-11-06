@@ -15,7 +15,7 @@ const initialState = {
     {
       price: '$50 & Above',
       min: 50,
-      max: 200,
+      max: null,
       checked: false,
     },
   ],

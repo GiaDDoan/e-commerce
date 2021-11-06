@@ -20,6 +20,7 @@ const initialFilter = {
   max: null,
   companyIds: [],
   category: '',
+  sort: '',
 };
 
 export default function Category() {
@@ -87,22 +88,17 @@ export default function Category() {
                   let rating = Math.random() * 1 + 4;
 
                   return (
-                    <ProductContainer
+                    <Product
+                      name="category"
+                      id={item._id}
+                      title={item.name}
+                      price={item.price}
+                      image={item.imageSrc}
+                      stock={item.numInStock}
+                      rating={rating}
+                      item={item}
                       key={item._id}
-                      className="category__container"
-                    >
-                      <Product
-                        name="category"
-                        id={item._id}
-                        title={item.name}
-                        price={item.price}
-                        image={item.imageSrc}
-                        stock={item.numInStock}
-                        rating={rating}
-                        item={item}
-                        key={i}
-                      />
-                    </ProductContainer>
+                    />
                   );
                 })
               : null}

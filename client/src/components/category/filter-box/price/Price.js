@@ -13,6 +13,7 @@ function Price({ filter, setFilter }) {
   // const TEST = [...initialCheckboxes];
   // const [checkboxes, setCheckboxes] = useState(TEST);
   const items = useSelector((state) => state.items);
+  const [selectedSort, setSelectedSort] = useState('');
   const pricesState = useSelector((state) => state.prices);
   const { categoryName, page } = useParams();
   const history = useHistory();
@@ -21,6 +22,15 @@ function Price({ filter, setFilter }) {
   useEffect(() => {
     dispatch(requestInitialPrices());
   }, [categoryName]);
+
+  const handleChange = (event) => {
+    console.log('changing', typeof event.target.value);
+    setFilter({
+      ...filter,
+      sort: event.target.value,
+    });
+  };
+
   if (items.status === 'loading') {
     return <div>Filtering</div>;
   }
@@ -49,10 +59,10 @@ function Price({ filter, setFilter }) {
               </label>
             );
           })}
-          <select>
-            <option>Sort by: Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
+          <select onChange={handleChange}>
+            <option value="">Sort by: Featured</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
           </select>
         </div>
       </Wrapper>

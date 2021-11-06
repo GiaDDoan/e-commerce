@@ -4,7 +4,9 @@
   background-color: #5a5a5a;
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
+  align-items: center;
+  /* padding: 10px 0; */
+  height: var(--header-sub-height);
   list-style-type: none;
 }
 

@@ -18,37 +18,38 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div>
       <Router>
-        <Body className="body">
+        <div className="body">
           <Main className="main">
             <Header toggleCart={toggleCart} />
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/category/:categoryName/:page">
-                <Category />
-              </Route>
-              <Route path="/filter/:filterId/:page">
-                <FilteredCategory />
-              </Route>
-              <Route path="/product/:productId">
-                <ProductPage />
-              </Route>
-            </Switch>
+            <div className="content">
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/category/:categoryName/:page">
+                  <Category />
+                </Route>
+                <Route path="/filter/:filterId/:page">
+                  <FilteredCategory />
+                </Route>
+                <Route path="/product/:productId">
+                  <ProductPage />
+                </Route>
+              </Switch>
+            </div>
           </Main>
           <Cart
             className="cart"
             toggleCart={toggleCart}
             cartToggle={cartToggle}
           />
-        </Body>
+        </div>
       </Router>
     </div>
   );
 }
 
-const Body = styled.div``;
 const Main = styled.div``;
 export default App;

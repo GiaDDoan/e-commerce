@@ -6,25 +6,28 @@ import { Link } from 'react-router-dom';
 
 function Product({ id, name, title, image, price, rating, stock, item }) {
   const history = useHistory();
+  console.log('PRO', name);
 
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);
   };
 
   return (
-    <div onClick={() => handleProduct(id)} className={`${name}__product`}>
-      <div className="product__info">
-        <p className="product-name">{title}</p>
-        <p className="product__price">
-          <strong>{price}</strong>
-        </p>
-        <div className="product__rating">
-          <p>{rating.toFixed(2)} ⭐</p>
+    <div className={`${name}__container`}>
+      <div onClick={() => handleProduct(id)} className={`${name}__product`}>
+        <div className="product__info">
+          <p className="product-name">{title}</p>
+          <p className="product__price">
+            <strong>{price}</strong>
+          </p>
+          <div className="product__rating">
+            <p>{rating.toFixed(2)} ⭐</p>
+          </div>
         </div>
-      </div>
 
-      <img src={image} alt="" />
-      <div>Stock: {stock}</div>
+        <img src={image} alt="" />
+        <div>Stock: {stock}</div>
+      </div>
     </div>
   );
 }

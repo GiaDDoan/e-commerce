@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../category/Category.css';
+import './FilteredCategory.css';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -57,17 +57,15 @@ function FilteredCategory() {
             let rating = Math.random() * 1 + 4;
 
             return (
-              <ProductContainer key={item._id} className="category__container">
-                <Product
-                  name="category"
-                  id={item._id}
-                  title={item.name}
-                  price={item.price}
-                  image={item.imageSrc}
-                  rating={rating}
-                  key={i}
-                />
-              </ProductContainer>
+              <Product
+                name="category"
+                id={item._id}
+                title={item.name}
+                price={item.price}
+                image={item.imageSrc}
+                rating={rating}
+                key={i}
+              />
             );
           })}
         </div>

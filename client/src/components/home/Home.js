@@ -30,7 +30,7 @@ function Home() {
   if (status === 'idle') {
     return (
       <div className="home">
-        <div className="home__container">
+        <div>
           <img className="home__image" src={HomepageBanner} alt="" />
 
           <div className="home__row">

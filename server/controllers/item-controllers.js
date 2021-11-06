@@ -242,7 +242,7 @@ const add_item = async (req, res) => {
 };
 
 const items_by_filter = async (req, res) => {
-  const { min, max, companyIds, category } = req.body;
+  const { min, max, companyIds, category, sort } = req.body;
 
   try {
     const itemsInCategory = await Item.find({
@@ -261,6 +261,7 @@ const items_by_filter = async (req, res) => {
     let MAX = max;
     const highestPrice = Math.max(...itemsInCategory.map((item) => item.price));
 
+    //Check if a company is selected
     if (companyIds.length > 0) {
       itemsInCategory.map((item) => {
         if (companyIds.includes(parseInt(item.companyId))) {
@@ -271,6 +272,8 @@ const items_by_filter = async (req, res) => {
     } else {
       filteredArray = [...itemsInCategory];
     }
+
+    //Check if there's a price filter
     if (min != null || max != null) {
       if (max == null) {
         MAX = highestPrice;
@@ -280,6 +283,23 @@ const items_by_filter = async (req, res) => {
       });
     }
 
+    //Check for sort filter
+    if (sort !== '') {
+      if (sort === 'lowToHigh') {
+        console.log('lTH');
+
+        filteredArray.sort((a, b) => {
+          return a.price - b.price;
+        });
+      }
+      if (sort === 'highToLow') {
+        console.log('hTL');
+        filteredArray.sort((a, b) => {
+          console.log(b.price, a.price);
+          return b.price - a.price;
+        });
+      }
+    }
     //ADD LOWER TO HIGH, VICE-VERSA
 
     if (endIndex < filteredArray.length) {
