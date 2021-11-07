@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './Submit.css';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -51,7 +52,7 @@ function Submit({ filter, setFilter }) {
   };
 
   return (
-    <Wrapper>
+    <div className="submit-wrapper">
       <button
         type="submit"
         onClick={(e) => {
@@ -61,10 +62,8 @@ function Submit({ filter, setFilter }) {
       >
         Submit
       </button>
-    </Wrapper>
+    </div>
   );
 }
-
-const Wrapper = styled.div``;
 
 export default Submit;

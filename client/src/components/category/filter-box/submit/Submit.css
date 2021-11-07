@@ -1,0 +1,26 @@
+.submit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.submit-wrapper > button {
+  color: red;
+  width: 120px;
+  height: 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  background-color: var(--sub-nav-clr);
+  color: var(--bg-clr);
+  cursor: pointer;
+  border-radius: 15px;
+  transition: 200ms ease-in-out;
+}
+
+.submit-wrapper > button:hover {
+  background-color: var(--header-text-clr);
+}

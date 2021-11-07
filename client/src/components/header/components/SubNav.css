@@ -1,5 +1,5 @@
 .sub_nav {
-  border-top: 1px solid var(--separator-clr);
+  border-top: 1px solid var(--text-clr);
   /* border-bottom: 1px solid var(--header-text-clr); */
   /* background-color: #5a5a5a; */
   background-color: var(--sub-nav-clr);
