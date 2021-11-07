@@ -86,8 +86,6 @@ export default function Category() {
           <div className="category__wrapper">
             {items[categoryName + '_' + page]
               ? items[categoryName + '_' + page].results.map((item, i) => {
-                  let rating = Math.random() * 1 + 4;
-
                   return (
                     <Product
                       name="category"
@@ -96,7 +94,7 @@ export default function Category() {
                       price={item.price}
                       image={item.imageSrc}
                       stock={item.numInStock}
-                      rating={rating}
+                      rating={item.rating}
                       item={item}
                       key={item._id}
                     />

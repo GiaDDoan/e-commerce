@@ -10,6 +10,7 @@ const itemSchema = new Schema(
     imageSrc: String,
     numInStock: Number,
     companyId: String,
+    rating: Number,
   },
   { collection: 'items' }
 );

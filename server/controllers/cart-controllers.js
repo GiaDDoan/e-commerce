@@ -63,57 +63,59 @@ const add_item = async (req, res) => {
 
 const add_companies = async (req, res) => {
   ////////ADD Companies
+  // companies.map(async (company) => {
+  //   const newCompany = await new Company({
+  //     name: company.name,
+  //     url: company.url,
+  //     country: company.country,
+  //     companyId: company._id,
+  //   });
 
-  companies.map(async (company) => {
-    const newCompany = await new Company({
-      name: company.name,
-      url: company.url,
-      country: company.country,
-      companyId: company._id,
-    });
-
-    newCompany.save();
-  });
+  //   newCompany.save();
+  // });
 
   try {
-    /////To reset database
-    items.map(async (item) => {
-      if (!item.price.includes('.')) {
-        let newPrice = await `${item.price.substring(1)}.99`;
+    /////To reset ITEMS database
 
-        let numberPrice = await parseFloat(newPrice);
-        // console.log(numberPrice);
+    // items.map(async (item) => {
+    //   if (!item.price.includes('.')) {
+    //     let rating = (Math.random() * 3 + 2).toFixed(2);
+    //     let newPrice = await `${item.price.substring(1)}.99`;
 
-        const addedItem = await new Item({
-          name: item.name,
-          price: numberPrice,
-          bodyLocation: item.body_location,
-          category: item.category,
-          imageSrc: item.imageSrc,
-          numInStock: item.numInStock,
-          companyId: item.companyId,
-        });
+    //     let numberPrice = await parseFloat(newPrice);
 
-        addedItem.save();
-      }
+    //     const addedItem = await new Item({
+    //       name: item.name,
+    //       price: numberPrice,
+    //       bodyLocation: item.body_location,
+    //       category: item.category,
+    //       imageSrc: item.imageSrc,
+    //       numInStock: item.numInStock,
+    //       companyId: item.companyId,
+    //       rating: rating,
+    //     });
 
-      if (item.price.includes('.')) {
-        let newNumber = parseFloat(item.price.substring(1));
-        // console.log(newNumber);
+    //     addedItem.save();
+    //   }
 
-        const addedItem = await new Item({
-          name: item.name,
-          price: newNumber,
-          bodyLocation: item.body_location,
-          category: item.category,
-          imageSrc: item.imageSrc,
-          numInStock: item.numInStock,
-          companyId: item.companyId,
-        });
+    //   if (item.price.includes('.')) {
+    //     let rating = (Math.random() * 3 + 2).toFixed(2);
+    //     let newNumber = parseFloat(item.price.substring(1));
 
-        addedItem.save();
-      }
-    });
+    //     const addedItem = await new Item({
+    //       name: item.name,
+    //       price: newNumber,
+    //       bodyLocation: item.body_location,
+    //       category: item.category,
+    //       imageSrc: item.imageSrc,
+    //       numInStock: item.numInStock,
+    //       companyId: item.companyId,
+    //       rating: rating,
+    //     });
+
+    //     addedItem.save();
+    //   }
+    // });
 
     res.status(201).json({ status: 201, title: 'added' });
   } catch (error) {
