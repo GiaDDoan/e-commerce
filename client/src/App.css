@@ -2,7 +2,20 @@
   margin: 0;
   padding: 0;
 
+  /* COLOR THEMES */
+
+  --main-nav-clr: hsl(251, 19%, 29%);
+  --sub-nav-clr: hsl(251, 19%, 25%);
+  --bg-clr: hsl(38, 24%, 93%);
+  --product-bg-clr: hsl(38, 24%, 99%);
+  --header-text-clr: hsl(19, 84%, 45%);
+  --text-clr: hsl(30, 11%, 4%);
+  --separator-clr: hsl(23, 93%, 26%);
+
+  /* GAPS */
   --category-gap: 2rem 1rem;
+
+  /* COMPONENT SIZES */
   --header-main-height: 65px;
   --header-sub-height: 40px;
 }
@@ -16,7 +29,7 @@ input {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background-color: #fafafa;
+  background-color: var(--bg-clr);
 }
 
 .body {

@@ -14,7 +14,7 @@ function Product({ id, name, title, image, price, rating, stock, item }) {
   return (
     <div className={`${name}__container`}>
       <div onClick={() => handleProduct(id)} className={`${name}__product`}>
-        <div className="product__info">
+        <div className="product-info">
           <p className="product-name">{title}</p>
           <p className="product__price">
             <strong>{price}</strong>
@@ -23,8 +23,9 @@ function Product({ id, name, title, image, price, rating, stock, item }) {
             <p>{rating.toFixed(2)} ⭐</p>
           </div>
         </div>
-
-        <img src={image} alt="" />
+        <div className="product-img-wrapper">
+          <img src={image} alt="" />
+        </div>
         <div>Stock: {stock}</div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 .sub_nav {
-  border-top: 1px solid #a1a1a1;
-  border-bottom: 1px solid #a1a1a1;
-  background-color: #5a5a5a;
+  border-top: 1px solid var(--separator-clr);
+  /* border-bottom: 1px solid var(--header-text-clr); */
+  /* background-color: #5a5a5a; */
+  background-color: var(--sub-nav-clr);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -13,8 +14,9 @@
 .category__link {
   padding: 3px 8px;
   border: 1px solid transparent;
-  transition: 0.2s;
-  color: white;
+  text-decoration: none;
+  transition: 200ms ease-in-out;
+  color: var(--bg-clr);
 }
 
 .category__link:hover {

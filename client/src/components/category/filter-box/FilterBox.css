@@ -1,5 +1,6 @@
 h3 {
   padding: 0 0 0.6rem 0;
+  color: var(--header-text-clr);
 }
 
 .filter__box {
@@ -10,5 +11,7 @@ h3 {
   width: 700px;
   gap: 0.8rem 0;
   padding: 0 1rem;
-  border-right: 2px solid #bebebe;
+  border-right: 2px solid var(--sub-nav-clr);
+  color: var(--separator-clr);
+  /* border-right: 2px solid var(--header-text-clr); */
 }
