@@ -104,37 +104,6 @@ export default function Category() {
                 })
               : null}
           </div>
-          {/* PAGINATION TO CHANGE */}
-
-          {/* <Pagination className="pagination">
-            {items[categoryName + '_' + page].previous ? (
-              <button
-                onClick={() =>
-                  SendToPage(
-                    history,
-                    categoryName,
-                    items[categoryName + '_' + page].previous.page
-                  )
-                }
-              >
-                Prev
-              </button>
-            ) : null}
-            <div className="pagination__initial">{page}</div>
-            {items[categoryName + '_' + page].next ? (
-              <button
-                onClick={() =>
-                  SendToPage(
-                    history,
-                    categoryName,
-                    items[categoryName + '_' + page].next.page
-                  )
-                }
-              >
-                Next
-              </button>
-            ) : null}
-          </Pagination> */}
 
           <Pagination
             option="unfilter"

@@ -27,5 +27,7 @@ input {
 
 .content {
   /* height: calc(100vh - 125px); */
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
