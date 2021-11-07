@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import './Price.css';
 import {
   requestInitialPrices,
   receivePrices,
@@ -24,7 +25,6 @@ function Price({ filter, setFilter }) {
   }, [categoryName]);
 
   const handleChange = (event) => {
-    console.log('changing', typeof event.target.value);
     setFilter({
       ...filter,
       sort: event.target.value,
@@ -36,7 +36,7 @@ function Price({ filter, setFilter }) {
   }
   if (items.status === 'idle' || pricesState.status === 'idle') {
     return (
-      <Wrapper className="price">
+      <Wrapper className="price-wrapper">
         <h3>Price</h3>
         <div className="price__container">
           {pricesState.prices.map((checkbox, i) => {

@@ -7,6 +7,10 @@
   --header-sub-height: 40px;
 }
 
+input {
+  margin-right: 0.3rem;
+}
+
 .main {
   display: flex;
   flex-direction: column;

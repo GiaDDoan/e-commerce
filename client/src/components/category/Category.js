@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
+import Pagination from '../pagination/Pagination';
 import { fetchItemsByCategory } from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
 import { useSelector, useDispatch } from 'react-redux';
@@ -105,7 +106,7 @@ export default function Category() {
           </div>
           {/* PAGINATION TO CHANGE */}
 
-          <Pagination className="pagination">
+          {/* <Pagination className="pagination">
             {items[categoryName + '_' + page].previous ? (
               <button
                 onClick={() =>
@@ -133,7 +134,14 @@ export default function Category() {
                 Next
               </button>
             ) : null}
-          </Pagination>
+          </Pagination> */}
+
+          <Pagination
+            option="unfilter"
+            items={items}
+            categoryName={categoryName}
+            page={page}
+          />
         </div>
       </Wrapper>
     );
@@ -143,4 +151,3 @@ export default function Category() {
 
 const Wrapper = styled.div``;
 const ProductContainer = styled.div``;
-const Pagination = styled.div``;

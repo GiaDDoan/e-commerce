@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 function Product({ id, name, title, image, price, rating, stock, item }) {
   const history = useHistory();
-  console.log('PRO', name);
 
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);

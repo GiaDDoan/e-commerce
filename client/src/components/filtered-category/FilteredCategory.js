@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Product from '../product/Product';
+import Pagination from '../pagination/Pagination';
 import FilterSendToNewPage from '../../function-helpers/FilterSendToNewPage';
 import { useHistory } from 'react-router-dom';
 import { fetchProductsByFilter } from '../../api-helpers/index';
@@ -20,7 +21,6 @@ function FilteredCategory() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('fil', page);
     if (page === '1') return;
     if (filteredItems[filterId + '_' + page]) return;
     dispatch(requestFilteredItems());
@@ -29,7 +29,6 @@ function FilteredCategory() {
         filteredItems[filterId + '_' + '1'].filter,
         page
       );
-      console.log('res', result);
       if (result.status === 200) {
         dispatch(
           receiveFilteredItems(
@@ -64,40 +63,19 @@ function FilteredCategory() {
                 price={item.price}
                 image={item.imageSrc}
                 rating={rating}
+                stock={item.numInStock}
                 key={i}
               />
             );
           })}
         </div>
-        <Pagination className="pagination">
-          {filteredItems[filterId + '_' + page].items.previous ? (
-            <button
-              onClick={() =>
-                FilterSendToNewPage(
-                  history,
-                  filterId,
-                  filteredItems[filterId + '_' + page].items.previous.page
-                )
-              }
-            >
-              Prev
-            </button>
-          ) : null}
-          <div className="pagination__initial">{page}</div>
-          {filteredItems[filterId + '_' + page].items.next ? (
-            <button
-              onClick={() =>
-                FilterSendToNewPage(
-                  history,
-                  filterId,
-                  filteredItems[filterId + '_' + page].items.next.page
-                )
-              }
-            >
-              Next
-            </button>
-          ) : null}
-        </Pagination>
+
+        <Pagination
+          option="filter"
+          items={filteredItems}
+          categoryName={filterId}
+          page={page}
+        />
       </Wrapper>
     );
   } else {
@@ -106,7 +84,5 @@ function FilteredCategory() {
 }
 
 const Wrapper = styled.div``;
-const ProductContainer = styled.div``;
-const Pagination = styled.div``;
 
 export default FilteredCategory;

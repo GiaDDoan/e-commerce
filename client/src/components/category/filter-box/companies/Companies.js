@@ -10,7 +10,7 @@ function Companies({ filter, setFilter }) {
 
   if (items[categoryName]) {
     return (
-      <Wrapper>
+      <Wrapper className="companies-wrapper">
         <h3>Companies</h3>
         {items[categoryName].map((company, i) => {
           return (
