@@ -97,7 +97,6 @@ const get_items_by_category = async (req, res) => {
 
 const post_items_by_filter = async (req, res) => {
   const { min, max, companyIds, category } = req.body;
-  console.log('filter', category);
   try {
     let filteredArray = [];
     const maxPrice = max === null ? 3000 : max;
@@ -131,7 +130,6 @@ const post_items_by_filter = async (req, res) => {
     //   category: category,
     //   price: { $gt: undefined },
     // });
-    // console.log('WAITING', min, max, test);
 
     if (endIndex < filteredArray.length) {
       results.next = {
@@ -184,13 +182,11 @@ const get_items_by_price = async (req, res) => {
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const results = {};
-    console.log(category_, min, max);
 
     const filteredArray = await Item.find({
       category: category_,
       price: { $lt: 25.0, $gt: 23.0 },
     });
-    console.log(filteredArray.length);
 
     const foundArr = await Item.find({ category: category_ });
     if (endIndex < foundArr.length) {
@@ -265,7 +261,6 @@ const items_by_filter = async (req, res) => {
     if (companyIds.length > 0) {
       itemsInCategory.map((item) => {
         if (companyIds.includes(parseInt(item.companyId))) {
-          // console.log('ITEM', item);
           filteredArray.push(item);
         }
       });
@@ -286,16 +281,12 @@ const items_by_filter = async (req, res) => {
     //Check for sort filter
     if (sort !== '') {
       if (sort === 'lowToHigh') {
-        console.log('lTH');
-
         filteredArray.sort((a, b) => {
           return a.price - b.price;
         });
       }
       if (sort === 'highToLow') {
-        console.log('hTL');
         filteredArray.sort((a, b) => {
-          console.log(b.price, a.price);
           return b.price - a.price;
         });
       }
@@ -316,8 +307,6 @@ const items_by_filter = async (req, res) => {
     }
     results.totalPages = Math.ceil(filteredArray.length / limit);
     results.results = filteredArray.slice(startIndex, endIndex);
-
-    console.log('RESULT ARRAY', filteredArray.length);
 
     res.status(200).json({
       status: 200,

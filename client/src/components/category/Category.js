@@ -86,11 +86,29 @@ export default function Category() {
           <div className="category__wrapper">
             {items[categoryName + '_' + page]
               ? items[categoryName + '_' + page].results.map((item, i) => {
+                  let checkedTitle = item.name;
+
+                  if (item.name.length > 60) {
+                    let splitting = item.name.split(' ');
+                    let totalLength = 0;
+
+                    for (var x = 0; x < splitting.length; x++) {
+                      if (totalLength >= 50) {
+                        checkedTitle = splitting
+                          .slice(0, x)
+                          .join(' ')
+                          .concat('...');
+                        break;
+                      }
+                      totalLength += splitting[x].length;
+                    }
+                  }
+
                   return (
                     <Product
                       name="category"
                       id={item._id}
-                      title={item.name}
+                      title={checkedTitle}
                       price={item.price}
                       image={item.imageSrc}
                       stock={item.numInStock}

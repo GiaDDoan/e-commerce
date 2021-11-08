@@ -60,7 +60,6 @@ export const fetchProductById = (productId) => {
 };
 
 export const fetchProductsByFilter = (filter, page) => {
-  console.log('FETH', filter);
   return fetch(
     `/items/filter?min=${filter.min}&max=${filter.max}&page=${page}&limit=12`,
     {

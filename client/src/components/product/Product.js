@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import './Product.css';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 function Product({ id, name, title, image, price, rating, stock, item }) {
   const history = useHistory();
-
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);
   };

@@ -9,7 +9,6 @@ export default function userReducer(state = initialState, action) {
       };
     }
     case 'RECEIVE_USER': {
-      // console.log('REDUCER USER', action);
       const { user } = action;
 
       return {

@@ -31,11 +31,3 @@
   padding-top: 1rem;
   gap: var(--category-gap);
 }
-
-.pagination {
-  display: flex;
-  justify-content: center;
-}
-.pagination__initial {
-  margin: 0 5px;
-}

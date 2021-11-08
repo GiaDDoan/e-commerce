@@ -35,17 +35,33 @@ function Home() {
 
           <div className="home__row">
             {samples.map((sample, i) => {
-              let rating = Math.random() * 1 + 4;
+              let checkedTitle = sample.name;
+
+              if (sample.name.length > 50) {
+                let splitting = sample.name.split(' ');
+                let totalLength = 0;
+
+                for (var x = 0; x < splitting.length; x++) {
+                  if (totalLength >= 50) {
+                    checkedTitle = splitting
+                      .slice(0, x)
+                      .join(' ')
+                      .concat('...');
+                    break;
+                  }
+                  totalLength += splitting[x].length;
+                }
+              }
 
               return (
                 <Product
                   name="home"
                   key={i}
                   id={sample._id}
-                  title={sample.name}
+                  title={checkedTitle}
                   price={sample.price}
                   image={sample.imageSrc}
-                  rating={rating}
+                  rating={sample.rating}
                   stock={sample.numInStock}
                 />
               );

@@ -1,7 +1,7 @@
 const initialState = {
   prices: [
     {
-      price: 'under $25',
+      price: 'Under $25',
       min: 0,
       max: 25,
       checked: false,

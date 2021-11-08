@@ -53,16 +53,29 @@ function FilteredCategory() {
       <Wrapper className="category__filtered">
         <div className="category__filtered__items">
           {filteredItems[filterId + '_' + page].items.results.map((item, i) => {
-            let rating = Math.random() * 1 + 4;
+            let checkedTitle = item.name;
+
+            if (item.name.length > 60) {
+              let splitting = item.name.split(' ');
+              let totalLength = 0;
+
+              for (var x = 0; x < splitting.length; x++) {
+                if (totalLength >= 50) {
+                  checkedTitle = splitting.slice(0, x).join(' ').concat('...');
+                  break;
+                }
+                totalLength += splitting[x].length;
+              }
+            }
 
             return (
               <Product
                 name="category"
                 id={item._id}
-                title={item.name}
+                title={checkedTitle}
                 price={item.price}
                 image={item.imageSrc}
-                rating={rating}
+                rating={item.rating}
                 stock={item.numInStock}
                 key={i}
               />

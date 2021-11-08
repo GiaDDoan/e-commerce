@@ -7,7 +7,6 @@ import FilterSendToNewPage from '../../function-helpers/FilterSendToNewPage';
 
 const Pagination = ({ option, items, categoryName, page }) => {
   const history = useHistory();
-  console.log('itemsInPage', items);
 
   if (option === 'unfilter') {
     return (

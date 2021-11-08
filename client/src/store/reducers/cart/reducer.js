@@ -3,7 +3,6 @@ const initialState = { status: 'idle', total: 0, items: [] };
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_CART': {
-      console.log('request');
       return {
         ...state,
         items: [],

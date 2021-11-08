@@ -11,7 +11,6 @@ const get_cart = async (req, res) => {
     //Make a function to only give back the data with the same googleId
     const id = req.query.userId;
     const cartData = await Cart.find({ userId: id }).exec();
-    // console.log('data', cartData);
 
     res.status(200).json({
       status: 200,
@@ -36,23 +35,19 @@ const add_item = async (req, res) => {
       userId: userId,
       itemId: itemId,
     };
-    console.log('itemId', itemId);
 
     //Check if the item is already in the user's cart, TRUE = update, FALSE = add
     if (existingId) {
-      console.log('item exist');
       Cart.findOneAndUpdate(query, {
         $set: { quantity: existingId.quantity + parseInt(qty) },
       }).exec();
     } else {
-      console.log('doesnt exist, adding');
       const addItemToCart = await new Cart({
         userId: userId,
         itemId: itemId,
         quantity: parseInt(qty),
       });
       addItemToCart.save();
-      console.log('new item added');
     }
 
     res.status(201).json({ status: 201, cart: 'changed' });
