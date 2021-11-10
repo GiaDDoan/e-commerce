@@ -15,6 +15,12 @@
   z-index: 1;
   border-radius: 15px;
   cursor: pointer;
+  border: solid 2px transparent;
+  transition: 200ms ease-in-out;
+}
+
+.home__product:hover {
+  border: solid 2px var(--header-text-clr);
 }
 
 .category__container {
@@ -37,9 +43,15 @@
   height: 360px;
   background-color: var(--product-bg-clr);
   z-index: 1;
-  border-radius: 15px;
-  /* border: 1px solid var(--sub-nav-clr); */
+  border-radius: 10px;
+  border: 1px solid transparent;
   cursor: pointer;
+  transition: 200ms ease-in-out;
+}
+
+.category__product:hover {
+  /* border: solid 1px var(--separator-clr); */
+  border: solid 1px var(--header-text-clr);
 }
 
 .product-info {
