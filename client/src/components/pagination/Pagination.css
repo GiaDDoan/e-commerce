@@ -4,4 +4,42 @@
   align-items: center;
   margin-top: auto;
   padding: 2rem 0;
+
+  --btn-size: 2.5rem;
+}
+
+.pagination-styling {
+  font-size: 1rem;
+  height: var(--btn-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 0.5em;
+  background-color: var(--sub-nav-clr);
+  color: var(--bg-clr);
+}
+
+.page-btn {
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+}
+
+.page-btn:hover {
+  background-color: var(--header-text-clr);
+}
+
+.current-page {
+  margin: 0 0.2rem;
+  width: var(--btn-size);
+}
+
+.prev-btn {
+  padding: 0 calc(var(--btn-size) / 2.5);
+}
+
+.next-btn {
+  padding: 0 calc(var(--btn-size) / 2.5);
 }
