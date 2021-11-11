@@ -13,7 +13,7 @@ const Pagination = ({ option, items, categoryName, page }) => {
       <div className="pagination">
         {items[categoryName + '_' + page]?.previous ? (
           <button
-            className="pagination-styling prev-btn page-btn"
+            className="base-fill pagination-styling prev-btn page-btn"
             onClick={() =>
               SendToPage(
                 history,
@@ -25,10 +25,10 @@ const Pagination = ({ option, items, categoryName, page }) => {
             Prev
           </button>
         ) : null}
-        <div className="pagination-styling current-page">{page}</div>
+        <div className="base-fill pagination-styling current-page">{page}</div>
         {items[categoryName + '_' + page].next ? (
           <button
-            className="pagination-styling next-btn page-btn"
+            className="base-fill pagination-styling next-btn page-btn"
             onClick={() =>
               SendToPage(
                 history,
@@ -48,7 +48,7 @@ const Pagination = ({ option, items, categoryName, page }) => {
       <div className="pagination">
         {items[categoryName + '_' + page].items.previous ? (
           <button
-            className="pagination-styling prev-btn page-btn"
+            className="base-fill pagination-styling prev-btn page-btn"
             onClick={() =>
               FilterSendToNewPage(
                 history,
@@ -60,10 +60,10 @@ const Pagination = ({ option, items, categoryName, page }) => {
             Prev
           </button>
         ) : null}
-        <div className="pagination-styling current-page">{page}</div>
+        <div className="base-fill pagination-styling current-page">{page}</div>
         {items[categoryName + '_' + page].items.next ? (
           <button
-            className="pagination-styling next-btn page-btn"
+            className="base-fill pagination-styling next-btn page-btn"
             onClick={() =>
               FilterSendToNewPage(
                 history,

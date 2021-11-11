@@ -9,17 +9,7 @@
 }
 
 .pagination-styling {
-  font-size: 1rem;
   height: var(--btn-size);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  outline: none;
-  border: none;
-  border-radius: 0.5em;
-  background-color: var(--sub-nav-clr);
-  color: var(--bg-clr);
 }
 
 .page-btn {

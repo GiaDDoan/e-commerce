@@ -18,7 +18,7 @@
   /* COMPONENT SIZES */
   --header-main-height: 65px;
   --header-sub-height: 40px;
-  
+
   /* SIZING */
 }
 
@@ -45,4 +45,17 @@ input {
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.base-fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 0.5em;
+  background-color: var(--sub-nav-clr);
+  color: var(--bg-clr);
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './ProductPage.css';
-import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 import { fetchProductById } from '../../api-helpers/index';
@@ -76,22 +75,24 @@ function ProductPage() {
     } = item;
 
     return (
-      <Wrapper>
+      <div className="product-page-container">
         <div className="navigation">
           <div>{`Home > Category`}</div>
         </div>
-        <div className="item">
-          <img src={imageSrc} />
-          <div className="item__info">
-            <div className="item__name">{name}</div>
-            <div>Make a tag: {bodyLocation}</div>
+        <div className="item-container">
+          <div className="item-img-wrapper">
+            <img src={imageSrc} alt="item-img" className="item-img" />
+          </div>
+          <div className="item-info-wrapper">
+            <div className="item-name">{name}</div>
+            <div className="base-fill item-tag">{bodyLocation}</div>
             <div>Price: {price}</div>
             <div>Stock: {numInStock}</div>
-            <Quantity className="quantity-wrapper">
+            <div className="item-quantity-wrapper">
               <button onClick={() => removeQuantity()}>-</button>
               <div>{quantity}</div>
               <button onClick={() => addQuantity(numInStock)}>+</button>
-            </Quantity>
+            </div>
             <button
               onClick={() => {
                 user.status == 'idle'
@@ -109,14 +110,12 @@ function ProductPage() {
             </button>
           </div>
         </div>
-      </Wrapper>
+      </div>
     );
   }
   if (status === 'error') {
-    return <Wrapper>{errorMsg}</Wrapper>;
+    return <div>{errorMsg}</div>;
   }
 }
 
-const Wrapper = styled.div``;
-const Quantity = styled.div``;
 export default ProductPage;
