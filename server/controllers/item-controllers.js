@@ -20,6 +20,53 @@ const get_sample = async (req, res) => {
   }
 };
 
+const get_sample_by_category = async (req, res) => {
+  // /items/samples/category?size=8
+  try {
+    const { category, size } = req.query;
+    let modifiedCategory = category.includes('_')
+      ? category.split('_').join(' ')
+      : category;
+
+    const foundArr = await Item.find({ category: modifiedCategory });
+    let sampleCategory = [];
+    for (let i = 0; i < size; i++) {
+      const randomNumber = Math.floor(Math.random() * foundArr.length);
+      sampleCategory.push(foundArr[randomNumber]);
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: 'Received all titles',
+      sample: sampleCategory,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
+const get_sample_by_company = async (req, res) => {
+  // /items/samples/category?size=8&companyId=12311
+  try {
+    const { companyId, size } = req.query;
+
+    const foundArr = await Item.find({ companyId: companyId });
+    let sampleCategory = [];
+    for (let i = 0; i < size; i++) {
+      const randomNumber = Math.floor(Math.random() * foundArr.length);
+      sampleCategory.push(foundArr[randomNumber]);
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: 'Received all titles',
+      sample: sampleCategory,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 const get_categories = async (req, res) => {
   //URL EX: http://localhost:5000/items/categories?category=Pet_and_Animals&page=1&limit=3
   try {
@@ -319,6 +366,8 @@ const items_by_filter = async (req, res) => {
 
 module.exports = {
   get_sample,
+  get_sample_by_category,
+  get_sample_by_company,
   get_categories,
   get_items_by_category,
   get_company_by_id,
