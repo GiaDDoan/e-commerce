@@ -1,13 +1,11 @@
 .product-sample-container {
   display: flex;
   align-items: center;
-  /* margin: 0 auto; */
+  margin: 0 auto;
   gap: 0 1rem;
-  /* padding: 1rem; */
-  /* width: 95vw; */
   width: 90%;
+  max-width: 1800px;
   overflow-x: auto;
-  border: solid 2px red;
 }
 
 .product-sample-wrapper {
@@ -43,4 +41,9 @@
 
 .product-sample-name {
   font-weight: bold;
+}
+
+.sample-test {
+  border: solid 2px blue;
+  width: 450px;
 }

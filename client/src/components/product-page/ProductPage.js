@@ -74,6 +74,7 @@ function ProductPage() {
       numInStock,
       price,
     } = item;
+    let testArr = ['1', '1', '1', '1', '1', '1', '1', '1'];
 
     return (
       <div className="product-page-container">
@@ -115,14 +116,14 @@ function ProductPage() {
           <div className="sample-title">
             Similar products in the same Category
           </div>
-          <Samples size={8} sampleKey={'category'} sample={category} />
+          <Samples size={12} sampleKey={'category'} sample={category} />
         </div>
-        {/* <div className="sample-container">
+        <div className="sample-container">
           <div className="sample-title">
             Similar products in the same Company
           </div>
           <Samples size={12} sampleKey={'company'} sample={companyId} />
-        </div> */}
+        </div>
       </div>
     );
   }
