@@ -11,7 +11,7 @@ import FilteredCategory from './components/filtered-category/FilteredCategory';
 import Cart from './components/cart/Cart';
 
 function App() {
-  const [cartToggle, setCartToggle] = useState(false);
+  const [cartToggle, setCartToggle] = useState(true);
 
   const toggleCart = () => {
     setCartToggle(!cartToggle);

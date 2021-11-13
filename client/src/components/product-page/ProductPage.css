@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   height: 500px;
-  border: solid 1px black;
+  padding-bottom: 3rem;
 }
 
 .item-img-wrapper {
@@ -50,5 +50,17 @@
 .item-quantity-wrapper {
   display: flex;
   justify-content: center;
-  border: solid 1px black;
+}
+
+.sample-container {
+  padding-bottom: 3rem;
+}
+
+.sample-title {
+  font-weight: bold;
+  font-size: var(--fs-600);
+  border-top: solid 2px var(--sub-nav-clr);
+  padding: 0.5rem 0;
+  padding-left: 1rem;
+  margin: 0 1.2rem;
 }

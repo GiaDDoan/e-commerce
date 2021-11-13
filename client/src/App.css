@@ -20,6 +20,9 @@
   --header-sub-height: 40px;
 
   /* SIZING */
+
+  /* FONT-SIZES */
+  --fs-600: 1.4rem;
 }
 
 input {

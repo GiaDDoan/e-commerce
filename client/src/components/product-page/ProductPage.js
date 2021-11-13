@@ -112,9 +112,17 @@ function ProductPage() {
           </div>
         </div>
         <div className="sample-container">
-          <div>Similar product in the same Category</div>
-          <Samples size={12} sampleKey={'category'} sample={category} />
+          <div className="sample-title">
+            Similar products in the same Category
+          </div>
+          <Samples size={8} sampleKey={'category'} sample={category} />
         </div>
+        {/* <div className="sample-container">
+          <div className="sample-title">
+            Similar products in the same Company
+          </div>
+          <Samples size={12} sampleKey={'company'} sample={companyId} />
+        </div> */}
       </div>
     );
   }
