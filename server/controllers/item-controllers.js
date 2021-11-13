@@ -21,7 +21,7 @@ const get_sample = async (req, res) => {
 };
 
 const get_sample_by_category = async (req, res) => {
-  // /items/samples/category?size=8
+  // /items/samples/category?size=8&companyId=12311
   try {
     const { category, size } = req.query;
     let modifiedCategory = category.includes('_')

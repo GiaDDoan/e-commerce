@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
+import Samples from './samples/Samples';
 
 import { fetchProductById } from '../../api-helpers/index';
 import { useSelector, useDispatch } from 'react-redux';
@@ -109,6 +110,10 @@ function ProductPage() {
               Add to cart
             </button>
           </div>
+        </div>
+        <div className="sample-container">
+          <div>Similar product in the same Category</div>
+          <Samples size={12} sampleKey={'category'} sample={category} />
         </div>
       </div>
     );
