@@ -8,9 +8,11 @@
   --sub-nav-clr: hsl(251, 19%, 25%);
   --bg-clr: hsl(38, 24%, 93%);
   --product-bg-clr: hsl(38, 24%, 99%);
-  --header-text-clr: hsl(19, 84%, 45%);
+  --header-text-clr: hsl(19, 84%, 53%);
   --text-clr: hsl(30, 11%, 4%);
   --separator-clr: hsl(23, 93%, 26%);
+  --filter-clr: hsl(19, 84%, 48%);
+  --filter-bdr-clr: hsl(19, 84%, 45%);
 
   /* GAPS */
   --category-gap: 2rem 1rem;
