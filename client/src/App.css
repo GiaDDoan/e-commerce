@@ -25,6 +25,7 @@
 
   /* FONT-SIZES */
   --fs-600: 1.4rem;
+  --fs-error: 5em;
 }
 
 input {

@@ -11,6 +11,7 @@ import {
   addItem,
 } from '../../store/reducers/cart/actions';
 import { addItemToDB } from '../../api-helpers/cart-helper';
+import ErrorPage from '../error-page/ErrorPage';
 
 function ProductPage() {
   const { productId } = useParams();
@@ -74,7 +75,6 @@ function ProductPage() {
       numInStock,
       price,
     } = item;
-    let testArr = ['1', '1', '1', '1', '1', '1', '1', '1'];
 
     return (
       <div className="product-page-container">
@@ -128,7 +128,7 @@ function ProductPage() {
     );
   }
   if (status === 'error') {
-    return <div>{errorMsg}</div>;
+    return <ErrorPage errorMsg={errorMsg} />;
   }
 }
 

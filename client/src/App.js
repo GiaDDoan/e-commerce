@@ -9,9 +9,10 @@ import Category from './components/category/Category';
 import ProductPage from './components/product-page/ProductPage';
 import FilteredCategory from './components/filtered-category/FilteredCategory';
 import Cart from './components/cart/Cart';
+import ErrorPage from './components/error-page/ErrorPage';
 
 function App() {
-  const [cartToggle, setCartToggle] = useState(true);
+  const [cartToggle, setCartToggle] = useState(false);
 
   const toggleCart = () => {
     setCartToggle(!cartToggle);
@@ -25,6 +26,9 @@ function App() {
             <Header toggleCart={toggleCart} />
             <div className="content">
               <Switch>
+                <Route exact path="/error">
+                  <ErrorPage />
+                </Route>
                 <Route exact path="/">
                   <Home />
                 </Route>

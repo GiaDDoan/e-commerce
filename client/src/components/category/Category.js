@@ -15,6 +15,7 @@ import {
   receiveItems,
   sendError,
 } from '../../store/reducers/items/actions';
+import ErrorPage from '../error-page/ErrorPage';
 
 const initialFilter = {
   min: null,
@@ -25,58 +26,90 @@ const initialFilter = {
 };
 
 export default function Category() {
+  const [status, setStatus] = useState('loading');
   const [filter, setFilter] = useState(initialFilter);
   const { categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.items);
+  // const items = useSelector((state) => state.items);
+  const [itemsRes, setItemsRes] = useState([]);
 
   useEffect(() => {
-    setFilter({ ...initialFilter, category: categoryName });
-    if (items[categoryName + '_' + page]) return;
-    dispatch(requestItems());
-    const fetchingItems = async () => {
-      const res = await fetchItemsByCategory(categoryName, page);
-      if (res.status === 201) {
-        dispatch(
-          receiveItems(categoryName, page, res.items, res.uniqueCompanies)
-        ); //(category, categoryPage, items, uniqueCompanies)
-      } else {
-        dispatch(sendError(res.message));
-      }
-    };
-    fetchingItems();
-  }, [categoryName]);
-
-  useEffect(() => {
-    // if (!parseInt(page)) {
+    // setStatus('loading');
+    // setFilter({ ...initialFilter, category: categoryName });
+    // if (items[categoryName + '_' + page]) {
+    //   setStatus('idle');
     //   return;
     // }
-    if (page === '1') return;
-    if (items[categoryName + '_' + page]) return;
-    dispatch(requestItems());
+    // dispatch(requestItems());
+    // const fetchingItems = async () => {
+    //   const res = await fetchItemsByCategory(categoryName, page);
+    //   if (res.status === 201) {
+    //     dispatch(
+    //       receiveItems(categoryName, page, res.items, res.uniqueCompanies)
+    //     ); //(category, categoryPage, items, uniqueCompanies)
+    //     setStatus('idle');
+    //   } else {
+    //     dispatch(sendError(res.message));
+    //     setStatus('error');
+    //   }
+    // };
+    // fetchingItems();
 
-    /////Fetch items by Category Only
-    // if (parseInt(page)) {
+    setStatus('loading');
+    setFilter({ ...initialFilter, category: categoryName });
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
-        // setItems(res.items);
-        dispatch(
-          receiveItems(categoryName, page, res.items, res.uniqueCompanies)
-        );
+        setItemsRes(res.items);
+        setStatus('idle');
       } else {
-        dispatch(sendError(res.message));
+        console.log('ERR', res.message);
+        setStatus('error');
       }
     };
     fetchingItems();
-    // }
   }, [page]);
 
-  if (items.status === 'loading') {
+  // useEffect(() => {
+  //   setStatus('loading');
+
+  //   // if (!parseInt(page)) {
+  //   //   return;
+  //   // }
+  //   if (page === '1') {
+  //     setStatus('idle');
+  //     return;
+  //   }
+  //   if (items[categoryName + '_' + page]) {
+  //     setStatus('idle');
+  //     return;
+  //   }
+  //   dispatch(requestItems());
+
+  //   /////Fetch items by Category Only
+  //   // if (parseInt(page)) {
+  //   const fetchingItems = async () => {
+  //     const res = await fetchItemsByCategory(categoryName, page);
+  //     if (res.status === 201) {
+  //       // setItems(res.items);
+  //       dispatch(
+  //         receiveItems(categoryName, page, res.items, res.uniqueCompanies)
+  //       );
+  //       setStatus('idle');
+  //     } else {
+  //       dispatch(sendError(res.message));
+  //       setStatus('error');
+  //     }
+  //   };
+  //   fetchingItems();
+  //   // }
+  // }, [page]);
+
+  if (status === 'loading') {
     return <div>Loading Items in Category</div>;
   }
-  if (items.status === 'idle' && items[categoryName + '_' + page]) {
+  if (status === 'idle') {
     return (
       <Wrapper className="category">
         <div className="category__filter">
@@ -84,46 +117,44 @@ export default function Category() {
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
-            {items[categoryName + '_' + page]
-              ? items[categoryName + '_' + page].results.map((item, i) => {
-                  let checkedTitle = item.name;
+            {itemsRes.results.map((item, i) => {
+              let checkedTitle = item.name;
 
-                  if (item.name.length > 60) {
-                    let splitting = item.name.split(' ');
-                    let totalLength = 0;
+              if (item.name.length > 60) {
+                let splitting = item.name.split(' ');
+                let totalLength = 0;
 
-                    for (var x = 0; x < splitting.length; x++) {
-                      if (totalLength >= 50) {
-                        checkedTitle = splitting
-                          .slice(0, x)
-                          .join(' ')
-                          .concat('...');
-                        break;
-                      }
-                      totalLength += splitting[x].length;
-                    }
+                for (var x = 0; x < splitting.length; x++) {
+                  if (totalLength >= 50) {
+                    checkedTitle = splitting
+                      .slice(0, x)
+                      .join(' ')
+                      .concat('...');
+                    break;
                   }
+                  totalLength += splitting[x].length;
+                }
+              }
 
-                  return (
-                    <Product
-                      name="category"
-                      id={item._id}
-                      title={checkedTitle}
-                      price={item.price}
-                      image={item.imageSrc}
-                      stock={item.numInStock}
-                      rating={item.rating}
-                      item={item}
-                      key={item._id}
-                    />
-                  );
-                })
-              : null}
+              return (
+                <Product
+                  name="category"
+                  id={item._id}
+                  title={checkedTitle}
+                  price={item.price}
+                  image={item.imageSrc}
+                  stock={item.numInStock}
+                  rating={item.rating}
+                  item={item}
+                  key={item._id}
+                />
+              );
+            })}
           </div>
 
           <Pagination
             option="unfilter"
-            items={items}
+            items={itemsRes}
             categoryName={categoryName}
             page={page}
           />
@@ -131,8 +162,9 @@ export default function Category() {
       </Wrapper>
     );
   }
-  return <div>Load</div>;
+  if (status === 'error') {
+    return <ErrorPage />;
+  }
 }
 
 const Wrapper = styled.div``;
-const ProductContainer = styled.div``;
