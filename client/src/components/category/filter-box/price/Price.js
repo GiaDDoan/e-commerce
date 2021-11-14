@@ -39,26 +39,50 @@ function Price({ filter, setFilter }) {
       <Wrapper className="price-wrapper">
         <h3>Price</h3>
         <div className="price__container">
-          {pricesState.prices.map((checkbox, i) => {
-            return (
-              <label key={`${checkbox.price}`}>
-                <input
-                  type="checkbox"
-                  checked={checkbox.checked}
-                  // onChange={(e) => onChecked(e, i)}
-                  onChange={(e) => {
-                    dispatch(toggleCheckbox(i));
-                    setFilter({
-                      ...filter,
-                      min: pricesState.prices[i].min,
-                      max: pricesState.prices[i].max,
-                    });
-                  }}
-                />
-                {checkbox.price}
-              </label>
-            );
-          })}
+          <ul class="price-wrapper">
+            {pricesState.prices.map((checkbox, i) => {
+              console.log('CHECK', checkbox);
+              return (
+                <li>
+                  <input
+                    type="checkbox"
+                    checked={checkbox.checked}
+                    id={`${checkbox.id}`}
+                    value={checkbox.price}
+                    // onChange={(e) => onChecked(e, i)}
+                    onChange={(e) => {
+                      dispatch(toggleCheckbox(i));
+                      setFilter({
+                        ...filter,
+                        min: pricesState.prices[i].min,
+                        max: pricesState.prices[i].max,
+                      });
+                    }}
+                  />
+                  <label for={checkbox.id} key={`${checkbox.price}`}>
+                    {checkbox.price}
+                  </label>
+                </li>
+
+                // <label key={`${checkbox.price}`}>
+                //   <input
+                //     type="checkbox"
+                //     checked={checkbox.checked}
+                //     // onChange={(e) => onChecked(e, i)}
+                //     onChange={(e) => {
+                //       dispatch(toggleCheckbox(i));
+                //       setFilter({
+                //         ...filter,
+                //         min: pricesState.prices[i].min,
+                //         max: pricesState.prices[i].max,
+                //       });
+                //     }}
+                //   />
+                //   {checkbox.price}
+                // </label>
+              );
+            })}
+          </ul>
           <select onChange={handleChange}>
             <option value="">Sort by: Featured</option>
             <option value="lowToHigh">Price: Low to High</option>

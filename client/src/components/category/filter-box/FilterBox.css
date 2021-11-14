@@ -15,3 +15,68 @@ h3 {
   color: var(--separator-clr);
   /* border-right: 2px solid var(--header-text-clr); */
 }
+
+ul.price-wrapper {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+}
+ul.price-wrapper li {
+  display: inline;
+}
+ul.price-wrapper li label {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #8b8b8b;
+  color: #adadad;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 3px 0px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+}
+
+ul.price-wrapper li label {
+  padding: 6px 12px;
+  cursor: pointer;
+  line-height: 27px;
+}
+
+ul.price-wrapper li label::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 13px;
+  width: 13px;
+  padding: 2px 6px 2px 2px;
+  line-height: 14px;
+  content: '\f067';
+  transition: transform 0.3s ease-in-out;
+}
+
+ul.price-wrapper input:checked + label::before {
+  content: '\f00c';
+  transform: rotate(-360deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+ul.price-wrapper input:checked + label {
+  border: 1px solid #1bdbf8;
+  background-color: #12bbd4;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+ul.price-wrapper li input[type='checkbox'] {
+  display: none;
+}
