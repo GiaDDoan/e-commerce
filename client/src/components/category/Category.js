@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
 import Pagination from '../pagination/Pagination';
+import Spinner from '../spinner/Spinner';
 import { fetchItemsByCategory } from '../../api-helpers/index';
 import SendToPage from '../../function-helpers/SendToPage';
 import { useSelector, useDispatch } from 'react-redux';
@@ -50,43 +51,8 @@ export default function Category({ filter, setFilter, initialFilter }) {
     fetchingItems();
   }, [history.location.pathname]);
 
-  // useEffect(() => {
-  //   setStatus('loading');
-
-  //   // if (!parseInt(page)) {
-  //   //   return;
-  //   // }
-  //   if (page === '1') {
-  //     setStatus('idle');
-  //     return;
-  //   }
-  //   if (items[categoryName + '_' + page]) {
-  //     setStatus('idle');
-  //     return;
-  //   }
-  //   dispatch(requestItems());
-
-  //   /////Fetch items by Category Only
-  //   // if (parseInt(page)) {
-  //   const fetchingItems = async () => {
-  //     const res = await fetchItemsByCategory(categoryName, page);
-  //     if (res.status === 201) {
-  //       // setItems(res.items);
-  //       dispatch(
-  //         receiveItems(categoryName, page, res.items, res.uniqueCompanies)
-  //       );
-  //       setStatus('idle');
-  //     } else {
-  //       dispatch(sendError(res.message));
-  //       setStatus('error');
-  //     }
-  //   };
-  //   fetchingItems();
-  //   // }
-  // }, [page]);
-
   if (status === 'loading') {
-    return <div>Loading Items in Category</div>;
+    return <Spinner className="spinner-l" />;
   }
 
   if (status === 'idle') {

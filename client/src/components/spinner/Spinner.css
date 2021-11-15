@@ -1,0 +1,21 @@
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-size: 7em;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  transform: rotate(-360deg);
+  animation: spin 1.5s linear infinite;
+  color: var(--header-text-clr);
+}
