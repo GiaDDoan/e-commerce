@@ -12,19 +12,26 @@
   --wrapper-size: 210px;
 
   display: flex;
+  justify-content: center;
   flex-direction: column;
   flex-shrink: 0;
   gap: 2px;
-  border: solid 1px hsl(251, 19%, 60%);
   width: var(--wrapper-size);
   height: calc(var(--wrapper-size) * 1.4);
-  padding: 0.7rem;
+  padding: 0.7rem 0.6rem;
+  border: solid 1px hsl(251, 19%, 60%);
+  background-color: white;
+  border-radius: 20px;
   cursor: pointer;
   transition: 200ms ease-in-out;
 }
 
 .product-sample-wrapper:hover {
   border: solid 1px var(--header-text-clr);
+}
+
+.product-sample-wrapper:hover .product-sample-name {
+  text-decoration: underline;
 }
 
 .product-sample-img-wrapper {

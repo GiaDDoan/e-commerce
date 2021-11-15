@@ -9,30 +9,12 @@ import Product from '../product/Product';
 import Pagination from '../pagination/Pagination';
 import Spinner from '../spinner/Spinner';
 import { fetchItemsByCategory } from '../../api-helpers/index';
-import SendToPage from '../../function-helpers/SendToPage';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  requestItems,
-  receiveItems,
-  sendError,
-} from '../../store/reducers/items/actions';
 import ErrorPage from '../error-page/ErrorPage';
-
-// const initialFilter = {
-//   min: null,
-//   max: null,
-//   companyIds: [],
-//   category: '',
-//   sort: '',
-// };
 
 export default function Category({ filter, setFilter, initialFilter }) {
   const [status, setStatus] = useState('loading');
-  // const [filter, setFilter] = useState(initialFilter);
   const { categoryName, page } = useParams();
   const history = useHistory();
-  const dispatch = useDispatch();
-  // const items = useSelector((state) => state.items);
   const [res, setRes] = useState([]);
 
   useEffect(() => {

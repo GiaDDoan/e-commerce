@@ -15,7 +15,6 @@
   }
 }
 .spinner {
-  transform: rotate(-360deg);
   animation: spin 1.5s linear infinite;
-  color: var(--header-text-clr);
+  color: var(--filter-bdr-clr);
 }

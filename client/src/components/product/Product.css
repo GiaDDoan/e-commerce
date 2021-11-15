@@ -23,6 +23,10 @@
   border: solid 2px var(--header-text-clr);
 }
 
+.home__product:hover .card-name {
+  text-decoration: underline;
+}
+
 .category__container {
   display: flex;
   flex-wrap: wrap;
@@ -46,12 +50,16 @@
   border-radius: 10px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: 200ms ease-in-out;
+  transition: 300ms ease-in-out;
 }
 
 .category__product:hover {
   /* border: solid 1px var(--separator-clr); */
   border: solid 1px var(--header-text-clr);
+}
+
+.category__product:hover .card-name {
+  text-decoration: underline;
 }
 
 .card-info {
