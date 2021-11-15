@@ -17,22 +17,22 @@ import {
 } from '../../store/reducers/items/actions';
 import ErrorPage from '../error-page/ErrorPage';
 
-const initialFilter = {
-  min: null,
-  max: null,
-  companyIds: [],
-  category: '',
-  sort: '',
-};
+// const initialFilter = {
+//   min: null,
+//   max: null,
+//   companyIds: [],
+//   category: '',
+//   sort: '',
+// };
 
-export default function Category() {
+export default function Category({ filter, setFilter, initialFilter }) {
   const [status, setStatus] = useState('loading');
-  const [filter, setFilter] = useState(initialFilter);
+  // const [filter, setFilter] = useState(initialFilter);
   const { categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   // const items = useSelector((state) => state.items);
-  const [itemsRes, setItemsRes] = useState([]);
+  const [res, setRes] = useState([]);
 
   useEffect(() => {
     setStatus('loading');
@@ -40,7 +40,7 @@ export default function Category() {
     const fetchingItems = async () => {
       const res = await fetchItemsByCategory(categoryName, page);
       if (res.status === 201) {
-        setItemsRes(res.items);
+        setRes(res);
         setStatus('idle');
       } else {
         console.log('ERR', res.message);
@@ -88,15 +88,23 @@ export default function Category() {
   if (status === 'loading') {
     return <div>Loading Items in Category</div>;
   }
+
   if (status === 'idle') {
+    const { items, uniqueCompanies } = res;
+
     return (
       <Wrapper className="category">
         <div className="category__filter">
-          <FilterBox filter={filter} setFilter={setFilter} />
+          <FilterBox
+            filter={filter}
+            setFilter={setFilter}
+            status={status}
+            companies={uniqueCompanies}
+          />
         </div>
         <div className="category__and__pagination">
           <div className="category__wrapper">
-            {itemsRes.results.map((item, i) => {
+            {items.results.map((item, i) => {
               let checkedTitle = item.name;
 
               if (item.name.length > 60) {
@@ -133,7 +141,7 @@ export default function Category() {
 
           <Pagination
             option="unfilter"
-            items={itemsRes}
+            items={items}
             categoryName={categoryName}
             page={page}
           />

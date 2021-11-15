@@ -11,8 +11,17 @@ import FilteredCategory from './components/filtered-category/FilteredCategory';
 import Cart from './components/cart/Cart';
 import ErrorPage from './components/error-page/ErrorPage';
 
+const initialFilter = {
+  min: null,
+  max: null,
+  companyIds: [],
+  category: '',
+  sort: '',
+};
+
 function App() {
   const [cartToggle, setCartToggle] = useState(false);
+  const [filter, setFilter] = useState(initialFilter);
 
   const toggleCart = () => {
     setCartToggle(!cartToggle);
@@ -33,10 +42,14 @@ function App() {
                   <Home />
                 </Route>
                 <Route path="/category/:categoryName/:page">
-                  <Category />
+                  <Category
+                    filter={filter}
+                    setFilter={setFilter}
+                    initialFilter={initialFilter}
+                  />
                 </Route>
                 <Route path="/filter/:filterId/:page">
-                  <FilteredCategory />
+                  <FilteredCategory filter={filter} />
                 </Route>
                 <Route path="/product/:productId">
                   <ProductPage />

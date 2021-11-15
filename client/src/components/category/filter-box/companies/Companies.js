@@ -4,16 +4,17 @@ import './Companies.css';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Companies({ filter, setFilter }) {
+function Companies({ filter, setFilter, companies }) {
   const { action, categoryName, page } = useParams();
   const items = useSelector((state) => state.items);
+  console.log('COMP', companies);
 
-  if (items[categoryName]) {
+  if (companies) {
     return (
       <Wrapper className="companies-wrapper">
         <h3>Companies</h3>
         <ul className="price-wrapper">
-          {items[categoryName].map((company, i) => {
+          {companies.map((company, i) => {
             return (
               <li>
                 <input

@@ -10,12 +10,13 @@ import {
   toggleCheckbox,
 } from '../../../../store/reducers/filters/actions';
 
-function Price({ filter, setFilter }) {
+function Price({ filter, setFilter, status }) {
   // const TEST = [...initialCheckboxes];
   // const [checkboxes, setCheckboxes] = useState(TEST);
   const items = useSelector((state) => state.items);
   const [selectedSort, setSelectedSort] = useState('');
   const pricesState = useSelector((state) => state.prices);
+  const [isChecked, setIsChecked] = useState('');
   const { categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -47,6 +48,22 @@ function Price({ filter, setFilter }) {
     dispatch(requestInitialPrices());
   }, [categoryName]);
 
+  const handleCheckbox = (event, checkbox) => {
+    // event.target.checked ? setIsChecked(id) : setIsChecked('');
+    const { id, min, max } = checkbox;
+
+    if (event.target.checked) {
+      setIsChecked(id);
+      setFilter({
+        ...filter,
+        min: min,
+        max: max,
+      });
+    } else {
+      setIsChecked('');
+    }
+  };
+
   const handleChange = (event) => {
     setFilter({
       ...filter,
@@ -54,67 +71,67 @@ function Price({ filter, setFilter }) {
     });
   };
 
-  if (items.status === 'loading') {
-    return <div>Filtering</div>;
-  }
-  if (items.status === 'idle' || pricesState.status === 'idle') {
-    return (
-      <Wrapper className="price-wrapper">
-        <h3>Price</h3>
-        <div className="price__container">
-          <ul class="price-wrapper">
-            {pricesState.prices.map((checkbox, i) => {
-              console.log('CHECK', checkbox);
-              return (
-                <li>
-                  <input
-                    type="checkbox"
-                    checked={checkbox.checked}
-                    id={`${checkbox.id}`}
-                    value={checkbox.price}
-                    // onChange={(e) => onChecked(e, i)}
-                    onChange={(e) => {
-                      dispatch(toggleCheckbox(i));
-                      setFilter({
-                        ...filter,
-                        min: pricesState.prices[i].min,
-                        max: pricesState.prices[i].max,
-                      });
-                    }}
-                  />
-                  <label for={checkbox.id} key={`${checkbox.price}`}>
-                    {checkbox.price}
-                  </label>
-                </li>
+  // if (status === 'loading') {
+  //   return <div>Filtering</div>;
+  // }
 
-                // <label key={`${checkbox.price}`}>
-                //   <input
-                //     type="checkbox"
-                //     checked={checkbox.checked}
-                //     // onChange={(e) => onChecked(e, i)}
-                //     onChange={(e) => {
-                //       dispatch(toggleCheckbox(i));
-                //       setFilter({
-                //         ...filter,
-                //         min: pricesState.prices[i].min,
-                //         max: pricesState.prices[i].max,
-                //       });
-                //     }}
-                //   />
-                //   {checkbox.price}
-                // </label>
-              );
-            })}
-          </ul>
-          <select onChange={handleChange}>
-            <option value="">Sort by: Featured</option>
-            <option value="lowToHigh">Price: Low to High</option>
-            <option value="highToLow">Price: High to Low</option>
-          </select>
-        </div>
-      </Wrapper>
-    );
-  }
+  return (
+    <Wrapper className="price-wrapper">
+      <h3>Price</h3>
+      <div className="price__container">
+        <ul class="price-wrapper">
+          {priceCheckboxes.map((checkbox, i) => {
+            // console.log('CHECK', checkbox);
+            return (
+              <li>
+                <input
+                  type="checkbox"
+                  checked={isChecked === checkbox.id ? true : false}
+                  id={`${checkbox.id}`}
+                  value={checkbox.price}
+                  onChange={(e) => handleCheckbox(e, checkbox)}
+                  // onChange={(e) => {
+                  //   console.log('CHECK'.e.target.checked);
+                  //   dispatch(toggleCheckbox(i));
+                  //   setFilter({
+                  //     ...filter,
+                  //     min: checkbox.min,
+                  //     max: checkbox.max,
+                  //   });
+                  // }}
+                />
+                <label for={checkbox.id} key={`${checkbox.price}`}>
+                  {checkbox.price}
+                </label>
+              </li>
+
+              // <label key={`${checkbox.price}`}>
+              //   <input
+              //     type="checkbox"
+              //     checked={checkbox.checked}
+              //     // onChange={(e) => onChecked(e, i)}
+              //     onChange={(e) => {
+              //       dispatch(toggleCheckbox(i));
+              //       setFilter({
+              //         ...filter,
+              //         min: pricesState.prices[i].min,
+              //         max: pricesState.prices[i].max,
+              //       });
+              //     }}
+              //   />
+              //   {checkbox.price}
+              // </label>
+            );
+          })}
+        </ul>
+        <select onChange={handleChange}>
+          <option value="">Sort by: Featured</option>
+          <option value="lowToHigh">Price: Low to High</option>
+          <option value="highToLow">Price: High to Low</option>
+        </select>
+      </div>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
