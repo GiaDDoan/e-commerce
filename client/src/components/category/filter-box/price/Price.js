@@ -19,6 +19,29 @@ function Price({ filter, setFilter }) {
   const { categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
+  let priceCheckboxes = [
+    {
+      price: 'Under $25',
+      min: 0,
+      max: 25,
+      checked: false,
+      id: 'checkboxOne',
+    },
+    {
+      price: '$25 to $50',
+      min: 25,
+      max: 50,
+      checked: false,
+      id: 'checkboxTwo',
+    },
+    {
+      price: '$50 & Above',
+      min: 50,
+      max: null,
+      checked: false,
+      id: 'checkboxThree',
+    },
+  ];
 
   useEffect(() => {
     dispatch(requestInitialPrices());

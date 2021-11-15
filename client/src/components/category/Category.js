@@ -35,27 +35,6 @@ export default function Category() {
   const [itemsRes, setItemsRes] = useState([]);
 
   useEffect(() => {
-    // setStatus('loading');
-    // setFilter({ ...initialFilter, category: categoryName });
-    // if (items[categoryName + '_' + page]) {
-    //   setStatus('idle');
-    //   return;
-    // }
-    // dispatch(requestItems());
-    // const fetchingItems = async () => {
-    //   const res = await fetchItemsByCategory(categoryName, page);
-    //   if (res.status === 201) {
-    //     dispatch(
-    //       receiveItems(categoryName, page, res.items, res.uniqueCompanies)
-    //     ); //(category, categoryPage, items, uniqueCompanies)
-    //     setStatus('idle');
-    //   } else {
-    //     dispatch(sendError(res.message));
-    //     setStatus('error');
-    //   }
-    // };
-    // fetchingItems();
-
     setStatus('loading');
     setFilter({ ...initialFilter, category: categoryName });
     const fetchingItems = async () => {
@@ -69,7 +48,7 @@ export default function Category() {
       }
     };
     fetchingItems();
-  }, [page]);
+  }, [history.location.pathname]);
 
   // useEffect(() => {
   //   setStatus('loading');
