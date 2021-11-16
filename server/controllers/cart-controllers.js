@@ -25,27 +25,58 @@ const get_cart = async (req, res) => {
 const add_item = async (req, res) => {
   //URL: ../cart/items?userId=2&itemId=10&qty=17&stock=10
   try {
-    const { userId, itemId, qty, stock } = req.query;
+    // const { userId, itemId, qty, stock } = req.query;
+    const { userId, itemId, quantity } = req.body;
+
+    /////CHECK IF THERE'S DATA ALREADY IN DB
     const existingId = await Cart.findOne({
       userId: userId,
-      itemId: itemId,
     }).exec();
-    //Query for updating if the item exist in the DB
-    const query = {
-      userId: userId,
-      itemId: itemId,
-    };
 
-    //Check if the item is already in the user's cart, TRUE = update, FALSE = add
+    //////Query for updating if the item exist in the DB
+
+    ///Check if the item is already in the user's cart, TRUE = update, FALSE = add
     if (existingId) {
-      Cart.findOneAndUpdate(query, {
-        $set: { quantity: existingId.quantity + parseInt(qty) },
-      }).exec();
+      // console.log('TEXIT', existingId.items);
+
+      const found = await existingId.items.find(
+        (item, i) => item.itemId === itemId
+      );
+      if (found) {
+        Cart.updateOne(
+          {
+            userId: userId,
+            'items._id': found._id,
+          },
+          { $set: { 'items.$.quantity': quantity } }
+        ).exec();
+
+        console.log('found updated');
+      } else {
+        const query = {
+          userId: userId,
+        };
+
+        Cart.findOneAndUpdate(query, {
+          $push: {
+            items: {
+              itemId: itemId,
+              quantity: quantity,
+            },
+          },
+        }).exec();
+        console.log('added');
+      }
     } else {
+      console.log('ADDED');
       const addItemToCart = await new Cart({
         userId: userId,
-        itemId: itemId,
-        quantity: parseInt(qty),
+        items: [
+          {
+            itemId: itemId,
+            quantity: quantity,
+          },
+        ],
       });
       addItemToCart.save();
     }

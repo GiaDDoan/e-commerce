@@ -23,6 +23,7 @@ export default function cartReducer(state = initialState, action) {
     case 'ADD_ITEM': {
       const { item } = action;
       let newTotal = state.total + item.price;
+      console.log('ITEM', item);
 
       return {
         ...state,

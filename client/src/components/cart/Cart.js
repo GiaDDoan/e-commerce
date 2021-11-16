@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './Cart.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Loading from '../loading/Loading';
 
 import { fetchCartItems } from '../../api-helpers/cart-helper';
 import {
@@ -27,6 +28,7 @@ function Cart({ cartToggle, toggleCart }) {
     const fetchingCart = async () => {
       if (user.status == 'idle') {
         const fetchRes = await fetchCartItems(user.data._id);
+        console.log('RES', fetchRes);
         fetchRes.data.map(async (userData) => {
           const itemFromBE = await fetchProductById(userData.itemId);
           const item = itemFromBE.product[0];
@@ -52,8 +54,10 @@ function Cart({ cartToggle, toggleCart }) {
     dispatch(clearCart());
   };
 
+  console.log('CART', cart);
+
   if (cart.status === 'loading') {
-    return <div>Loading cart</div>;
+    return <Loading />;
   }
   if (cart.status === 'idle') {
     return (

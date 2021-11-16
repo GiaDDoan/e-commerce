@@ -4,8 +4,12 @@ const { Schema } = mongoose;
 const cartSchema = new Schema(
   {
     userId: String,
-    itemId: String,
-    quantity: Number,
+    items: [
+      {
+        itemId: String,
+        quantity: Number,
+      },
+    ],
   },
   { collection: 'cart' }
 );
