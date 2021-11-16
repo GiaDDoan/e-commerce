@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProductPage.css';
 import { useParams } from 'react-router-dom';
 import Samples from './samples/Samples';
+import Loading from '../loading/Loading';
 
 import { fetchProductById } from '../../api-helpers/index';
 import { useSelector, useDispatch } from 'react-redux';
@@ -61,7 +62,7 @@ function ProductPage() {
   };
 
   if (status === 'loading') {
-    return <div>loading product</div>;
+    return <Loading />;
   }
   if (status === 'idle' && product[0]) {
     const item = product[0];

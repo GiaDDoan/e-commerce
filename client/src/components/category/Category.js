@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import FilterBox from './filter-box/FilterBox';
 import Product from '../product/Product';
 import Pagination from '../pagination/Pagination';
-import Spinner from '../spinner/Spinner';
+import Loading from '../loading/Loading';
 import { fetchItemsByCategory } from '../../api-helpers/index';
 import ErrorPage from '../error-page/ErrorPage';
 
@@ -34,7 +34,7 @@ export default function Category({ filter, setFilter, initialFilter }) {
   }, [history.location.pathname]);
 
   if (status === 'loading') {
-    return <Spinner className="spinner-l" />;
+    return <Loading className="spinner-l" />;
   }
 
   if (status === 'idle') {

@@ -5,6 +5,7 @@ import './Home.css';
 import HomepageBanner from '../../images/big-sales-resized.jpg';
 import Product from '../product/Product';
 import { fetchSamples } from '../../api-helpers/index';
+import Loading from '../loading/Loading';
 
 function Home() {
   const [status, setStatus] = useState('loading');
@@ -25,7 +26,7 @@ function Home() {
   }, []);
 
   if (status === 'loading') {
-    return <div>Loading</div>;
+    return <Loading />;
   }
   if (status === 'idle') {
     return (

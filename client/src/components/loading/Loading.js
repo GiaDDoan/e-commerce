@@ -1,9 +1,9 @@
 import React from 'react';
 import { ImSpinner2 } from 'react-icons/im';
 
-import './Spinner.css';
+import './Loading.css';
 
-const Spinner = () => {
+const Loading = () => {
   return (
     <div className="spinner-wrapper">
       <ImSpinner2 className="spinner" />
@@ -11,4 +11,4 @@ const Spinner = () => {
   );
 };
 
-export default Spinner;
+export default Loading;

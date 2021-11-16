@@ -8,6 +8,7 @@ import Pagination from '../pagination/Pagination';
 import FilterSendToNewPage from '../../function-helpers/FilterSendToNewPage';
 import { useHistory } from 'react-router-dom';
 import { fetchProductsByFilter } from '../../api-helpers/index';
+import Loading from '../loading/Loading';
 
 function FilteredCategory({ filter }) {
   const [res, setRes] = useState({});
@@ -30,7 +31,7 @@ function FilteredCategory({ filter }) {
   }, [page]);
 
   if (status === 'loading') {
-    return <div>Filtering items</div>;
+    return <Loading />;
   }
   if (status === 'idle') {
     return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchProductPageSample } from '../../../api-helpers/product-page-helper';
 import { useHistory } from 'react-router';
 import './Samples.css';
+import Loading from '../../loading/Loading';
 
 const Samples = ({ size, sampleKey, sample }) => {
   const [status, setStatus] = useState('loading');
@@ -31,6 +32,10 @@ const Samples = ({ size, sampleKey, sample }) => {
     //   cleanup
     // }
   }, []);
+
+  if (status === 'loading') {
+    return <Loading />;
+  }
 
   if (status === 'idle') {
     console.log('SAMPLES', samples);
