@@ -57,11 +57,7 @@ function App() {
               </Switch>
             </div>
           </Main>
-          <Cart
-            className="cart"
-            toggleCart={toggleCart}
-            cartToggle={cartToggle}
-          />
+          <Cart toggleCart={toggleCart} cartToggle={cartToggle} />
         </div>
       </Router>
     </div>

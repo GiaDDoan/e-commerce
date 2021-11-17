@@ -4,6 +4,7 @@ import './Cart.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Loading from '../loading/Loading';
+import { FaWindowClose } from 'react-icons/fa';
 
 import { fetchCartItems } from '../../api-helpers/cart-helper';
 import {
@@ -65,53 +66,46 @@ function Cart({ cartToggle, toggleCart }) {
       <>
         {cartToggle === true ? (
           <Wrapper className="wrapper">
-            <div className="title">Total: {cart.total.toFixed(2)}</div>
-            {cart.items.length > 0
-              ? cart.items.map((item, i) => {
-                  console.log('ITEM', item);
-                  const {
-                    _id,
-                    bodyLocation,
-                    category,
-                    companyId,
-                    imageSrc,
-                    name,
-                    numInStock,
-                    price,
-                    qty,
-                  } = item;
+            <div className="cart-total">
+              Total: {Math.abs(cart.total).toFixed(2)}
+            </div>
+            <div className="cart-items-container">
+              {cart.items.length > 0
+                ? cart.items.map((item, i) => {
+                    const { _id, imageSrc, price, qty } = item;
 
-                  return (
-                    <div className="item-wrapper" key={i}>
-                      <div
-                        className="item-info"
-                        onClick={() => handleProduct(_id)}
-                      >
-                        <img src={imageSrc} />
-                        <div className="item-price">
-                          ${price} <span>x{qty}</span>
+                    return (
+                      <div className="item-wrapper" key={i}>
+                        <div
+                          className="item-info"
+                          onClick={() => handleProduct(_id)}
+                        >
+                          <img src={imageSrc} alt="cart-item-img" />
+                          <div className="item-price">
+                            ${price} <span>x{qty}</span>
+                          </div>
                         </div>
+                        <FaWindowClose
+                          className="delete-item"
+                          onClick={() => deleteProduct(_id)}
+                        />
                       </div>
-                      <button
-                        type="button"
-                        className="delete-item"
-                        onClick={() => deleteProduct(_id)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  );
-                })
-              : null}
-            {Object.values(cart.items).length > 0 && (
+                    );
+                  })
+                : null}
+            </div>
+            <div className="cart-btn-container">
               <button
                 type="button"
-                className="clear-cart"
+                className="base-fill cart-btn clear-cart"
                 onClick={() => emptyClear()}
               >
                 Clear Cart
               </button>
-            )}
+              <button type="button" className="base-fill cart-btn checkout-btn">
+                Checkout
+              </button>
+            </div>
           </Wrapper>
         ) : null}
       </>

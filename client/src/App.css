@@ -6,13 +6,16 @@
 
   --main-nav-clr: hsl(251, 19%, 29%);
   --sub-nav-clr: hsl(251, 19%, 25%);
+  --separator-clr: hsl(251, 19%, 25%);
   --bg-clr: hsl(38, 24%, 93%);
   --product-bg-clr: hsl(38, 24%, 99%);
   --header-text-clr: hsl(19, 84%, 53%);
-  --text-clr: hsl(30, 11%, 4%);
-  --separator-clr: hsl(23, 93%, 26%);
-  --filter-clr: hsl(19, 84%, 48%);
+  --on-hover-clr: hsl(19, 84%, 53%);
   --filter-bdr-clr: hsl(19, 84%, 45%);
+  --filter-clr: hsl(19, 84%, 48%);
+  --dark-red: hsl(23, 93%, 26%);
+  --text-clr: hsl(30, 11%, 4%);
+  --close-clr: hsl(0, 72%, 56%);
 
   /* GAPS */
   --category-gap: 2rem 1rem;
@@ -42,8 +45,8 @@ input {
 
 .body {
   display: flex;
-  align-items: flex-start;
-  flex: 1;
+  /* flex: 1; */
+  height: 100%;
   padding: 0;
 }
 

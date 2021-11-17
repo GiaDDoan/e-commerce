@@ -32,7 +32,7 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 320px;
-  border-bottom: solid 2px var(--sub-nav-clr);
+  border-bottom: solid 2px var(--separator-clr);
   padding-bottom: 1rem;
   color: var(--text-clr);
 }

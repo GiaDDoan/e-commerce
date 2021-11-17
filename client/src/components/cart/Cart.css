@@ -1,52 +1,100 @@
 .wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   width: 300px;
-  height: 100vh;
-  /* position: sticky; */
-  /* top: 0; */
-  border-left: 2px solid #bebebe;
-  /* display: none; */
+  border-left: 2px solid var(--separator-clr);
+  color: var(--text-clr);
+  background-color: var(--bg-clr);
+  /* align-items: stretch; */
 }
 
-.title {
+.cart-total {
   font-size: 1.2rem;
   font-weight: bolder;
-  padding: 15px 0;
+  padding: 2rem 0;
+  color: var(--main-nav-clr);
+}
+
+.cart-items-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 0.6rem 0;
+  width: 100%;
 }
 
 .item-wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  border: solid 1px transparent;
+
   border-bottom: solid 1px #bebebe;
-  margin: 0px 8px;
+  width: 90%;
+  background-color: white;
+  border-radius: 20px;
+  transition: 300ms ease-in-out;
 }
+
+.item-wrapper:hover {
+  border: solid 1px var(--on-hover-clr);
+}
+
+.item-wrapper:hover .item-price {
+  text-decoration: underline;
+}
+
 .item-info {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   cursor: pointer;
   padding: 18px 0px;
   align-items: center;
-  width: 100%;
+  width: 70%;
+  font-weight: bold;
 }
 .item-info > img {
   width: 80px;
-  padding: 0 10px;
+  /* padding: 0 10px; */
 }
 
 .item-price {
   font-size: 0.9rem;
 }
-.item-price:hover {
-  border-bottom: 1px solid black;
-}
+
 .delete-item {
-  margin: 0 13px;
-  padding: 5px;
-  background-color: transparent;
-  border: none;
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 1.7rem;
   font-weight: bolder;
 }
 .delete-item:hover {
-  color: red;
+  color: var(--close-clr);
   transition: 300ms;
+}
+
+.cart-btn-container {
+  --cart-transition: 300ms ease-in-out;
+  --cart-btn-padding: 1.2rem 1.4rem;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem 0;
+  width: 100%;
+}
+
+.cart-btn {
+  padding: var(--cart-btn-padding);
+  transition: var(--cart-transition);
+  cursor: pointer;
+}
+
+.clear-cart:hover {
+  background-color: var(--close-clr);
+}
+
+.checkout-btn:hover {
+  background-color: var(--header-text-clr);
 }

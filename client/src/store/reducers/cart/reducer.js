@@ -26,12 +26,11 @@ export default function cartReducer(state = initialState, action) {
     case 'ADD_ITEM': {
       const { _id, qty, price } = action.item;
       let newState = { ...state };
-      // let newTotal = state.total + item.price;
 
       const alreadyInCart = state.items.some((ele, i) => {
         if (ele._id === _id) {
           newState.items[i].qty += qty;
-          newState.total += price;
+          newState.total += price * qty;
           return true;
         }
         return false;
@@ -41,7 +40,7 @@ export default function cartReducer(state = initialState, action) {
         console.log('ADDING');
         newState = {
           ...newState,
-          total: newState.total + price,
+          total: newState.total + price * qty,
           items: [...state.items, action.item],
         };
       }
