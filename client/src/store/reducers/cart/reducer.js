@@ -1,11 +1,14 @@
-const initialState = { status: 'idle', total: 0, items: [] };
+const initialState = {
+  status: 'idle',
+  total: 0,
+  items: [],
+};
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case 'REQUEST_CART': {
       return {
         ...state,
-        items: [],
         status: 'loading',
       };
     }
@@ -21,34 +24,47 @@ export default function cartReducer(state = initialState, action) {
     }
 
     case 'ADD_ITEM': {
-      const { item } = action;
-      let newTotal = state.total + item.price;
-      console.log('ITEM', item);
+      const { _id, qty, price } = action.item;
+      let newState = { ...state };
+      // let newTotal = state.total + item.price;
 
-      return {
-        ...state,
-        status: 'idle',
-        total: newTotal,
-        items: {
-          ...state.items,
-          [item._id]: {
-            ...item,
-            qty: state.items[item._id]
-              ? state.items[item._id].qty + item.qty
-              : item.qty,
-          },
-        },
-      };
+      const alreadyInCart = state.items.some((ele, i) => {
+        if (ele._id === _id) {
+          newState.items[i].qty += qty;
+          newState.total += price;
+          return true;
+        }
+        return false;
+      });
+
+      if (!alreadyInCart) {
+        console.log('ADDING');
+        newState = {
+          ...newState,
+          total: newState.total + price,
+          items: [...state.items, action.item],
+        };
+      }
+
+      return { ...newState, status: 'idle' };
     }
 
     case 'REMOVE_ITEM': {
       const { itemId } = action;
-      const stateCopy = { ...state };
-      delete stateCopy.items[itemId];
-      return stateCopy;
+      const newState = { ...state };
+      console.log('ID', itemId);
+      newState.items.map((item, i) => {
+        if (item._id === itemId) {
+          newState.total -= item.qty * item.price;
+          newState.items.splice(i, 1);
+        }
+        return 0;
+      });
+      return { ...newState, status: 'idle' };
     }
 
     case 'UPDATE_QUANTITY':
+      console.log('UPDATING');
       return {
         ...state,
         [action._id]: {

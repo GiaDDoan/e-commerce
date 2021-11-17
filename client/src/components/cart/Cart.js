@@ -43,6 +43,8 @@ function Cart({ cartToggle, toggleCart }) {
     // };
   }, [user.data]);
 
+  useEffect(() => {}, []);
+
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);
   };
@@ -54,19 +56,19 @@ function Cart({ cartToggle, toggleCart }) {
     dispatch(clearCart());
   };
 
-  console.log('CART', cart);
-
   if (cart.status === 'loading') {
     return <Loading />;
   }
   if (cart.status === 'idle') {
+    console.log('STATE', cart.items);
     return (
       <>
         {cartToggle === true ? (
           <Wrapper className="wrapper">
-            <div className="title">Total: {cart.total}</div>
-            {cart.items
-              ? Object.values(cart.items).map((item, i) => {
+            <div className="title">Total: {cart.total.toFixed(2)}</div>
+            {cart.items.length > 0
+              ? cart.items.map((item, i) => {
+                  console.log('ITEM', item);
                   const {
                     _id,
                     bodyLocation,

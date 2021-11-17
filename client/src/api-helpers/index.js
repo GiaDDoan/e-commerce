@@ -72,3 +72,14 @@ export const fetchProductsByFilter = (filter, page) => {
     }
   ).then((res) => res.json());
 };
+
+export const updateCart = (cart) => {
+  return fetch(`/cart/items`, {
+    method: 'POST',
+    body: JSON.stringify({ ...cart }),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json());
+};

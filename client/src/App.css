@@ -35,14 +35,15 @@ input {
 .main {
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-height: 100vh;
+  flex: 1;
   background-color: var(--bg-clr);
 }
 
 .body {
   display: flex;
   align-items: flex-start;
+  flex: 1;
   padding: 0;
 }
 

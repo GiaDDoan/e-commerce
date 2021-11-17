@@ -38,7 +38,6 @@ const Samples = ({ size, sampleKey, sample }) => {
   }
 
   if (status === 'idle') {
-    console.log('SAMPLES', samples);
     return (
       <div className="product-sample-container">
         {samples.map((sample) => {

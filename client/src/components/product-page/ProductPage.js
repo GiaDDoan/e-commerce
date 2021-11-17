@@ -42,14 +42,15 @@ function ProductPage() {
 
   const addItemToCart = async (item, userId, itemId, qty, stock) => {
     if (user.status === 'idle') {
-      const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
-      if (sendItemToDB.status == 201) {
-        const action = addItem({ ...item, qty: quantity });
-        dispatch(action);
-      } else if (sendItemToDB.status == 404) {
-        console.log(sendItemToDB.message);
-      }
+      // const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
+      // if (sendItemToDB.status == 201) {
+      //   const action = addItem({ ...item, qty: quantity });
+      //   dispatch(action);
+      // } else if (sendItemToDB.status == 404) {
+      //   console.log(sendItemToDB.message);
+      // }
     } else {
+      dispatch(requestCart());
       const action = addItem({ ...item, qty: quantity });
       dispatch(action);
     }

@@ -25,23 +25,20 @@ const get_cart = async (req, res) => {
 const add_item = async (req, res) => {
   //URL: ../cart/items?userId=2&itemId=10&qty=17&stock=10
   try {
-    // const { userId, itemId, qty, stock } = req.query;
     const { userId, itemId, quantity } = req.body;
 
-    /////CHECK IF THERE'S DATA ALREADY IN DB
+    //Check if the user is already in the DB
     const existingId = await Cart.findOne({
       userId: userId,
     }).exec();
 
-    //////Query for updating if the item exist in the DB
-
-    ///Check if the item is already in the user's cart, TRUE = update, FALSE = add
+    //If TRUE, update the cart
     if (existingId) {
-      // console.log('TEXIT', existingId.items);
-
+      //Check if the item is already in the cart
       const found = await existingId.items.find(
-        (item, i) => item.itemId === itemId
+        (item) => item.itemId === itemId
       );
+      //If in the cart, update
       if (found) {
         Cart.updateOne(
           {
@@ -53,6 +50,7 @@ const add_item = async (req, res) => {
 
         console.log('found updated');
       } else {
+        //If not, add item to user's cart
         const query = {
           userId: userId,
         };
@@ -68,7 +66,7 @@ const add_item = async (req, res) => {
         console.log('added');
       }
     } else {
-      console.log('ADDED');
+      //If user is not in DB, create one
       const addItemToCart = await new Cart({
         userId: userId,
         items: [

@@ -20,7 +20,7 @@ const initialFilter = {
 };
 
 function App() {
-  const [cartToggle, setCartToggle] = useState(false);
+  const [cartToggle, setCartToggle] = useState(true);
   const [filter, setFilter] = useState(initialFilter);
 
   const toggleCart = () => {
