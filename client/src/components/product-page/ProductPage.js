@@ -17,7 +17,7 @@ import ErrorPage from '../error-page/ErrorPage';
 function ProductPage() {
   const { productId } = useParams();
   const [status, setStatus] = useState('loading');
-  const [product, setProduct] = useState([]);
+  const [productRes, setProductRes] = useState([]);
   const [errorMsg, setErrorMsg] = useState('');
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -28,13 +28,13 @@ function ProductPage() {
     setStatus('loading');
 
     const fetchingProduct = async () => {
-      const productRes = await fetchProductById(productId);
-      if (productRes.status === 200) {
-        setProduct(productRes.product);
+      const res = await fetchProductById(productId);
+      if (res.status === 200) {
+        setProductRes(res);
         setStatus('idle');
       } else {
         setStatus('error');
-        setErrorMsg(productRes.message);
+        setErrorMsg(res.message);
       }
     };
     fetchingProduct();
@@ -65,8 +65,8 @@ function ProductPage() {
   if (status === 'loading') {
     return <Loading />;
   }
-  if (status === 'idle' && product[0]) {
-    const item = product[0];
+  if (status === 'idle') {
+    const { product, company } = productRes;
     const {
       _id,
       bodyLocation,
@@ -76,7 +76,9 @@ function ProductPage() {
       name,
       numInStock,
       price,
-    } = item;
+    } = product;
+
+    console.log('com', company);
 
     return (
       <div className="product-page-container">
@@ -90,6 +92,7 @@ function ProductPage() {
           <div className="item-info-wrapper">
             <div className="item-name">{name}</div>
             <div className="base-fill item-tag">{bodyLocation}</div>
+            <div>By: {company.name}</div>
             <div>Price: {price}</div>
             <div>Stock: {numInStock}</div>
             <div className="item-quantity-wrapper">
@@ -101,13 +104,13 @@ function ProductPage() {
               onClick={() => {
                 user.status == 'idle'
                   ? addItemToCart(
-                      item,
+                      product,
                       user.data._id,
                       _id,
                       quantity,
                       numInStock
                     )
-                  : addItemToCart(item, _id, quantity, numInStock);
+                  : addItemToCart(product, _id, quantity, numInStock);
               }}
             >
               Add to cart
@@ -132,6 +135,7 @@ function ProductPage() {
   if (status === 'error') {
     return <ErrorPage errorMsg={errorMsg} />;
   }
+  return <div>s</div>;
 }
 
 export default ProductPage;

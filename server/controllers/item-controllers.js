@@ -265,11 +265,13 @@ const get_item_by_id = async (req, res) => {
   try {
     const product_id = req.params.productId;
 
-    const product = await Item.find({ _id: product_id });
+    const product = await Item.findOne({ _id: product_id });
+    const company = await Company.findOne({ companyId: product.companyId });
 
     res.status(200).json({
       status: 200,
       product: product,
+      company: company,
     });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });

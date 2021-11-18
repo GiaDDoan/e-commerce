@@ -57,6 +57,10 @@ function Cart({ cartToggle, toggleCart }) {
     dispatch(clearCart());
   };
 
+  const sendToCheckout = () => {
+    history.push('/checkout');
+  };
+
   if (cart.status === 'loading') {
     return <Loading />;
   }
@@ -102,7 +106,11 @@ function Cart({ cartToggle, toggleCart }) {
               >
                 Clear Cart
               </button>
-              <button type="button" className="base-fill cart-btn checkout-btn">
+              <button
+                type="button"
+                className="base-fill cart-btn checkout-btn"
+                onClick={() => sendToCheckout()}
+              >
                 Checkout
               </button>
             </div>

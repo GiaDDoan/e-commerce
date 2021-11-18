@@ -10,6 +10,7 @@ import ProductPage from './components/product-page/ProductPage';
 import FilteredCategory from './components/filtered-category/FilteredCategory';
 import Cart from './components/cart/Cart';
 import ErrorPage from './components/error-page/ErrorPage';
+import Checkout from './components/checkout/Checkout';
 
 const initialFilter = {
   min: null,
@@ -53,6 +54,9 @@ function App() {
                 </Route>
                 <Route path="/product/:productId">
                   <ProductPage />
+                </Route>
+                <Route path="/checkout">
+                  <Checkout />
                 </Route>
               </Switch>
             </div>
