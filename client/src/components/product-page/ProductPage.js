@@ -85,7 +85,7 @@ function ProductPage() {
         <div className="navigation">
           <div>{`Home > Category`}</div>
         </div>
-        <div className="item-container">
+        <div className="item-containeer">
           <div className="item-img-wrapper">
             <img src={imageSrc} alt="item-img" className="item-img" />
           </div>

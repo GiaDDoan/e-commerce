@@ -17,6 +17,7 @@ import { AppContext } from '../../../AppContext';
 
 function MainNav({ toggleCart }) {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
   const { cartToggle, setCartTottle } = useContext(AppContext);
 
@@ -33,6 +34,8 @@ function MainNav({ toggleCart }) {
     });
   };
   const responseErrorGoogle = () => {};
+
+  console.log('car', cart);
 
   return (
     <Wrapper className="header__main">
@@ -67,7 +70,9 @@ function MainNav({ toggleCart }) {
         </div>
         <Basket className="header__optionBasket" onClick={toggleCart}>
           <ShoppingBasketIcon />
-          <span className="header__optionLineTwo header__basketCount">0</span>
+          <span className="header__optionLineTwo header__basketCount">
+            {cart.items.length > 0 ? cart.items.length : 0}
+          </span>
         </Basket>
       </NavigationWrapper>
     </Wrapper>

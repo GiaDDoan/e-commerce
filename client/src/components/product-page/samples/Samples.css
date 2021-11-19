@@ -3,9 +3,9 @@
   align-items: center;
   margin: 0 auto;
   gap: 0 1rem;
-  width: 90%;
-  max-width: 1800px;
+  width: 70vw;
   overflow-x: auto;
+  position: relative;
 }
 
 .product-sample-wrapper {

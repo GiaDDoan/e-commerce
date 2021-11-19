@@ -52,6 +52,12 @@
 .header__optionBasket {
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+.header__optionBasket:hover {
+  color: var(--nav-hover-clr);
 }
 
 .header__basketCount {
