@@ -35,8 +35,6 @@ function MainNav({ toggleCart }) {
   };
   const responseErrorGoogle = () => {};
 
-  console.log('car', cart);
-
   return (
     <Wrapper className="header__main">
       <Logo to="/" className="header__logo">

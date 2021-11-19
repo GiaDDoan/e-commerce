@@ -65,14 +65,11 @@ function Cart({ cartToggle, toggleCart }) {
     return <Loading />;
   }
   if (cart.status === 'idle') {
-    console.log('STATE', cart.items);
     return (
       <>
         {cartToggle === true ? (
           <Wrapper className="wrapper">
-            <div className="cart-total">
-              Total: {Math.abs(cart.total).toFixed(2)}
-            </div>
+            <div className="cart-total">Total: {cart.total.toFixed(2)}</div>
             <div className="cart-items-container">
               {cart.items.length > 0
                 ? cart.items.map((item, i) => {

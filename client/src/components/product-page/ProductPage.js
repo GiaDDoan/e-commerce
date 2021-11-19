@@ -78,8 +78,6 @@ function ProductPage() {
       price,
     } = product;
 
-    console.log('com', company);
-
     return (
       <div className="product-page-container">
         <div className="navigation">

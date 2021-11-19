@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 function Companies({ filter, setFilter, companies }) {
   const { action, categoryName, page } = useParams();
   const items = useSelector((state) => state.items);
-  console.log('COMP', companies);
 
   if (companies) {
     return (

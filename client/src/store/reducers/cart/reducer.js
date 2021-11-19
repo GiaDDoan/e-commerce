@@ -30,17 +30,16 @@ export default function cartReducer(state = initialState, action) {
       const alreadyInCart = state.items.some((ele, i) => {
         if (ele._id === _id) {
           newState.items[i].qty += qty;
-          newState.total += price * qty;
+          newState.total += Math.abs(price * qty);
           return true;
         }
         return false;
       });
 
       if (!alreadyInCart) {
-        console.log('ADDING');
         newState = {
           ...newState,
-          total: newState.total + price * qty,
+          total: newState.total + Math.abs(price * qty),
           items: [...state.items, action.item],
         };
       }
@@ -51,10 +50,10 @@ export default function cartReducer(state = initialState, action) {
     case 'REMOVE_ITEM': {
       const { itemId } = action;
       const newState = { ...state };
-      console.log('ID', itemId);
+
       newState.items.map((item, i) => {
         if (item._id === itemId) {
-          newState.total -= item.qty * item.price;
+          newState.total -= Math.abs(item.qty * item.price);
           newState.items.splice(i, 1);
         }
         return 0;
