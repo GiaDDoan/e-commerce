@@ -1,75 +1,89 @@
 import React, { useState } from 'react';
 import './Checkout.css';
 import { useSelector } from 'react-redux';
-
-const initialForm = {
-  firstName: '',
-  lastName: '',
-  address: '',
-  cardNumber: '',
-};
+import CreditCard from './credit-card/CreditCard';
+import useForm from '../../hooks/useForm';
+import { Button, Form, Alert, Row, Col } from 'react-bootstrap';
+import Cards from 'react-credit-cards';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-credit-cards/es/styles-compiled.css';
 
 const Checkout = () => {
-  const [form, setForm] = useState(initialForm);
   const cart = useSelector((state) => state.cart);
-
-  const handleChange = (event) => {
-    const target = event.target;
-    const { name, value } = target;
-
-    setForm({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('FORM', form);
-  };
+  const { handleChange, handleFocus, handleSubmit, values, errors } = useForm();
 
   return (
     <div className="checkout-form-container">
       <div>Total: {cart.total.toFixed(2)}</div>
-      <form className="checkout-form">
-        <label>
-          First Name:
-          <input
-            name="firstName"
-            className="checkout-input"
-            onChange={(e) => handleChange(e)}
+      <Cards
+        expiry={values.expiration}
+        cvc={values.cvc}
+        focused={values.focus}
+        name={values.name}
+        number={values.number}
+      />
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            id="cardholderName"
+            name="cardholderName"
+            placeholder="Cardholder Name"
+            value={values.cardholderName}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            // isValid={errors.ccardholderName}
           />
-        </label>
-        <label>
-          Last Name:
-          <input
-            name="lastName"
-            className="checkout-input"
-            onChange={(e) => handleChange(e)}
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
+            type="number"
+            id="number"
+            name="number"
+            placeholder="Card number"
+            value={values.number}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            // isValid={errors.cnumber}
           />
-        </label>
-        <label>
-          Address:
-          <input
-            name="address"
-            className="checkout-input"
-            onChange={(e) => handleChange(e)}
-          />
-        </label>
-        <label>
-          Card Number:
-          <input
-            name="cardNumber"
-            className="checkout-input"
-            onChange={(e) => handleChange(e)}
-          />
-        </label>
-        <input
-          type="submit"
-          value="Proceed to checkout"
-          className="base-fill checkout-submit"
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        />
-      </form>
+        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Control
+                type="number"
+                id="expiration"
+                name="expiration"
+                placeholder="Expiration"
+                value={values.expiration}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                // isValid={errors.cexp}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Control
+                type="number"
+                id="cvc"
+                name="cvc"
+                placeholder="CVC"
+                value={values.cvc}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                // isValid={errors.ccvc}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Button size="block" id="validationButton" type="submit">
+          Validate
+        </Button>
+      </Form>
+      <Alert id="alertMessage" variant={errors.variant} show={errors.show}>
+        {errors.message}
+      </Alert>
     </div>
   );
 };
