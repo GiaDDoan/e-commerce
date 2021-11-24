@@ -9,7 +9,7 @@ import SubNav from './components/SubNav';
 
 export default function Header({ toggleCart }) {
   return (
-    <Wrapper className="container">
+    <Wrapper>
       <MainNav toggleCart={toggleCart} />
       <SubNav />
     </Wrapper>

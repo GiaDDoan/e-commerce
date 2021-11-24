@@ -71,9 +71,12 @@ const Samples = ({ size, sampleKey, sample }) => {
                   className="product-sample-img"
                 />
               </div>
+              <div className="product-sample-info">
+                
               <div className="product-sample-name">{checkedName}</div>
               <div>{rating}⭐</div>
               <div>{price}$</div>
+              </div>
             </div>
           );
         })}
