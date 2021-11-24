@@ -1,6 +1,8 @@
-h3 {
-  padding: 0 0 0.6rem 0;
+.filter-header {
   color: var(--header-text-clr);
+  padding: 0 0 0.6rem 0;
+  font-weight: bold;
+  font-size: var(--fs-600);
 }
 
 .filter__box {
@@ -53,18 +55,19 @@ ul.price-wrapper li label::before {
   font-variant: normal;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 13px;
   width: 13px;
-  padding: 2px 6px 2px 2px;
+  /* padding: 2px 6px 2px 2px; */
   line-height: 14px;
-  content: '\f067';
+  content: "\f067";
   transition: transform 0.3s ease-in-out;
+  margin-right: 5px;
 }
 
 ul.price-wrapper input:checked + label::before {
-  content: '\f00c';
+  content: "\f00c";
   transform: rotate(-360deg);
   transition: transform 0.3s ease-in-out;
 }
@@ -76,6 +79,6 @@ ul.price-wrapper input:checked + label {
   transition: all 0.2s;
 }
 
-ul.price-wrapper li input[type='checkbox'] {
+ul.price-wrapper li input[type="checkbox"] {
   display: none;
 }

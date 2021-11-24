@@ -44,7 +44,13 @@
 .product-sample-img {
   max-height: 100%;
   width: 100%;
-  border: solid 1px red;
+}
+
+.product-sample-info {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-300);
 }
 
 .product-sample-name {
@@ -52,6 +58,5 @@
 }
 
 .sample-test {
-  border: solid 2px blue;
   width: 450px;
 }

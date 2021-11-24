@@ -1,46 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import './Price.css';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import "./Price.css";
 import {
   requestInitialPrices,
   receivePrices,
   toggleCheckbox,
-} from '../../../../store/reducers/filters/actions';
+} from "../../../../store/reducers/filters/actions";
 
 function Price({ filter, setFilter, status }) {
   // const TEST = [...initialCheckboxes];
   // const [checkboxes, setCheckboxes] = useState(TEST);
   const items = useSelector((state) => state.items);
-  const [selectedSort, setSelectedSort] = useState('');
+  const [selectedSort, setSelectedSort] = useState("");
   const pricesState = useSelector((state) => state.prices);
-  const [isChecked, setIsChecked] = useState('');
+  const [isChecked, setIsChecked] = useState("");
   const { categoryName, page } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   let priceCheckboxes = [
     {
-      price: 'Under $25',
+      price: "Under $25",
       min: 0,
       max: 25,
       checked: false,
-      id: 'checkboxOne',
+      id: "checkboxOne",
     },
     {
-      price: '$25 to $50',
+      price: "$25 to $50",
       min: 25,
       max: 50,
       checked: false,
-      id: 'checkboxTwo',
+      id: "checkboxTwo",
     },
     {
-      price: '$50 & Above',
+      price: "$50 & Above",
       min: 50,
       max: null,
       checked: false,
-      id: 'checkboxThree',
+      id: "checkboxThree",
     },
   ];
 
@@ -60,7 +60,7 @@ function Price({ filter, setFilter, status }) {
         max: max,
       });
     } else {
-      setIsChecked('');
+      setIsChecked("");
     }
   };
 
@@ -77,7 +77,7 @@ function Price({ filter, setFilter, status }) {
 
   return (
     <Wrapper className="price-wrapper">
-      <h3>Price</h3>
+      <div className="filter-header">Price</div>
       <div className="price__container">
         <ul class="price-wrapper">
           {priceCheckboxes.map((checkbox, i) => {

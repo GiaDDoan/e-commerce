@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import './Companies.css';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import styled from "styled-components";
+import "./Companies.css";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function Companies({ filter, setFilter, companies }) {
   const { action, categoryName, page } = useParams();
@@ -11,7 +11,7 @@ function Companies({ filter, setFilter, companies }) {
   if (companies) {
     return (
       <Wrapper className="companies-wrapper">
-        <h3>Companies</h3>
+        <div className="filter-header">Companies</div>
         <ul className="price-wrapper">
           {companies.map((company, i) => {
             return (
@@ -25,14 +25,14 @@ function Companies({ filter, setFilter, companies }) {
                       e.target.checked &&
                       !filter.companyIds.includes(company.companyId)
                     ) {
-                      console.log('checked');
+                      console.log("checked");
                       setFilter({
                         ...filter,
                         companyIds: [...filter.companyIds, company.companyId],
                       });
                     } else {
                       ////If we uncheck, we remove the companyId from the filter
-                      console.log('unchecked');
+                      console.log("unchecked");
                       const index = filter.companyIds.indexOf(
                         company.companyId
                       );

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProductPageSample } from '../../../api-helpers/product-page-helper';
-import { useHistory } from 'react-router';
-import './Samples.css';
-import Loading from '../../loading/Loading';
+import React, { useEffect, useState } from "react";
+import { fetchProductPageSample } from "../../../api-helpers/product-page-helper";
+import { useHistory } from "react-router";
+import "./Samples.css";
+import Loading from "../../loading/Loading";
 
 const Samples = ({ size, sampleKey, sample }) => {
-  const [status, setStatus] = useState('loading');
+  const [status, setStatus] = useState("loading");
   const [samples, setSamples] = useState([]);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
 
   const history = useHistory();
   const handleProduct = (productId) => {
@@ -15,15 +15,15 @@ const Samples = ({ size, sampleKey, sample }) => {
   };
 
   useEffect(() => {
-    setStatus('loading');
+    setStatus("loading");
 
     const fetchSample = async () => {
       const sampleRes = await fetchProductPageSample(size, sampleKey, sample);
       if (sampleRes.status === 200) {
         setSamples(sampleRes.samples);
-        setStatus('idle');
+        setStatus("idle");
       } else {
-        setStatus('error');
+        setStatus("error");
       }
     };
     fetchSample();
@@ -33,11 +33,11 @@ const Samples = ({ size, sampleKey, sample }) => {
     // }
   }, []);
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return <Loading />;
   }
 
-  if (status === 'idle') {
+  if (status === "idle") {
     return (
       <div className="product-sample-container">
         {samples.map((sample) => {
@@ -46,12 +46,12 @@ const Samples = ({ size, sampleKey, sample }) => {
           let checkedName = name;
 
           if (name.length > 40) {
-            let splitting = name.split(' ');
+            let splitting = name.split(" ");
             let totalLength = 0;
 
             for (var x = 0; x < splitting.length; x++) {
               if (totalLength >= 35) {
-                checkedName = splitting.slice(0, x).join(' ').concat('...');
+                checkedName = splitting.slice(0, x).join(" ").concat("...");
                 break;
               }
               totalLength += splitting[x].length;
@@ -72,10 +72,9 @@ const Samples = ({ size, sampleKey, sample }) => {
                 />
               </div>
               <div className="product-sample-info">
-                
-              <div className="product-sample-name">{checkedName}</div>
-              <div>{rating}⭐</div>
-              <div>{price}$</div>
+                <div className="product-sample-name">{checkedName}</div>
+                <div>{rating}⭐</div>
+                <div>{price}$</div>
               </div>
             </div>
           );

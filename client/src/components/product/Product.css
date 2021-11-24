@@ -79,6 +79,7 @@
   align-items: center;
   width: 200px;
   height: 60%;
+  padding: 10px 0;
 }
 
 .card-img-wrapper > img {
@@ -90,6 +91,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 10%;
 }
 
 .stock-out-icon {
