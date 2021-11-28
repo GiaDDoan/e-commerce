@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import './Checkout.css';
-import { useSelector } from 'react-redux';
-import CreditCard from './credit-card/CreditCard';
-import useForm from '../../hooks/useForm';
-import { Button, Form, Alert, Row, Col } from 'react-bootstrap';
-import Cards from 'react-credit-cards';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-credit-cards/es/styles-compiled.css';
+import React, { useState } from "react";
+import "./Checkout.css";
+import { useSelector } from "react-redux";
+import CreditCard from "./credit-card/CreditCard";
+import useForm from "../../hooks/useForm";
+import { Button, Form, Alert, Row, Col } from "react-bootstrap";
+import Cards from "react-credit-cards";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-credit-cards/es/styles-compiled.css";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
-  const { handleChange, handleFocus, handleSubmit, values, errors } = useForm();
+  const {
+    handleChange,
+    handleFocus,
+    handleSubmit,
+    handleConfirm,
+    values,
+    errors,
+  } = useForm();
 
   return (
     <div className="checkout-form-container">
@@ -80,6 +87,7 @@ const Checkout = () => {
         <Button size="block" id="validationButton" type="submit">
           Validate
         </Button>
+        <Button onClick={() => handleConfirm("/confirmation")}>Confirm</Button>
       </Form>
       <Alert id="alertMessage" variant={errors.variant} show={errors.show}>
         {errors.message}
