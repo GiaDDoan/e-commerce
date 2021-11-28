@@ -23,6 +23,12 @@ const Checkout = () => {
     console.log("VAR", Object.keys(errors).length);
   }
 
+  const maxLengthCheck = (e) => {
+    if (e.target.value.length > e.target.maxLength) {
+      e.target.value = e.target.value.slice(0, e.target.maxLength);
+    }
+  };
+
   return (
     <div className="checkout-form-container">
       <div>Total: {cart.total.toFixed(2)}</div>
@@ -52,6 +58,8 @@ const Checkout = () => {
             id="number"
             name="number"
             placeholder="Card number"
+            maxLength="16"
+            onInput={maxLengthCheck}
             value={values.number}
             onChange={handleChange}
             onFocus={handleFocus}
@@ -66,6 +74,8 @@ const Checkout = () => {
                 id="expiration"
                 name="expiration"
                 placeholder="Expiration"
+                maxLength="4"
+                onInput={maxLengthCheck}
                 value={values.expiration}
                 onChange={handleChange}
                 onFocus={handleFocus}
@@ -80,6 +90,8 @@ const Checkout = () => {
                 id="cvc"
                 name="cvc"
                 placeholder="CVC"
+                maxLength="3"
+                onInput={maxLengthCheck}
                 value={values.cvc}
                 onChange={handleChange}
                 onFocus={handleFocus}
