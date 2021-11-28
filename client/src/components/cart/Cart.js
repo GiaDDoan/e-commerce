@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import './Cart.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Loading from '../loading/Loading';
-import { FaWindowClose } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import "./Cart.css";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import Loading from "../loading/Loading";
+import { FaWindowClose } from "react-icons/fa";
 
-import { fetchCartItems } from '../../api-helpers/cart-helper';
+import { fetchCartItems } from "../../api-helpers/cart-helper";
 import {
   requestCart,
   receiveCart,
   addItem,
   removeItem,
   clearCart,
-} from '../../store/reducers/cart/actions';
-import { fetchProductById } from '../../api-helpers/index';
+} from "../../store/reducers/cart/actions";
+import { fetchProductById } from "../../api-helpers/index";
 
 function Cart({ cartToggle, toggleCart }) {
   const dispatch = useDispatch();
@@ -24,12 +24,12 @@ function Cart({ cartToggle, toggleCart }) {
 
   //GET user cart from BE
   useEffect(() => {
-    if (user.status == 'loading') return;
+    if (user.status == "loading") return;
     dispatch(requestCart());
     const fetchingCart = async () => {
-      if (user.status == 'idle') {
+      if (user.status == "idle") {
         const fetchRes = await fetchCartItems(user.data._id);
-        console.log('RES', fetchRes);
+        console.log("RES", fetchRes);
         fetchRes.data.map(async (userData) => {
           const itemFromBE = await fetchProductById(userData.itemId);
           const item = itemFromBE.product[0];
@@ -53,18 +53,18 @@ function Cart({ cartToggle, toggleCart }) {
     dispatch(removeItem(productId));
   };
   const emptyClear = () => {
-    console.log('clear');
+    console.log("clear");
     dispatch(clearCart());
   };
 
   const sendToCheckout = () => {
-    history.push('/checkout');
+    history.push("/checkout");
   };
 
-  if (cart.status === 'loading') {
+  if (cart.status === "loading") {
     return <Loading />;
   }
-  if (cart.status === 'idle') {
+  if (cart.status === "idle") {
     return (
       <>
         {cartToggle === true ? (
@@ -105,7 +105,7 @@ function Cart({ cartToggle, toggleCart }) {
               </button>
               <button
                 type="button"
-                className="base-fill cart-btn checkout-btn"
+                className="base-fill cart-btn cart-checkout-btn"
                 onClick={() => sendToCheckout()}
               >
                 Checkout

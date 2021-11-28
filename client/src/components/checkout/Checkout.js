@@ -19,6 +19,10 @@ const Checkout = () => {
     errors,
   } = useForm();
 
+  if (Object.keys(errors).length === 0) {
+    console.log("VAR", Object.keys(errors).length);
+  }
+
   return (
     <div className="checkout-form-container">
       <div>Total: {cart.total.toFixed(2)}</div>
@@ -26,10 +30,10 @@ const Checkout = () => {
         expiry={values.expiration}
         cvc={values.cvc}
         focused={values.focus}
-        name={values.name}
+        name={values.cardholderName}
         number={values.number}
       />
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} class="checkout-form-wrapper">
         <Form.Group>
           <Form.Control
             type="text"
@@ -84,14 +88,31 @@ const Checkout = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Button size="block" id="validationButton" type="submit">
-          Validate
-        </Button>
-        <Button onClick={() => handleConfirm("/confirmation")}>Confirm</Button>
+        <div className="checkout-btn-container">
+          <Button
+            id="validationBtn"
+            class="checkout-btn"
+            size="block"
+            type="submit"
+          >
+            Validate
+          </Button>
+          <Button
+            id="confirmBtn"
+            class="checkout-btn"
+            onClick={() => handleConfirm("/confirmation")}
+          >
+            Confirm
+          </Button>
+        </div>
       </Form>
-      <Alert id="alertMessage" variant={errors.variant} show={errors.show}>
-        {errors.message}
-      </Alert>
+      {Object.keys(errors).length === 0 ? (
+        <Alert id="alertMessageEmpty">Test</Alert>
+      ) : (
+        <Alert id="alertMessage" variant={errors.variant} show={errors.show}>
+          {errors.message} {errors.variant}
+        </Alert>
+      )}
     </div>
   );
 };

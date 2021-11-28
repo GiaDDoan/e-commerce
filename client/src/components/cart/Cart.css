@@ -95,6 +95,6 @@
   background-color: var(--close-clr);
 }
 
-.checkout-btn:hover {
+.cart-checkout-btn:hover {
   background-color: var(--header-text-clr);
 }
