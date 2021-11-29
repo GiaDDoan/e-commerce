@@ -17,6 +17,7 @@
   --dark-red: hsl(23, 93%, 26%);
   --text-clr: hsl(30, 11%, 4%);
   --close-clr: hsl(0, 72%, 56%);
+  --validation-clr: hsl(129, 100%, 33%);
 
   /* GAPS */
   --category-gap: 2rem 1rem;
@@ -35,9 +36,17 @@
   --fs-error: 5em;
 }
 
-input {
-  margin-right: 0.3rem;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
+
+/* input {
+  margin-right: 0.3rem;
+} */
 
 .main {
   display: flex;

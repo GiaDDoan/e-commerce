@@ -5,19 +5,23 @@ import { useHistory } from "react-router-dom";
 const useForm = () => {
   const [values, setValues] = useState({
     name: "",
-    cardholderName: "",
-    number: "",
-    expiration: "",
-    cvc: "",
+    cardName: "",
+    cardNumber: "",
+    cardExpiration: "",
+    cardSecurityCode: "",
     focus: "",
   });
   const [errors, setErrors] = useState({});
   const history = useHistory();
 
   const handleFocus = (e) => {
+    // setValues({
+    //   ...values,
+    //   focus: e.target.name,
+    // });
     setValues({
       ...values,
-      focus: e.target.name,
+      focus: e.target.name === "cardSecurityCode" ? "cvc" : e.target.name,
     });
   };
   const handleChange = (e) => {
@@ -35,6 +39,13 @@ const useForm = () => {
   const handleConfirm = (url) => {
     if (errors.variant === "success") {
       history.push(`${url}`);
+    } else {
+      console.log("in else");
+      setErrors({
+        ...errors,
+        message: "Please make sure the card is validated",
+      });
+      console.log("ERR", errors);
     }
   };
 

@@ -19,10 +19,6 @@ const Checkout = () => {
     errors,
   } = useForm();
 
-  if (Object.keys(errors).length === 0) {
-    console.log("VAR", Object.keys(errors).length);
-  }
-
   const maxLengthCheck = (e) => {
     if (e.target.value.length > e.target.maxLength) {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
@@ -33,37 +29,37 @@ const Checkout = () => {
     <div className="checkout-form-container">
       <div>Total: {cart.total.toFixed(2)}</div>
       <Cards
-        expiry={values.expiration}
-        cvc={values.cvc}
+        cvc={values.cardSecurityCode}
+        expiry={values.cardExpiration}
         focused={values.focus}
-        name={values.cardholderName}
-        number={values.number}
+        name={values.cardName}
+        number={values.cardNumber}
       />
       <Form onSubmit={handleSubmit} class="checkout-form-wrapper">
         <Form.Group>
           <Form.Control
             type="text"
-            id="cardholderName"
-            name="cardholderName"
+            id="cardName"
+            name="cardName"
             placeholder="Cardholder Name"
-            value={values.cardholderName}
+            value={values.cardName}
             onChange={handleChange}
             onFocus={handleFocus}
-            // isValid={errors.ccardholderName}
+            isValid={errors.cname}
           />
         </Form.Group>
         <Form.Group>
           <Form.Control
             type="number"
-            id="number"
-            name="number"
+            id="cardNumber"
+            name="cardNumber"
             placeholder="Card number"
             maxLength="16"
             onInput={maxLengthCheck}
-            value={values.number}
+            value={values.cardNumber}
             onChange={handleChange}
             onFocus={handleFocus}
-            // isValid={errors.cnumber}
+            isValid={errors.cnumber}
           />
         </Form.Group>
         <Row>
@@ -71,15 +67,15 @@ const Checkout = () => {
             <Form.Group>
               <Form.Control
                 type="number"
-                id="expiration"
-                name="expiration"
+                id="cardExpiration"
+                name="cardExpiration"
                 placeholder="Expiration"
                 maxLength="4"
                 onInput={maxLengthCheck}
-                value={values.expiration}
+                value={values.cardExpiration}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                // isValid={errors.cexp}
+                isValid={errors.cexp}
               />
             </Form.Group>
           </Col>
@@ -87,42 +83,43 @@ const Checkout = () => {
             <Form.Group>
               <Form.Control
                 type="number"
-                id="cvc"
-                name="cvc"
+                id="cardSecurityCode"
+                name="cardSecurityCode"
                 placeholder="CVC"
                 maxLength="3"
                 onInput={maxLengthCheck}
-                value={values.cvc}
+                value={values.cardSecurityCode}
                 onChange={handleChange}
                 onFocus={handleFocus}
-                // isValid={errors.ccvc}
+                isValid={errors.ccvc}
               />
             </Form.Group>
           </Col>
         </Row>
         <div className="checkout-btn-container">
-          <Button
+          <button
             id="validationBtn"
-            class="checkout-btn"
-            size="block"
             type="submit"
+            className="checkout-btn checkout-green"
+            size="block"
           >
             Validate
-          </Button>
-          <Button
+          </button>
+          <button
+            type="button"
             id="confirmBtn"
             class="checkout-btn"
             onClick={() => handleConfirm("/confirmation")}
           >
             Confirm
-          </Button>
+          </button>
         </div>
       </Form>
       {Object.keys(errors).length === 0 ? (
         <Alert id="alertMessageEmpty">Test</Alert>
       ) : (
         <Alert id="alertMessage" variant={errors.variant} show={errors.show}>
-          {errors.message} {errors.variant}
+          {errors.message}
         </Alert>
       )}
     </div>

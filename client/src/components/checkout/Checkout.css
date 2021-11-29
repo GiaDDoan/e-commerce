@@ -1,5 +1,4 @@
 .checkout-form-container {
-  border: solid 1px red;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -55,6 +54,10 @@
 
 .checkout-btn:hover {
   background-color: var(--header-text-clr);
+}
+
+.checkout-green:hover {
+  background-color: var(--validation-clr);
 }
 
 #alertMessageEmpty {
