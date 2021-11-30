@@ -96,6 +96,18 @@ const Checkout = () => {
             </Form.Group>
           </Col>
         </Row>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            id="cardName"
+            name="cardName"
+            placeholder="Name"
+            value={values.cardName}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            isValid={errors.cname}
+          />
+        </Form.Group>
         <div className="checkout-btn-container">
           <button
             id="validationBtn"
