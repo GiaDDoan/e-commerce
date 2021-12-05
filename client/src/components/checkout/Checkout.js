@@ -28,14 +28,40 @@ const Checkout = () => {
   return (
     <div className="checkout-form-container">
       <div>Total: {cart.total.toFixed(2)}</div>
-      <Cards
-        cvc={values.cardSecurityCode}
-        expiry={values.cardExpiration}
-        focused={values.focus}
-        name={values.cardName}
-        number={values.cardNumber}
-      />
-      <Form onSubmit={handleSubmit} class="checkout-form-wrapper">
+      <Form onSubmit={handleSubmit} className="checkout-form-wrapper">
+        <Form.Group>
+          <Form.Control
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Name"
+            value={values.name}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            isValid={errors.name}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Address"
+            value={values.address}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            isValid={errors.address}
+          />
+        </Form.Group>
+        <div className="card-img">
+          <Cards
+            cvc={values.cardSecurityCode}
+            expiry={values.cardExpiration}
+            focused={values.focus}
+            name={values.cardName}
+            number={values.cardNumber}
+          />
+        </div>
         <Form.Group>
           <Form.Control
             type="text"
@@ -96,18 +122,6 @@ const Checkout = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            id="cardName"
-            name="cardName"
-            placeholder="Name"
-            value={values.cardName}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            isValid={errors.cname}
-          />
-        </Form.Group>
         <div className="checkout-btn-container">
           <button
             id="validationBtn"

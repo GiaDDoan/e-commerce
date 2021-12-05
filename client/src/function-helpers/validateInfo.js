@@ -11,10 +11,30 @@ export default function validateInfo(values) {
   errors.show = true;
   errors.variant = "danger";
   errors.message = "an unknown error occured. Please try again later";
+  errors.name = false;
+  errors.address = false;
   errors.cname = false;
   errors.cnumber = false;
   errors.cexp = false;
   errors.ccvc = false;
+
+  //CHECK FOR USER NAME
+  if (values.name === null || !values.name.trim()) {
+    errors.message = "Name is not complete";
+  } else if (values.name) {
+    errors.name = true;
+  } else {
+    errors.message = "Name is invalid";
+  }
+
+  //CHECK FOR USER ADDRESS
+  if (values.address === null || !values.address.trim()) {
+    errors.message = "Address is not complete";
+  } else if (values.address) {
+    errors.address = true;
+  } else {
+    errors.message = "Address is invalid";
+  }
 
   //CHECK FOR CARD SECURITY NUMBER
   if (values.cardSecurityCode === null || !values.cardSecurityCode.trim()) {
@@ -53,11 +73,16 @@ export default function validateInfo(values) {
     errors.message = "Cardholder name is invalid";
   }
 
-  console.log("ERR", errors);
-
-  if (errors.ccvc && errors.cname && errors.cnumber && errors.cexp) {
+  if (
+    errors.name &&
+    errors.address &&
+    errors.ccvc &&
+    errors.cname &&
+    errors.cnumber &&
+    errors.cexp
+  ) {
     errors.variant = "success";
-    errors.message = "Credit Card is valid";
+    errors.message = "Form is valid";
   }
 
   return errors;

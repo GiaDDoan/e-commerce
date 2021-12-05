@@ -7,21 +7,20 @@
   gap: 2rem;
 }
 
-.checkout-form {
-  border: solid 1px black;
+.checkout-form-wrapper {
   display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: flex-end;
-  width: fit-content;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.card-img {
+  padding: 1rem 0;
 }
 
 .checkout-input {
   width: 20vw;
   max-width: 600px;
   height: 2rem;
-  border: solid 1px blue;
   margin: 0 8px;
 }
 

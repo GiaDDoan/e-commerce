@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 const useForm = () => {
   const [values, setValues] = useState({
     name: "",
+    address: "",
     cardName: "",
     cardNumber: "",
     cardExpiration: "",
