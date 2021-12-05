@@ -19,6 +19,7 @@ import { fetchProductById } from "../../api-helpers/index";
 function Cart({ cartToggle, toggleCart }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
 
@@ -44,7 +45,9 @@ function Cart({ cartToggle, toggleCart }) {
     // };
   }, [user.data]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setError("");
+  }, [cart.items]);
 
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);
@@ -58,7 +61,12 @@ function Cart({ cartToggle, toggleCart }) {
   };
 
   const sendToCheckout = () => {
-    history.push("/checkout");
+    if (cart.items.length === 0) {
+      setError("empty");
+    } else {
+      setError("success");
+      history.push("/checkout");
+    }
   };
 
   if (cart.status === "loading") {
@@ -95,6 +103,9 @@ function Cart({ cartToggle, toggleCart }) {
                   })
                 : null}
             </div>
+            {error === "empty" ? (
+              <div>Cannot proceed, cart is empty</div>
+            ) : null}
             <div className="cart-btn-container">
               <button
                 type="button"

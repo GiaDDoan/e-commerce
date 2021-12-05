@@ -134,7 +134,7 @@ const Checkout = () => {
           <button
             type="button"
             id="confirmBtn"
-            class="checkout-btn"
+            className="checkout-btn"
             onClick={() => handleConfirm("/confirmation")}
           >
             Confirm

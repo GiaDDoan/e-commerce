@@ -79,7 +79,7 @@ function Price({ filter, setFilter, status }) {
     <Wrapper className="price-wrapper">
       <div className="filter-header">Price</div>
       <div className="price__container">
-        <ul class="price-wrapper">
+        <ul className="price-wrapper">
           {priceCheckboxes.map((checkbox, i) => {
             // console.log('CHECK', checkbox);
             return (
