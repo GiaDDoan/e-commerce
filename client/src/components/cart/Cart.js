@@ -104,7 +104,9 @@ function Cart({ cartToggle, toggleCart }) {
                 : null}
             </div>
             {error === "empty" ? (
-              <div>Cannot proceed, cart is empty</div>
+              <div className="empty-cart-wrapper">
+                Cannot proceed, cart is empty
+              </div>
             ) : null}
             <div className="cart-btn-container">
               <button

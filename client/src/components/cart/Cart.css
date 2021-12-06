@@ -85,6 +85,14 @@
   width: 100%;
 }
 
+.empty-cart-wrapper {
+  border: solid 1px hsl(354, 82%, 86%);
+  background-color: hsl(355, 70%, 91%);
+  color: hsl(18, 63%, 44%);
+  padding: 0.5rem;
+  border-radius: 7px;
+}
+
 .cart-btn {
   padding: var(--cart-btn-padding);
   transition: var(--cart-transition);
