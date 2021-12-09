@@ -18,28 +18,6 @@
   color: white;
 }
 
-.header__search {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  border-radius: 24px;
-  justify-content: center;
-}
-
-.header__searchInput {
-  height: 12px;
-  padding: 10px;
-  border: none;
-  width: 100%;
-}
-
-.header__searchIcon {
-  padding: 5px;
-  height: 22px !important;
-  background-color: var(--bg-clr);
-  color: var(--text-clr);
-}
-
 .header__optionLineOne {
   font-size: 10px;
 }

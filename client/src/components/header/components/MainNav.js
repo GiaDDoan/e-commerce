@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import './MainNav.css';
-import SearchIcon from '@material-ui/icons/Search';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import GoogleLogin from 'react-google-login';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import "./MainNav.css";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import GoogleLogin from "react-google-login";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   requestUser,
   receiveUser,
   sendError,
-} from '../../../store/reducers/user/actions';
-import { AppContext } from '../../../AppContext';
+} from "../../../store/reducers/user/actions";
+import { AppContext } from "../../../AppContext";
+import Typehead from "../../typehead/Typehead";
 
 function MainNav({ toggleCart }) {
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ function MainNav({ toggleCart }) {
     dispatch(requestUser());
 
     axios({
-      method: 'POST',
-      url: '/api/google-login',
+      method: "POST",
+      url: "/api/google-login",
       data: { tokenId: response.tokenId },
     }).then((response) => {
       // console.log('Google login success', response);
@@ -40,12 +40,9 @@ function MainNav({ toggleCart }) {
       <Logo to="/" className="header__logo">
         E-Commerce
       </Logo>
-      <SearchBar className="header__search">
-        <input className="header__searchInput" type="text" />
-        <SearchIcon className="header__searchIcon" />
-      </SearchBar>
+      <Typehead />
       <NavigationWrapper className="header__nav">
-        {user.status === 'idle' ? (
+        {user.status === "idle" ? (
           <Profile className="header__option">
             <span className="header__optionLineOne">Hello</span>
             <span className="header__optionLineTwo">{user.data.name}</span>
@@ -58,7 +55,7 @@ function MainNav({ toggleCart }) {
               buttonText="Login with Google"
               onSuccess={responseSuccessGoogle}
               onFailure={responseErrorGoogle}
-              cookiePolicy={'single_host_origin'}
+              cookiePolicy={"single_host_origin"}
             />
           </SignIn>
         )}
@@ -79,7 +76,6 @@ function MainNav({ toggleCart }) {
 const Wrapper = styled.div``;
 const NavigationWrapper = styled.div``;
 const Logo = styled(Link)``;
-const SearchBar = styled.div``;
 const SignIn = styled.div``;
 const Profile = styled.div``;
 const Basket = styled.div``;
