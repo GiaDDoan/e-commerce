@@ -1,17 +1,18 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-const itemControllers = require('../controllers/item-controllers');
+const itemControllers = require("../controllers/item-controllers");
 
-router.get('/samples', itemControllers.get_sample);
-router.get('/samples/category', itemControllers.get_sample_by_category);
-router.get('/samples/company', itemControllers.get_sample_by_company);
-router.get('/categories/all', itemControllers.get_categories);
-router.get('/categories', itemControllers.get_items_by_category);
-router.get('/company/:companyId', itemControllers.get_company_by_id);
-router.get('/filters/price', itemControllers.get_items_by_price);
-router.get('/product/:productId', itemControllers.get_item_by_id);
+router.get("/samples", itemControllers.get_sample);
+router.get("/samples/category", itemControllers.get_sample_by_category);
+router.get("/samples/company", itemControllers.get_sample_by_company);
+router.get("/categories/all", itemControllers.get_categories);
+router.get("/categories", itemControllers.get_items_by_category);
+router.get("/company/:companyId", itemControllers.get_company_by_id);
+router.get("/filters/price", itemControllers.get_items_by_price);
+router.get("/product/:productId", itemControllers.get_item_by_id);
 // router.post('/filter', itemControllers.post_items_by_filter);
-router.post('/filter', itemControllers.items_by_filter);
+router.post("/filter", itemControllers.items_by_filter);
+router.get("/search", itemControllers.get_typehead);
 // router.post('/samples', itemControllers.add_item);
 
 module.exports = router;

@@ -1,7 +1,7 @@
-require('dotenv').config();
-const cart = require('../models/cart');
-const Item = require('../models/item');
-const Company = require('../models/company');
+require("dotenv").config();
+const cart = require("../models/cart");
+const Item = require("../models/item");
+const Company = require("../models/company");
 
 const get_sample = async (req, res) => {
   // /items/samples?size=8
@@ -10,11 +10,9 @@ const get_sample = async (req, res) => {
       { $sample: { size: parseInt(req.query.size) } },
     ]);
 
-
-
     res.status(200).json({
       status: 200,
-      message: 'Received all titles',
+      message: "Received all titles",
       samples,
     });
   } catch (err) {
@@ -26,8 +24,8 @@ const get_sample_by_category = async (req, res) => {
   // /items/samples/category?size=8&companyId=12311
   try {
     const { category, size } = req.query;
-    let modifiedCategory = category.includes('_')
-      ? category.split('_').join(' ')
+    let modifiedCategory = category.includes("_")
+      ? category.split("_").join(" ")
       : category;
 
     const foundArr = await Item.find({ category: modifiedCategory });
@@ -39,7 +37,7 @@ const get_sample_by_category = async (req, res) => {
 
     res.status(200).json({
       status: 200,
-      message: 'Received all titles',
+      message: "Received all titles",
       sample: sampleCategory,
     });
   } catch (error) {
@@ -61,7 +59,7 @@ const get_sample_by_company = async (req, res) => {
 
     res.status(200).json({
       status: 200,
-      message: 'Received all titles',
+      message: "Received all titles",
       sample: sampleCategory,
     });
   } catch (error) {
@@ -78,7 +76,7 @@ const get_categories = async (req, res) => {
 
     res.status(200).json({
       status: 200,
-      message: 'Received all categories',
+      message: "Received all categories",
       categories: uniqueArr,
     });
   } catch (error) {
@@ -92,8 +90,8 @@ const get_categories = async (req, res) => {
 
 const get_items_by_category = async (req, res) => {
   try {
-    let category_ = req.query.category.includes('_')
-      ? req.query.category.split('_').join(' ')
+    let category_ = req.query.category.includes("_")
+      ? req.query.category.split("_").join(" ")
       : req.query.category;
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
@@ -221,8 +219,8 @@ const get_company_by_id = async (req, res) => {
 const get_items_by_price = async (req, res) => {
   //URL EX: http://localhost:5000/items/filters/price?category=Fitness&min=0&max=25
   try {
-    let category_ = req.query.category.includes('_')
-      ? req.query.category.split('_').join(' ')
+    let category_ = req.query.category.includes("_")
+      ? req.query.category.split("_").join(" ")
       : req.query.category;
     const min = parseInt(req.query.min);
     const max = parseInt(req.query.max);
@@ -282,7 +280,7 @@ const get_item_by_id = async (req, res) => {
 
 const add_item = async (req, res) => {
   try {
-    res.status(201).json({ status: 201, title: 'added' });
+    res.status(201).json({ status: 201, title: "added" });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
@@ -293,8 +291,8 @@ const items_by_filter = async (req, res) => {
 
   try {
     const itemsInCategory = await Item.find({
-      category: category.includes('_')
-        ? category.split('_').join(' ')
+      category: category.includes("_")
+        ? category.split("_").join(" ")
         : category,
     });
 
@@ -330,13 +328,13 @@ const items_by_filter = async (req, res) => {
     }
 
     //Check for sort filter
-    if (sort !== '') {
-      if (sort === 'lowToHigh') {
+    if (sort !== "") {
+      if (sort === "lowToHigh") {
         filteredArray.sort((a, b) => {
           return a.price - b.price;
         });
       }
-      if (sort === 'highToLow') {
+      if (sort === "highToLow") {
         filteredArray.sort((a, b) => {
           return b.price - a.price;
         });
@@ -368,6 +366,28 @@ const items_by_filter = async (req, res) => {
   }
 };
 
+const get_typehead = async (req, res) => {
+  // /items/search?searchInput=string
+  try {
+    const { searchInput } = req.query;
+    //RegEx to ignore case sensitive search
+    const regexSearch = new RegExp(searchInput, "i");
+
+    //Add a limiter from 1 to 10, then a "See more..." for 10+
+    const foundArr = await Item.find({
+      name: { $regex: regexSearch },
+    });
+
+    res.status(200).json({
+      status: 200,
+      message: "Received all search",
+      searchArray: foundArr,
+    });
+  } catch (error) {
+    res.status(404).json({ status: 404, message: error.message });
+  }
+};
+
 module.exports = {
   get_sample,
   get_sample_by_category,
@@ -380,4 +400,5 @@ module.exports = {
   get_item_by_id,
   post_items_by_filter,
   items_by_filter,
+  get_typehead,
 };
