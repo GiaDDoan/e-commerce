@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import './ProductPage.css';
-import { useParams } from 'react-router-dom';
-import Samples from './samples/Samples';
-import Loading from '../loading/Loading';
+import React, { useEffect, useState } from "react";
+import "./ProductPage.css";
+import { useParams } from "react-router-dom";
+import Samples from "./samples/Samples";
+import Loading from "../loading/Loading";
 
-import { fetchProductById } from '../../api-helpers/index';
-import { useSelector, useDispatch } from 'react-redux';
+import { fetchProductById } from "../../api-helpers/index";
+import { useSelector, useDispatch } from "react-redux";
 import {
   requestCart,
   receiveCart,
   addItem,
-} from '../../store/reducers/cart/actions';
-import { addItemToDB } from '../../api-helpers/cart-helper';
-import ErrorPage from '../error-page/ErrorPage';
+} from "../../store/reducers/cart/actions";
+import { addItemToDB } from "../../api-helpers/cart-helper";
+import ErrorPage from "../error-page/ErrorPage";
 
 function ProductPage() {
   const { productId } = useParams();
-  const [status, setStatus] = useState('loading');
+  const [status, setStatus] = useState("loading");
   const [productRes, setProductRes] = useState([]);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    setStatus('loading');
+    setStatus("loading");
 
     const fetchingProduct = async () => {
       const res = await fetchProductById(productId);
       if (res.status === 200) {
         setProductRes(res);
-        setStatus('idle');
+        setStatus("idle");
       } else {
-        setStatus('error');
+        setStatus("error");
         setErrorMsg(res.message);
       }
     };
@@ -41,7 +41,7 @@ function ProductPage() {
   }, [productId]);
 
   const addItemToCart = async (item, userId, itemId, qty, stock) => {
-    if (user.status === 'idle') {
+    if (user.status === "idle") {
       // const sendItemToDB = await addItemToDB(userId, itemId, qty, stock);
       // if (sendItemToDB.status == 201) {
       //   const action = addItem({ ...item, qty: quantity });
@@ -62,10 +62,10 @@ function ProductPage() {
     if (quantity > 0) setQuantity(quantity - 1);
   };
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return <Loading />;
   }
-  if (status === 'idle') {
+  if (status === "idle") {
     const { product, company } = productRes;
     const {
       _id,
@@ -93,44 +93,47 @@ function ProductPage() {
             <div>By: {company.name}</div>
             <div>Price: {price}</div>
             <div>Stock: {numInStock}</div>
-            <div className="item-quantity-wrapper">
-              <button onClick={() => removeQuantity()}>-</button>
-              <div>{quantity}</div>
-              <button onClick={() => addQuantity(numInStock)}>+</button>
+            <div className="quantity-adding-wrapper">
+              <div className="item-quantity-wrapper">
+                <button onClick={() => removeQuantity()}>-</button>
+                <div className="product-page-qty">{quantity}</div>
+                <button onClick={() => addQuantity(numInStock)}>+</button>
+              </div>
+              <button
+                className="product-page-add-cart"
+                onClick={() => {
+                  user.status == "idle"
+                    ? addItemToCart(
+                        product,
+                        user.data._id,
+                        _id,
+                        quantity,
+                        numInStock
+                      )
+                    : addItemToCart(product, _id, quantity, numInStock);
+                }}
+              >
+                Add to cart
+              </button>
             </div>
-            <button
-              onClick={() => {
-                user.status == 'idle'
-                  ? addItemToCart(
-                      product,
-                      user.data._id,
-                      _id,
-                      quantity,
-                      numInStock
-                    )
-                  : addItemToCart(product, _id, quantity, numInStock);
-              }}
-            >
-              Add to cart
-            </button>
           </div>
         </div>
         <div className="sample-container">
           <div className="sample-title">
             Similar products in the same Category
           </div>
-          <Samples size={12} sampleKey={'category'} sample={category} />
+          <Samples size={12} sampleKey={"category"} sample={category} />
         </div>
         <div className="sample-container">
           <div className="sample-title">
             Similar products in the same Company
           </div>
-          <Samples size={12} sampleKey={'company'} sample={companyId} />
+          <Samples size={12} sampleKey={"company"} sample={companyId} />
         </div>
       </div>
     );
   }
-  if (status === 'error') {
+  if (status === "error") {
     return <ErrorPage errorMsg={errorMsg} />;
   }
   return <div>s</div>;

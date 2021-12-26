@@ -19,6 +19,10 @@
   --close-clr: hsl(0, 72%, 56%);
   --validation-clr: hsl(129, 100%, 33%);
 
+  /* BUTTON COLORS */
+  --btn-clr: hsl(251, 19%, 25%);
+  --btn-clr-hover: #b66378;
+
   /* GAPS */
   --category-gap: 2rem 1rem;
 

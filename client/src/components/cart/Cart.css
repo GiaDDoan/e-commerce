@@ -94,6 +94,7 @@
 }
 
 .cart-btn {
+  background-color: var(--btn-clr);
   padding: var(--cart-btn-padding);
   transition: var(--cart-transition);
   cursor: pointer;

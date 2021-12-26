@@ -22,5 +22,5 @@
 }
 
 .submit-wrapper > button:hover {
-  background-color: var(--header-text-clr);
+  background-color: var(--btn-clr-hover);
 }
