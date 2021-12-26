@@ -34,7 +34,6 @@ const Typehead = () => {
       [name]: value,
     });
   };
-  //test
 
   //ADD BOX UNDER SEARCH BAR
 
