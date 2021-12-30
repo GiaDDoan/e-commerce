@@ -90,6 +90,7 @@ function Price({ filter, setFilter, status }) {
                   id={`${checkbox.id}`}
                   value={checkbox.price}
                   onChange={(e) => handleCheckbox(e, checkbox)}
+                  key={i}
                   // onChange={(e) => {
                   //   console.log('CHECK'.e.target.checked);
                   //   dispatch(toggleCheckbox(i));
