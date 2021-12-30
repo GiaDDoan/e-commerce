@@ -1,21 +1,42 @@
 .typehead-container {
   display: flex;
   flex: 1;
-  align-items: center;
-  border-radius: 24px;
-  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  --typehead-height: 30px;
+  --typehead-width: 600px;
+}
+
+.typehead-input-wrapper {
+  display: flex;
+  overflow: hidden;
+  width: var(--typehead-width);
 }
 
 .typehead-input {
-  height: 12px;
-  padding: 10px;
+  padding-left: 10px;
+  flex: 1;
   border: none;
-  width: 100%;
 }
 
-.typehead-icon {
-  padding: 5px;
-  height: 22px !important;
+.typehead-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--typehead-height);
+  width: var(--typehead-height);
   background-color: var(--bg-clr);
   color: var(--text-clr);
+}
+
+.typehead-suggestions {
+  background-color: #fff;
+  color: black;
+  position: absolute;
+  top: var(--typehead-height);
+  width: var(--typehead-width);
+  padding-left: 15px;
+  border: solid 1px gray;
+  overflow: scroll;
+  height: 300px;
 }

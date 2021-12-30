@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Typehead.css";
-import SearchIcon from "@material-ui/icons/Search";
+import { FiSearch } from "react-icons/fi";
 import { fetchSearch } from "../../api-helpers/search-helper";
 
 const Typehead = () => {
   const [status, setStatus] = useState("loading");
   const [search, setSearch] = useState("");
-  const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState(true);
   const [options, setOptions] = useState([]);
   const wrapperRef = useRef(null);
+  const onFocus = () => setDisplay(true);
+  const onBlur = () => setDisplay(false);
 
   useEffect(() => {
     const getSearch = async () => {
@@ -45,22 +47,25 @@ const Typehead = () => {
     setDisplay(false);
   };
 
-  console.log("OP", options.length, display);
-
   //ADD BOX UNDER SEARCH BAR
   return (
     <div ref={wrapperRef} className="typehead-container">
-      <input
-        className="typehead-input"
-        type="text"
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-        onClick={() => setDisplay(!display)}
-      />
-      <SearchIcon className="typehead-icon" />
+      <div className="typehead-input-wrapper">
+        <input
+          className="typehead-input"
+          type="text"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+        <div className="typehead-icon-wrapper">
+          <FiSearch className="typehead-icon" />
+        </div>
+      </div>
 
-      {display && search.length > 0 && (
-        <div>
+      {display && status === "idle" && search.length > 0 && (
+        <div className="typehead-suggestions">
           {options.map((value, i) => {
             return (
               <div
