@@ -37,6 +37,14 @@
   width: var(--typehead-width);
   padding-left: 15px;
   border: solid 1px gray;
+  max-height: 300px;
   overflow: scroll;
-  height: 300px;
+}
+
+.typehead-option {
+  border: solid 1px red;
+}
+
+.typehead-option:hover {
+  border: solid 2px black !important;
 }
