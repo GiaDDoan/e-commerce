@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import "./SearchedPage.css";
 
 import { useParams } from "react-router-dom";
-import { fetchSearch } from "../../api-helpers/search-helper";
+import { fetchSearchWithPage } from "../../api-helpers/search-helper";
 import Product from "../product/Product";
+import Pagination from "../pagination/Pagination";
 
 const SearchedPage = () => {
-  const { searchInput } = useParams();
+  const { searchInput, page } = useParams();
   const [status, setStatus] = useState();
-  const [searchedArray, setSearchedArray] = useState([]);
+  const [searchedResults, setSearchedResults] = useState([]);
 
   useEffect(() => {
     const getSearch = async () => {
-      const res = await fetchSearch(searchInput);
+      const res = await fetchSearchWithPage(searchInput, page);
       setStatus("loading");
       if (res.status === 200) {
-        console.log(searchInput);
-        console.log("res", res);
-        setSearchedArray(res.searchArray);
+        setSearchedResults(res.searchArray);
         setStatus("idle");
       } else {
         console.log("ERR", res.message);
@@ -25,14 +24,14 @@ const SearchedPage = () => {
       }
     };
     getSearch();
-  }, [searchInput]);
+  }, [page]);
 
   if (status === "loading") {
     return <div>loading</div>;
   } else if (status === "idle") {
     return (
       <div>
-        {searchedArray.map((product) => {
+        {searchedResults.results.map((product) => {
           let checkedTitle = product.name;
           const { _id, price, imageSrc, stock, rating, item } = product;
 
@@ -50,20 +49,27 @@ const SearchedPage = () => {
           }
 
           return (
-            <Product
-              name="category"
-              id={_id}
-              title={checkedTitle}
-              price={price}
-              image={imageSrc}
-              stock={stock}
-              rating={rating}
-              item={item}
-              key={_id}
-            />
+            <div>
+              <Product
+                name="category"
+                id={_id}
+                title={checkedTitle}
+                price={price}
+                image={imageSrc}
+                stock={stock}
+                rating={rating}
+                item={item}
+                key={_id}
+              />
+              <Pagination
+                option="search"
+                items={searchedResults}
+                categoryName={searchInput}
+                page={page}
+              />
+            </div>
           );
         })}
-        <div>searching</div>
       </div>
     );
   } else {

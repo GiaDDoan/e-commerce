@@ -56,7 +56,7 @@ function App() {
                 <Route path="/product/:productId">
                   <ProductPage />
                 </Route>
-                <Route path="/search/:searchInput">
+                <Route path="/search/:searchInput/:page">
                   <SearchedPage />
                 </Route>
                 <Route path="/checkout">

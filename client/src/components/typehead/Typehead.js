@@ -46,7 +46,7 @@ const Typehead = () => {
   };
 
   const handleSearch = (searchValue) => {
-    history.push(`/search/${searchValue}`);
+    history.push(`/search/${searchValue}/1`);
   };
 
   const setSearchInputValue = (value) => {
