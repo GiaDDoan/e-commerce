@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Typehead.css";
+import { useHistory } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { fetchSearch } from "../../api-helpers/search-helper";
 
@@ -8,9 +9,10 @@ const Typehead = () => {
   const [search, setSearch] = useState("");
   const [display, setDisplay] = useState(Boolean);
   const [options, setOptions] = useState([]);
+  const history = useHistory();
   const wrapperRef = useRef(null);
   const onFocus = () => setDisplay(true);
-  const onBlur = () => setDisplay(false);
+  // const onBlur = () => setDisplay(false);
 
   useEffect(() => {
     const getSearch = async () => {
@@ -43,10 +45,16 @@ const Typehead = () => {
     }
   };
 
+  const handleSearch = (searchValue) => {
+    history.push(`/search/${searchValue}`);
+  };
+
   const setSearchInputValue = (value) => {
-    setSearch(value);
+    const { name, _id } = value;
+
+    setSearch(name);
     setDisplay(false);
-    //Add history.push to the value
+    history.push(`/product/${_id}`);
   };
 
   return (
@@ -61,7 +69,10 @@ const Typehead = () => {
           // onBlur={onBlur}
         />
         <div className="typehead-icon-wrapper">
-          <FiSearch className="typehead-icon" />
+          <FiSearch
+            className="typehead-icon"
+            onClick={() => handleSearch(search)}
+          />
         </div>
       </div>
 
@@ -72,7 +83,7 @@ const Typehead = () => {
               <li
                 className="typehead-option"
                 key={value._id}
-                onClick={() => setSearchInputValue(value.name)}
+                onClick={() => setSearchInputValue(value)}
                 tabIndex="0"
               >
                 <span>{value.name}</span>

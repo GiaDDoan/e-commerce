@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Header from './components/header/Header';
-import Home from './components/home/Home';
-import Category from './components/category/Category';
-import ProductPage from './components/product-page/ProductPage';
-import FilteredCategory from './components/filtered-category/FilteredCategory';
-import Cart from './components/cart/Cart';
-import ErrorPage from './components/error-page/ErrorPage';
-import Checkout from './components/checkout/Checkout';
+import Header from "./components/header/Header";
+import Home from "./components/home/Home";
+import Category from "./components/category/Category";
+import ProductPage from "./components/product-page/ProductPage";
+import FilteredCategory from "./components/filtered-category/FilteredCategory";
+import SearchedPage from "./components/searched-page/SearchedPage";
+import Cart from "./components/cart/Cart";
+import ErrorPage from "./components/error-page/ErrorPage";
+import Checkout from "./components/checkout/Checkout";
 
 const initialFilter = {
   min: null,
   max: null,
   companyIds: [],
-  category: '',
-  sort: '',
+  category: "",
+  sort: "",
 };
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
                 </Route>
                 <Route path="/product/:productId">
                   <ProductPage />
+                </Route>
+                <Route path="/search/:searchInput">
+                  <SearchedPage />
                 </Route>
                 <Route path="/checkout">
                   <Checkout />

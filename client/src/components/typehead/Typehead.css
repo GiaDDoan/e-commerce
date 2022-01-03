@@ -29,6 +29,10 @@
   color: var(--text-clr);
 }
 
+.typehead-icon {
+  cursor: pointer;
+}
+
 .typehead-suggestions {
   background-color: #fff;
   color: black;
@@ -42,9 +46,10 @@
 }
 
 .typehead-option {
-  border: solid 1px red;
+  border: solid 1px transparent;
+  list-style-type: none;
 }
 
 .typehead-option:hover {
-  border: solid 2px black !important;
+  border: solid 1px black;
 }
