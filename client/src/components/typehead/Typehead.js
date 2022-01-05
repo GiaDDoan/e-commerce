@@ -9,6 +9,7 @@ const Typehead = () => {
   const [search, setSearch] = useState("");
   const [display, setDisplay] = useState(Boolean);
   const [options, setOptions] = useState([]);
+  const [suggestionIndex, setSuggestionIndex] = React.useState(-1);
   const history = useHistory();
   const wrapperRef = useRef(null);
   const onFocus = () => setDisplay(true);
@@ -46,7 +47,8 @@ const Typehead = () => {
   };
 
   const handleSearch = (searchValue) => {
-    history.push(`/search/${searchValue}/1`);
+    console.log("handling search", searchValue);
+    // history.push(`/search/${searchValue}/1`);
   };
 
   const setSearchInputValue = (value) => {
@@ -54,8 +56,10 @@ const Typehead = () => {
 
     setSearch(name);
     setDisplay(false);
-    history.push(`/product/${_id}`);
+    console.log("handling id", name);
+    // history.push(`/product/${_id}`);
   };
+  console.log("sug", suggestionIndex);
 
   return (
     <div ref={wrapperRef} className="typehead-container">
@@ -64,8 +68,35 @@ const Typehead = () => {
           className="typehead-input"
           type="text"
           value={search}
-          onChange={(event) => setSearch(event.target.value)}
           onFocus={onFocus}
+          onChange={(event) => setSearch(event.target.value)}
+          onKeyDown={(ev) => {
+            switch (ev.key) {
+              case "Enter": {
+                if (suggestionIndex === -1) {
+                  handleSearch(search);
+                } else {
+                  setSearchInputValue(options[suggestionIndex]);
+                }
+                setDisplay(false);
+                break;
+              }
+              case "ArrowUp": {
+                if (suggestionIndex > -1) {
+                  setSuggestionIndex(suggestionIndex - 1);
+                }
+                break;
+              }
+              case "ArrowDown": {
+                if (options.length - 1 > suggestionIndex) {
+                  setSuggestionIndex(suggestionIndex + 1);
+                }
+                break;
+              }
+              default:
+                return;
+            }
+          }}
           // onBlur={onBlur}
         />
         <div className="typehead-icon-wrapper">
