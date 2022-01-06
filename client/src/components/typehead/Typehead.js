@@ -28,7 +28,17 @@ const Typehead = () => {
         setStatus("error");
       }
     };
-    getSearch();
+
+    if (search.length > 0) {
+      let timerFunc = setTimeout(() => {
+        getSearch();
+      }, 500);
+
+      return () => clearTimeout(timerFunc);
+    } else {
+      //MIGHT HAVE TO ADD STATUS
+      setOptions([]);
+    }
   }, [search]);
 
   useEffect(() => {
@@ -47,8 +57,7 @@ const Typehead = () => {
   };
 
   const handleSearch = (searchValue) => {
-    console.log("handling search", searchValue);
-    // history.push(`/search/${searchValue}/1`);
+    history.push(`/search/${searchValue}/1`);
   };
 
   const setSearchInputValue = (value) => {
@@ -56,10 +65,8 @@ const Typehead = () => {
 
     setSearch(name);
     setDisplay(false);
-    console.log("handling id", name);
-    // history.push(`/product/${_id}`);
+    history.push(`/product/${_id}`);
   };
-  console.log("sug", suggestionIndex);
 
   return (
     <div ref={wrapperRef} className="typehead-container">
@@ -109,15 +116,47 @@ const Typehead = () => {
 
       {display && (
         <ul className="typehead-suggestions">
-          {options.map((value, i) => {
+          {options.map((option, i) => {
+            const slicedIndex = option.name
+              .toLowerCase()
+              .indexOf(search.toLowerCase());
+
+            const firstPart = option.name.slice(0, slicedIndex + search.length);
+
+            const offPart = option.name.slice(0, slicedIndex);
+            const offPartWritten = option.name.slice(
+              slicedIndex,
+              slicedIndex + search.length
+            );
+
+            const secondPart = option.name.slice(slicedIndex + search.length);
+
+            const isSelected =
+              options.indexOf(option) === suggestionIndex ? true : false;
+
             return (
               <li
                 className="typehead-option"
-                key={value._id}
-                onClick={() => setSearchInputValue(value)}
+                key={option._id}
+                onClick={() => setSearchInputValue(option)}
                 tabIndex="0"
+                style={{
+                  background: isSelected
+                    ? "hsla(50deg, 100%, 80%, 0.25)"
+                    : "transparent",
+                }}
               >
-                <span>{value.name}</span>
+                {slicedIndex === 0 ? (
+                  <span className="highlith-part">{firstPart}</span>
+                ) : (
+                  <>
+                    <span>{offPart}</span>
+                    <span className="highlith-part">{offPartWritten}</span>
+                  </>
+                )}
+                <span>{secondPart}</span>
+
+                {/* <span>{option.name}</span> */}
               </li>
             );
           })}

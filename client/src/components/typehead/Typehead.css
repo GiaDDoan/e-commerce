@@ -43,6 +43,7 @@
   border: solid 1px gray;
   max-height: 300px;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .typehead-option {
@@ -52,4 +53,8 @@
 
 .typehead-option:hover {
   border: solid 1px black;
+}
+
+.highlith-part {
+  font-weight: bold;
 }
