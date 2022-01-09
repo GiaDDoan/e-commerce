@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { fetchSearchWithPage } from "../../api-helpers/search-helper";
 import Product from "../product/Product";
 import Pagination from "../pagination/Pagination";
+import Loading from "../loading/Loading";
+import ErrorPage from "../error-page/ErrorPage";
 
 const SearchedPage = () => {
   const { searchInput, page } = useParams();
@@ -12,6 +14,7 @@ const SearchedPage = () => {
   const [searchedResults, setSearchedResults] = useState([]);
 
   useEffect(() => {
+    console.log("page");
     const getSearch = async () => {
       const res = await fetchSearchWithPage(searchInput, page);
       setStatus("loading");
@@ -24,32 +27,32 @@ const SearchedPage = () => {
       }
     };
     getSearch();
-  }, [page]);
+  }, [page, searchInput]);
 
   if (status === "loading") {
-    return <div>loading</div>;
+    return <Loading className="spinner-l" />;
   } else if (status === "idle") {
     return (
-      <div>
-        {searchedResults.results.map((product) => {
-          let checkedTitle = product.name;
-          const { _id, price, imageSrc, stock, rating, item } = product;
+      <div className="s-p-wrapper">
+        <div className="s-p-products-wrapper">
+          {searchedResults.results.map((product) => {
+            let checkedTitle = product.name;
+            const { _id, price, imageSrc, stock, rating, item } = product;
 
-          if (product.name.length > 60) {
-            let splitting = product.name.split(" ");
-            let totalLength = 0;
+            if (product.name.length > 60) {
+              let splitting = product.name.split(" ");
+              let totalLength = 0;
 
-            for (var x = 0; x < splitting.length; x++) {
-              if (totalLength >= 50) {
-                checkedTitle = splitting.slice(0, x).join(" ").concat("...");
-                break;
+              for (var x = 0; x < splitting.length; x++) {
+                if (totalLength >= 50) {
+                  checkedTitle = splitting.slice(0, x).join(" ").concat("...");
+                  break;
+                }
+                totalLength += splitting[x].length;
               }
-              totalLength += splitting[x].length;
             }
-          }
 
-          return (
-            <div>
+            return (
               <Product
                 name="category"
                 id={_id}
@@ -61,19 +64,21 @@ const SearchedPage = () => {
                 item={item}
                 key={_id}
               />
-              <Pagination
-                option="search"
-                items={searchedResults}
-                categoryName={searchInput}
-                page={page}
-              />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <Pagination
+          option="search"
+          items={searchedResults}
+          categoryName={searchInput}
+          page={page}
+        />
       </div>
     );
+  } else if (status === "error") {
+    return <ErrorPage />;
   } else {
-    return <div>err</div>;
+    return null;
   }
 };
 

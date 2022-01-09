@@ -1,0 +1,6 @@
+.s-p-products-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--category-gap);
+  justify-content: center;
+}
