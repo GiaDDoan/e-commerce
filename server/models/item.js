@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const itemSchema = new Schema(
@@ -11,8 +11,9 @@ const itemSchema = new Schema(
     numInStock: Number,
     companyId: String,
     rating: Number,
+    description: String,
   },
-  { collection: 'items' }
+  { collection: "items" }
 );
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = mongoose.model("Item", itemSchema);

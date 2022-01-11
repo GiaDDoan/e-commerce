@@ -1,9 +1,10 @@
-require('dotenv').config();
-const Cart = require('../models/cart');
-const Item = require('../models/item');
-const Company = require('../models/company');
-const items = require('../data/items.json');
-const companies = require('../data/companies.json');
+require("dotenv").config();
+const Cart = require("../models/cart");
+const Item = require("../models/item");
+const Company = require("../models/company");
+const items = require("../data/items.json");
+const companies = require("../data/companies.json");
+const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
 const get_cart = async (req, res) => {
   try {
@@ -14,7 +15,7 @@ const get_cart = async (req, res) => {
 
     res.status(200).json({
       status: 200,
-      message: 'Received cart items',
+      message: "Received cart items",
       data: cartData,
     });
   } catch (err) {
@@ -43,12 +44,12 @@ const add_item = async (req, res) => {
         Cart.updateOne(
           {
             userId: userId,
-            'items._id': found._id,
+            "items._id": found._id,
           },
-          { $set: { 'items.$.quantity': quantity } }
+          { $set: { "items.$.quantity": quantity } }
         ).exec();
 
-        console.log('found updated');
+        console.log("found updated");
       } else {
         //If not, add item to user's cart
         const query = {
@@ -63,7 +64,7 @@ const add_item = async (req, res) => {
             },
           },
         }).exec();
-        console.log('added');
+        console.log("added");
       }
     } else {
       //If user is not in DB, create one
@@ -79,7 +80,7 @@ const add_item = async (req, res) => {
       addItemToCart.save();
     }
 
-    res.status(201).json({ status: 201, cart: 'changed' });
+    res.status(201).json({ status: 201, cart: "changed" });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
@@ -100,9 +101,22 @@ const add_companies = async (req, res) => {
 
   try {
     /////To reset ITEMS database
+    // const lorem = new LoremIpsum({
+    //   sentencesPerParagraph: {
+    //     max: 8,
+    //     min: 4,
+    //   },
+    //   wordsPerSentence: {
+    //     max: 10,
+    //     min: 4,
+    //   },
+    // });
 
     // items.map(async (item) => {
-    //   if (!item.price.includes('.')) {
+    //   const randomNumber = Math.floor(Math.random() * 3 + 2);
+
+    //   let description = await lorem.generateSentences(randomNumber);
+    //   if (!item.price.includes(".")) {
     //     let rating = (Math.random() * 3 + 2).toFixed(2);
     //     let newPrice = await `${item.price.substring(1)}.99`;
 
@@ -117,12 +131,13 @@ const add_companies = async (req, res) => {
     //       numInStock: item.numInStock,
     //       companyId: item.companyId,
     //       rating: rating,
+    //       description: description,
     //     });
 
     //     addedItem.save();
     //   }
 
-    //   if (item.price.includes('.')) {
+    //   if (item.price.includes(".")) {
     //     let rating = (Math.random() * 3 + 2).toFixed(2);
     //     let newNumber = parseFloat(item.price.substring(1));
 
@@ -135,13 +150,14 @@ const add_companies = async (req, res) => {
     //       numInStock: item.numInStock,
     //       companyId: item.companyId,
     //       rating: rating,
+    //       description: description,
     //     });
 
     //     addedItem.save();
     //   }
     // });
 
-    res.status(201).json({ status: 201, title: 'added' });
+    res.status(201).json({ status: 201, title: "DB done" });
   } catch (error) {
     res.status(404).json({ status: 404, message: error.message });
   }
