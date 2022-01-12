@@ -8,7 +8,7 @@ import Cards from "react-credit-cards";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-credit-cards/es/styles-compiled.css";
 
-const Checkout = () => {
+const Checkout = ({ setConfirmationName }) => {
   const cart = useSelector((state) => state.cart);
   const {
     handleChange,
@@ -135,7 +135,7 @@ const Checkout = () => {
             type="button"
             id="confirmBtn"
             className="checkout-btn"
-            onClick={() => handleConfirm("/confirmation")}
+            onClick={() => handleConfirm("/confirmation", setConfirmationName)}
           >
             Confirm
           </button>

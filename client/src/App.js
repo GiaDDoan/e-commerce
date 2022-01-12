@@ -12,6 +12,7 @@ import SearchedPage from "./components/searched-page/SearchedPage";
 import Cart from "./components/cart/Cart";
 import ErrorPage from "./components/error-page/ErrorPage";
 import Checkout from "./components/checkout/Checkout";
+import ConfirmationPage from "./components/confirmation-page/ConfirmationPage";
 
 const initialFilter = {
   min: null,
@@ -24,6 +25,7 @@ const initialFilter = {
 function App() {
   const [cartToggle, setCartToggle] = useState(true);
   const [filter, setFilter] = useState(initialFilter);
+  const [confirmationName, setConfirmationName] = useState("");
 
   const toggleCart = () => {
     setCartToggle(!cartToggle);
@@ -60,7 +62,10 @@ function App() {
                   <SearchedPage />
                 </Route>
                 <Route path="/checkout">
-                  <Checkout />
+                  <Checkout setConfirmationName={setConfirmationName} />
+                </Route>
+                <Route path="/confirmation">
+                  <ConfirmationPage confirmationName={confirmationName} />
                 </Route>
               </Switch>
             </div>

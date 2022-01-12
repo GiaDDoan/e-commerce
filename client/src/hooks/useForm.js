@@ -37,8 +37,9 @@ const useForm = () => {
     setErrors(validateInfo(values));
   };
 
-  const handleConfirm = (url) => {
+  const handleConfirm = (url, setConfirmationName) => {
     if (errors.variant === "success") {
+      setConfirmationName(`${values.name}`);
       history.push(`${url}`);
     } else {
       console.log("in else");
