@@ -1,11 +1,62 @@
 .confirm-wrapper {
-  border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  gap: 1.5rem;
+  padding-top: 6rem;
+
+  --logo-fs: 9rem;
+  --ty-fs: 2rem;
 }
 
 .confirm-ty {
-  border: solid 1px blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  gap: 1rem;
+}
+
+.confirm-logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.confirm-logo-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--logo-fs) * 0.45);
+  height: calc(var(--logo-fs) * 0.4);
+  background: hsl(111, 45%, 48%);
+  z-index: 1;
+}
+.confirm-logo {
+  font-size: var(--logo-fs);
+  color: hsl(0, 0%, 45%);
+  z-index: 3;
+}
+
+.confirm-note {
+  font-size: var(--ty-fs);
 }
 
 .confirm-number {
-  border: solid 1px green;
+  border: solid 1px hsl(0, 0%, 45%);
+  padding: 15px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.confirm-number > div {
+  font-size: 1.2rem;
 }
