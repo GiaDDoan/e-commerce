@@ -4,7 +4,6 @@ const Item = require("../models/item");
 const Company = require("../models/company");
 const items = require("../data/items.json");
 const companies = require("../data/companies.json");
-const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
 const get_cart = async (req, res) => {
   try {

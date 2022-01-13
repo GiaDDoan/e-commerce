@@ -28,7 +28,7 @@ app
   .use("/api", userRoute)
   .use("/search", searchRoute)
 
-  // .listen(PORT, () => console.info(`Listening on port ${PORT}`));
   .listen(process.env.PORT || 5000, () =>
     console.info(`Listening on port ${PORT}`)
   );
+// .listen(PORT, () => console.info(`Listening on port ${PORT}`));
