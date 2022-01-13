@@ -9,7 +9,6 @@ import { FaWindowClose } from "react-icons/fa";
 import { fetchCartItems } from "../../api-helpers/cart-helper";
 import {
   requestCart,
-  receiveCart,
   addItem,
   removeItem,
   clearCart,
