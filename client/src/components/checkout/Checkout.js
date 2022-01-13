@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Checkout.css";
 import { useSelector } from "react-redux";
-import CreditCard from "./credit-card/CreditCard";
 import useForm from "../../hooks/useForm";
 import { Button, Form, Alert, Row, Col } from "react-bootstrap";
 import Cards from "react-credit-cards";
@@ -79,7 +78,7 @@ const Checkout = ({ setConfirmationName }) => {
             type="number"
             id="cardNumber"
             name="cardNumber"
-            placeholder="Card number"
+            placeholder="Card Number ex: 4111 1111 1111 1111"
             maxLength="16"
             onInput={maxLengthCheck}
             value={values.cardNumber}

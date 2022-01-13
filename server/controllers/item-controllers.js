@@ -6,14 +6,22 @@ const Company = require("../models/company");
 const get_sample = async (req, res) => {
   // /items/samples?size=8
   try {
-    const samples = await Item.aggregate([
-      { $sample: { size: parseInt(req.query.size) } },
-    ]);
+    const sampleArray = [];
+    const foundArr = await Item.find();
+
+    while (sampleArray.length < 8) {
+      const sampleNumber = Math.floor(
+        Math.random() * parseInt(foundArr.length)
+      );
+      if (foundArr[sampleNumber].numInStock > 0) {
+        sampleArray.push(foundArr[sampleNumber]);
+      }
+    }
 
     res.status(200).json({
       status: 200,
       message: "Received all titles",
-      samples,
+      samples: sampleArray,
     });
   } catch (err) {
     res.status(404).json({ status: 404, message: err.message });

@@ -27,10 +27,12 @@
   width: var(--typehead-height);
   background-color: var(--bg-clr);
   color: var(--text-clr);
+  cursor: pointer;
+  transition: 200ms ease-in-out;
 }
 
-.typehead-icon {
-  cursor: pointer;
+.typehead-icon-wrapper:hover {
+  background-color: hsl(38, 22%, 88%);
 }
 
 .typehead-suggestions {
