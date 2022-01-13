@@ -77,7 +77,7 @@ function Cart({ cartToggle, toggleCart }) {
       <>
         {cartToggle === true ? (
           <Wrapper className="wrapper">
-            <div className="cart-total">Total: {cart.total.toFixed(2)}</div>
+            <div className="cart-title">Your Cart</div>
             <div className="cart-items-container">
               {cart.items.length > 0
                 ? cart.items.map((item, i) => {
@@ -89,7 +89,11 @@ function Cart({ cartToggle, toggleCart }) {
                           className="item-info"
                           onClick={() => handleProduct(_id)}
                         >
-                          <img src={imageSrc} alt="cart-item-img" />
+                          <img
+                            className="item-img-1"
+                            src={imageSrc}
+                            alt="cart-item-img"
+                          />
                           <div className="item-price">
                             ${price} <span>x{qty}</span>
                           </div>
@@ -103,6 +107,8 @@ function Cart({ cartToggle, toggleCart }) {
                   })
                 : null}
             </div>
+
+            <div className="cart-total">Total: {cart.total.toFixed(2)}</div>
             {error === "empty" ? (
               <div className="empty-cart-wrapper">
                 Cannot proceed, cart is empty

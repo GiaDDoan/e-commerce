@@ -13,6 +13,7 @@ import Cart from "./components/cart/Cart";
 import ErrorPage from "./components/error-page/ErrorPage";
 import Checkout from "./components/checkout/Checkout";
 import ConfirmationPage from "./components/confirmation-page/ConfirmationPage";
+import HistoryPage from "./components/history-page/HistoryPage";
 
 const initialFilter = {
   min: null,
@@ -37,6 +38,7 @@ function App() {
         <div className="body">
           <Main className="main">
             <Header toggleCart={toggleCart} />
+
             <div className="content">
               <Switch>
                 <Route exact path="/error">
@@ -66,6 +68,9 @@ function App() {
                 </Route>
                 <Route path="/confirmation">
                   <ConfirmationPage confirmationName={confirmationName} />
+                </Route>
+                <Route path="/history">
+                  <HistoryPage />
                 </Route>
               </Switch>
             </div>

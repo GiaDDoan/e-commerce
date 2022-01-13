@@ -1,10 +1,11 @@
 .typehead-container {
   display: flex;
+  align-items: center;
   flex: 1;
   flex-direction: column;
   position: relative;
   --typehead-height: 30px;
-  --typehead-width: 600px;
+  --typehead-width: 80%;
 }
 
 .typehead-input-wrapper {

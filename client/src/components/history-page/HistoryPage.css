@@ -1,0 +1,6 @@
+.history-wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  flex: 1;
+}

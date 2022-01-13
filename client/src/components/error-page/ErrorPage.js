@@ -1,9 +1,9 @@
-import React from 'react';
-import './ErrorPage.css';
-import { MdError } from 'react-icons/md';
+import React from "react";
+import "./ErrorPage.css";
+import { MdError } from "react-icons/md";
 
 const ErrorPage = ({ errorMsg }) => {
-  const msg = errorMsg ? errorMsg : 'Page unavailable';
+  const msg = errorMsg ? errorMsg : "Page Currently Unavailable";
 
   return (
     <div className="error-container">

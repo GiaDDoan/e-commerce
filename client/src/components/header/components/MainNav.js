@@ -6,6 +6,7 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
   requestUser,
@@ -20,6 +21,7 @@ function MainNav({ toggleCart }) {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
   const { cartToggle, setCartTottle } = useContext(AppContext);
+  const history = useHistory();
 
   const responseSuccessGoogle = (response) => {
     dispatch(requestUser());
@@ -35,10 +37,14 @@ function MainNav({ toggleCart }) {
   };
   const responseErrorGoogle = () => {};
 
+  const handleHistory = () => {
+    history.push("/history");
+  };
+
   return (
     <Wrapper className="header__main">
       <Logo to="/" className="header__logo">
-        E-Commerce
+        Commerci-E
       </Logo>
       <Typehead />
       <NavigationWrapper className="header__nav">
@@ -59,7 +65,7 @@ function MainNav({ toggleCart }) {
             />
           </SignIn>
         )} */}
-        <div className="header__option">
+        <div className="header__option returns-orders" onClick={handleHistory}>
           <span className="header__optionLineOne">Returns</span>
           <span className="header__optionLineTwo">& Orders</span>
         </div>
