@@ -1,3 +1,24 @@
 .price-wrapper {
   width: 100%;
 }
+
+.select-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.select {
+  border: 1px solid #8b8b8b;
+  border-radius: 25px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #adadad;
+}
+
+.select > option {
+  color: black;
+}
+
+.select:focus {
+  border-color: var(--filter-clr);
+}

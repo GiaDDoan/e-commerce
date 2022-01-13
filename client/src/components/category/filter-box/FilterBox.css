@@ -29,9 +29,9 @@ ul.price-wrapper li {
 ul.price-wrapper li label {
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
   border: 1px solid #8b8b8b;
   color: #adadad;
-  border-radius: 25px;
   white-space: nowrap;
   margin: 3px 0px;
   -webkit-touch-callout: none;

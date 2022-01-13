@@ -134,6 +134,7 @@
   outline: none;
   width: 150px;
   transition: 300ms ease-in-out;
+  border-radius: 7px;
 }
 
 .product-page-add-cart:hover {

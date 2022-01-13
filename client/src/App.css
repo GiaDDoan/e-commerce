@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
 
+  transition: 200ms ease-in-out;
+
   /* COLOR THEMES */
 
   --main-nav-clr: hsl(251, 19%, 29%);
@@ -21,7 +23,7 @@
 
   /* BUTTON COLORS */
   --btn-clr: hsl(251, 19%, 25%);
-  --btn-clr-hover: #b66378;
+  --btn-clr-hover: hsl(17, 82%, 45%);
 
   /* GAPS */
   --category-gap: 2rem 1rem;

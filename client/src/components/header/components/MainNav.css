@@ -19,6 +19,10 @@
   font-size: 2.5rem;
 }
 
+.header__logo:hover {
+  color: var(--nav-hover-clr);
+}
+
 .header__optionLineOne {
   font-size: 10px;
 }
