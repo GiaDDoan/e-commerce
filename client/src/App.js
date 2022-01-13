@@ -56,7 +56,7 @@ function App() {
                   <FilteredCategory filter={filter} />
                 </Route>
                 <Route path="/product/:productId">
-                  <ProductPage />
+                  <ProductPage setCartToggle={setCartToggle} />
                 </Route>
                 <Route path="/search/:searchInput/:page">
                   <SearchedPage />

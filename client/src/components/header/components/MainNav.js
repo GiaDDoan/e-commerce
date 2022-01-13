@@ -42,7 +42,7 @@ function MainNav({ toggleCart }) {
       </Logo>
       <Typehead />
       <NavigationWrapper className="header__nav">
-        {user.status === "idle" ? (
+        {/* {user.status === "idle" ? (
           <Profile className="header__option">
             <span className="header__optionLineOne">Hello</span>
             <span className="header__optionLineTwo">{user.data.name}</span>
@@ -58,7 +58,7 @@ function MainNav({ toggleCart }) {
               cookiePolicy={"single_host_origin"}
             />
           </SignIn>
-        )}
+        )} */}
         <div className="header__option">
           <span className="header__optionLineOne">Returns</span>
           <span className="header__optionLineTwo">& Orders</span>

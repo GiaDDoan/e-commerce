@@ -13,15 +13,14 @@
 }
 
 .category__link {
-  padding: 3px 8px;
   border: 1px solid transparent;
   text-decoration: none;
   transition: 200ms ease-in-out;
+  font-weight: bold;
   color: var(--bg-clr);
 }
 
 .category__link:hover {
-  border: solid 1px white;
-  padding: 3px 8px;
   cursor: pointer;
+  color: #ec6222;
 }

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./ProductPage.css";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Samples from "./samples/Samples";
 import Loading from "../loading/Loading";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 import { fetchProductById } from "../../api-helpers/index";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +17,7 @@ import {
 import { addItemToDB } from "../../api-helpers/cart-helper";
 import ErrorPage from "../error-page/ErrorPage";
 
-function ProductPage() {
+function ProductPage({ setCartToggle }) {
   const { productId } = useParams();
   const [status, setStatus] = useState("loading");
   const [productRes, setProductRes] = useState([]);
@@ -23,6 +26,7 @@ function ProductPage() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
+  const history = useHistory();
 
   useEffect(() => {
     setStatus("loading");
@@ -53,6 +57,7 @@ function ProductPage() {
       dispatch(requestCart());
       const action = addItem({ ...item, qty: quantity });
       dispatch(action);
+      setCartToggle(true);
     }
   };
   const addQuantity = (stock) => {
@@ -60,6 +65,13 @@ function ProductPage() {
   };
   const removeQuantity = () => {
     if (quantity > 0) setQuantity(quantity - 1);
+  };
+
+  const handleHome = () => {
+    history.push(`/`);
+  };
+  const handleCategory = (category) => {
+    history.push(`/category/${category}/1`);
   };
 
   if (status === "loading") {
@@ -76,12 +88,15 @@ function ProductPage() {
       name,
       numInStock,
       price,
+      description,
     } = product;
 
     return (
       <div className="product-page-container">
         <div className="navigation">
-          <div>{`Home > Category`}</div>
+          <button onClick={handleHome}>Home</button>
+          <AiOutlineArrowRight />
+          <button onClick={() => handleCategory(category)}>{category}</button>
         </div>
         <div className="item-containeer">
           <div className="item-img-wrapper">
@@ -93,6 +108,10 @@ function ProductPage() {
             <div>By: {company.name}</div>
             <div>Price: {price}</div>
             <div>Stock: {numInStock}</div>
+            <div className="item-desc">
+              <div className="item-desc-title">Item description:</div>
+              <div>{description}</div>
+            </div>
             <div className="quantity-adding-wrapper">
               <div className="item-quantity-wrapper">
                 <button onClick={() => removeQuantity()}>-</button>
@@ -101,6 +120,7 @@ function ProductPage() {
               </div>
               <button
                 className="product-page-add-cart"
+                disabled={numInStock === 0 ? true : false}
                 onClick={() => {
                   user.status == "idle"
                     ? addItemToCart(

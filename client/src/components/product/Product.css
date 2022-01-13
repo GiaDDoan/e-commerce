@@ -100,3 +100,17 @@
 .stock-out {
   color: var(--close-clr);
 }
+
+.sales-wrapper {
+  display: flex;
+  gap: 7px;
+  font-weight: bold;
+}
+
+.original-price {
+  text-decoration: line-through;
+}
+
+.sale-price {
+  color: red;
+}

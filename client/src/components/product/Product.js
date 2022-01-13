@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import './Product.css';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { TiCancel } from 'react-icons/ti';
+import React, { useState } from "react";
+import styled from "styled-components";
+import "./Product.css";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { TiCancel } from "react-icons/ti";
 
 function Product({ id, name, title, image, price, rating, stock, item }) {
   const history = useHistory();
   const handleProduct = (productId) => {
     history.push(`/product/${productId}`);
   };
+  const halfPrice = Math.round((price / 2) * 100) / 100;
 
   return (
     <div className={`${name}__container`}>
@@ -17,7 +18,14 @@ function Product({ id, name, title, image, price, rating, stock, item }) {
         <div className="card-info">
           <div className="card-name">{title}</div>
           <div className="card-price">
-            <strong>{price}</strong>
+            {name === "category" ? (
+              <strong>{price}$</strong>
+            ) : (
+              <div className="sales-wrapper">
+                <div className="original-price">{price}$</div>
+                <div className="sale-price">{halfPrice}$</div>
+              </div>
+            )}
           </div>
           <div className="card-rating">
             <div>{rating.toFixed(2)} ⭐</div>
